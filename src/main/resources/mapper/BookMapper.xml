@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lin.cms.merak.mapper.BookMapper">
+
+    <resultMap id="BaseResultMap" type="com.lin.cms.merak.model.BookDO">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="author" jdbcType="VARCHAR" property="author"/>
+        <result column="summary" jdbcType="VARCHAR" property="summary"/>
+        <result column="image" jdbcType="VARCHAR" property="image"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime"/>
+    </resultMap>
+
+    <!--CONCAT("%",#{q},"%")-->
+    <select id="selectByTitleLikeKeyword" resultMap="BaseResultMap">
+        SELECT *
+        FROM book b
+        WHERE
+        b.title LIKE #{q}
+        AND
+        b.delete_time IS NULL
+    </select>
+
+    <select id="selectByTitle" resultMap="BaseResultMap">
+        SELECT *
+        FROM book b
+        WHERE b.title=#{title}
+        AND
+        b.delete_time IS NULL
+    </select>
+</mapper>

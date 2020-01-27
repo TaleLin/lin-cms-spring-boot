@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lin.cms.merak.mapper.GroupPermissionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lin.cms.merak.model.GroupPermissionDO">
+        <id column="id" property="id"/>
+        <result column="group_id" property="groupId"/>
+        <result column="permission_id" property="permissionId"/>
+    </resultMap>
+
+
+    <insert id="insertBatch">
+        INSERT INTO lin_group_permission(group_id, permission_id)
+        VALUES
+        <foreach collection="relations" item="relation" separator=",">
+            (#{relation.groupId}, #{relation.permissionId})
+        </foreach>
+    </insert>
+
+    <delete id="deleteBatchByGroupIdAndPermissionId">
+        DELETE FROM lin_group_permission
+        WHERE group_id = #{groupId}
+        AND permission_id IN
+        <foreach collection="permissionIds" item="permissionId" index="index" open="(" close=")" separator=",">
+            #{permissionId}
+        </foreach>
+    </delete>
+
+</mapper>

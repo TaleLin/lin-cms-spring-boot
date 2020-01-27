@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lin.cms.merak.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.lin.cms.merak.model.UserDO">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="avatar" property="avatar"/>
+        <result column="email" property="email"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_time" property="deleteTime"/>
+    </resultMap>
+
+    <select id="selectCountByUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM lin_user as u WHERE u.username = #{username}
+    </select>
+
+    <select id="selectCountById" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM lin_user as u WHERE u.id = #{id}
+    </select>
+
+    <select id="selectPageByGroupId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        SELECT u.username, u.nickname,
+        u.avatar, u.email, u.create_time,
+        u.update_time, u.delete_time
+        FROM lin_user AS u
+        WHERE u.id IN
+        (
+        SELECT ug.user_id
+        FROM lin_user_group AS ug
+        WHERE ug.group_id = #{groupId}
+        )
+    </select>
+
+</mapper>
