@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * 分页数据统一 view object
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

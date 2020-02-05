@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * 用户信息 view object
+ */
 @Data
 @Builder
 @AllArgsConstructor

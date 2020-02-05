@@ -1,14 +1,15 @@
 package com.lin.cms.merak.vo;
 
 import com.lin.cms.merak.model.UserDO;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.util.List;
 
-@Setter
-@Getter
+/**
+ * 用户 + 权限 view object
+ */
+@Data
 public class UserPermissionsVO {
 
     private Long id;
