@@ -28,7 +28,7 @@
 
     <timestamp key="namedByDay" datePattern="yyyy-MM-dd"/>
 
-    <appender name="FILE" class="com.lin.cms.core.logger.AdvanceRollingFileAppender">
+    <appender name="FILE" class="io.github.talelin.core.logger.AdvanceRollingFileAppender">
         <dir>${log.path}</dir>
         <maxFileSize>5MB</maxFileSize>
 

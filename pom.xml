@@ -8,10 +8,10 @@
         <version>2.2.2.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.lin.cms</groupId>
+    <groupId>io.github.talelin</groupId>
     <artifactId>merak</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
+    <version>0.0.1-RC1</version>
+    <name>merak</name>
     <description>Demo project for lin cms</description>
 
     <properties>
@@ -38,7 +38,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.lin.cms.starter</groupId>
+            <groupId>io.github.talelin</groupId>
             <artifactId>lin-cms-spring-boot-starter</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
