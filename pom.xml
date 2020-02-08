@@ -8,6 +8,7 @@
         <version>2.2.2.RELEASE</version>
         <relativePath/>
     </parent>
+
     <groupId>io.github.talelin</groupId>
     <artifactId>merak</artifactId>
     <version>0.0.1-RC1</version>
@@ -40,7 +41,7 @@
         <dependency>
             <groupId>io.github.talelin</groupId>
             <artifactId>lin-cms-spring-boot-starter</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1-RC1</version>
         </dependency>
 
         <dependency>
