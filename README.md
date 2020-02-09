@@ -2,10 +2,10 @@
   <a href="http://doc.cms.7yue.pro/">
   <img src="http://doc.cms.7yue.pro/left-logo.png" width="250"/></a>
   <br>
-  Lin-CMS-Java
+  Lin-CMS-Spring-boot
 </h1>
 
-<h4 align="center">一个简单易用的CMS后端项目 | <a href="http://doc.cms.7yue.pro/" target="_blank">Lin-CMS-Java</a></h4>
+<h4 align="center">一个简单易用的CMS后端项目 | <a href="http://doc.cms.7yue.pro/" target="_blank">Lin-CMS-Spring-boot</a></h4>
 
 <p align="center">
 
@@ -51,7 +51,7 @@
 Lin-CMS 是林间有风团队经过大量项目实践所提炼出的一套**内容管理系统框
 架**。Lin-CMS 可以有效的帮助开发者提高 CMS 的开发效率。
 
-本项目是 Lin CMS 后端的 java 实现，需要前端？请访
+本项目是 Lin CMS 后端的 java spring-boot 实现，需要前端？请访
 问[前端仓库](https://github.com/TaleLin/lin-cms-vue)。
 
 ### Lin CMS 特点
@@ -101,6 +101,8 @@ QQ 群号：643205479
 <img class="QR-img" src="http://imglf6.nosdn0.126.net/img/YUdIR2E3ME5weEdlNThuRmI4TFh3UWhiNmladWVoaTlXUXpicEFPa1F6czFNYkdmcWRIbGRRPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg">
 
 ## 注意事项
+
+- 目前正处于测试，勿使用在开发环境中！！！
 
 - Lin CMS 需要一定的基础，至少你得有一定的 java 基础和数据库基础，并且比较熟悉spring-boot和mybatis，
 当然如果你是个 java 程序员，这些肯定都不在话下。
