@@ -25,11 +25,16 @@ public class WebsocketConfig implements WebSocketConfigurer {
         return new WsHandlerImpl();
     }
 
+    @Bean
+    public WebSocketInterceptor webSocketInterceptor() {
+        return new WebSocketInterceptor();
+    }
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry handlerRegistry) {
         handlerRegistry
                 .addHandler(messageWebSocketHandler(), "ws/message")
-                .addInterceptors(new WebSocketInterceptor())
+                .addInterceptors(webSocketInterceptor())
                 .setAllowedOrigins("*");
     }
 }

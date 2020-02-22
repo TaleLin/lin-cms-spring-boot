@@ -34,7 +34,7 @@ public class MessageInterceptor extends HandlerInterceptorAdapter {
         EventMessage eventMessage = new EventMessage(message.event(), message.value());
         TextMessage textMessage = new TextMessage(eventMessage.toJson());
         try {
-            wsHandler.broadCast(textMessage);
+            wsHandler.broadCast(message.event(), textMessage);
         } catch (IOException e) {
             log.info("", e);
         }

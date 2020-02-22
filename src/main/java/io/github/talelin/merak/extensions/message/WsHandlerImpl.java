@@ -54,8 +54,22 @@ public class WsHandlerImpl implements WsHandler {
     @Override
     public void broadCast(TextMessage message) throws IOException {
         for (WebSocketSession session : sessions) {
-            if (session.isOpen()) {
-                Map<String, Object> attributes = session.getAttributes();
+            if (!session.isOpen())
+                continue;
+            session.sendMessage(message);
+        }
+    }
+
+    @Override
+    public void broadCast(String event, TextMessage message) throws IOException {
+        for (WebSocketSession session : sessions) {
+            if (!session.isOpen())
+                continue;
+            Map<String, Object> attributes = session.getAttributes();
+            if (attributes.containsKey("events") &&
+                    (attributes.get("events").toString().equals("*")
+                            || attributes.get("events").toString().contains(event))
+            ) {
                 session.sendMessage(message);
             }
         }

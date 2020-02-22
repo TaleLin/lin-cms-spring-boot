@@ -32,5 +32,7 @@ public interface WsHandler {
 
     void broadCast(TextMessage message) throws IOException;
 
+    void broadCast(String event, TextMessage message) throws IOException;
+
     void handleError(WebSocketSession session, Throwable error);
 }
