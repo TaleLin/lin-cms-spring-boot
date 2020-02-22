@@ -4,12 +4,10 @@ import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.Logger;
 import io.github.talelin.core.annotation.LoginRequired;
 import io.github.talelin.core.annotation.RouteMeta;
-import io.github.talelin.merak.extensions.message.WsHandler;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.github.talelin.merak.extensions.message.Message;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,16 +15,9 @@ import java.util.Map;
 @RequestMapping("/cms/test")
 public class TestController {
 
-    @Autowired
-    private WsHandler wsHandler;
-
     @RequestMapping("")
+    @Message(event = "主页", value = "有人访问了主页")
     public String index() {
-        try {
-            wsHandler.broadCast("hello every body!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return "<style type=\"text/css\">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor:" +
                 "pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family:" +
                 "\"Century Gothic\",\"Microsoft yahei\"; color: #333;font-size:18px;} h1{ font-size: 100px; font-weight: normal;" +

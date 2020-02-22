@@ -1,13 +1,15 @@
 package io.github.talelin.merak.extensions.message;
 
-import javax.websocket.Session;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+
 import java.io.IOException;
 
 public interface WsHandler {
 
-    void handleOpen(Session session);
+    void handleOpen(WebSocketSession session);
 
-    void handleClose(Session session);
+    void handleClose(WebSocketSession session);
 
     /**
      * 处理消息
@@ -15,7 +17,7 @@ public interface WsHandler {
      * @param session 会话
      * @param message 接收的消息
      */
-    void handleMessage(Session session, String message);
+    void handleMessage(WebSocketSession session, String message);
 
     /**
      * 发送消息
@@ -24,9 +26,11 @@ public interface WsHandler {
      * @param message 要发送的消息
      * @throws IOException 发送io异常
      */
-    void sendMessage(Session session, String message) throws IOException;
+    void sendMessage(WebSocketSession session, String message) throws IOException;
 
     void broadCast(String message) throws IOException;
 
-    void handleError(Session session, Throwable error);
+    void broadCast(TextMessage message) throws IOException;
+
+    void handleError(WebSocketSession session, Throwable error);
 }

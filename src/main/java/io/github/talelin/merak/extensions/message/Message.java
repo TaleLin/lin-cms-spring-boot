@@ -1,5 +1,10 @@
 package io.github.talelin.merak.extensions.message;
 
+import java.lang.annotation.*;
+
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
 public @interface Message {
     /**
      * message to send

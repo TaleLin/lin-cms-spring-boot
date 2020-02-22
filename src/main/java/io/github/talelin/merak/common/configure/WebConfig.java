@@ -3,6 +3,7 @@ package io.github.talelin.merak.common.configure;
 import io.github.talelin.merak.common.interceptor.RequestLogInterceptor;
 import io.github.talelin.autoconfigure.interceptor.AuthorizeInterceptor;
 import io.github.talelin.autoconfigure.interceptor.LogInterceptor;
+import io.github.talelin.merak.extensions.message.MessageInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import cn.hutool.core.io.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private RequestLogInterceptor requestLogInterceptor;
 
+    @Autowired
+    private MessageInterceptor messageInterceptor;
+
     @Value("${lin.cms.file.store-dir:assets/}")
     private String dir;
 
@@ -69,6 +73,7 @@ public class WebConfig implements WebMvcConfigurer {
             registry.addInterceptor(requestLogInterceptor);
         }
         registry.addInterceptor(logInterceptor);
+        registry.addInterceptor(messageInterceptor);
     }
 
     @Override

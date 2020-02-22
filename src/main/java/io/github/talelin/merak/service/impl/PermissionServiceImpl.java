@@ -90,4 +90,9 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         });
         return res;
     }
+
+    @Override
+    public List<PermissionDO> getPermissionByGroupIdsAndModule(List<Long> groupIds, String module) {
+        return this.baseMapper.selectPermissionsByGroupIdsAndModule(groupIds, module);
+    }
 }

@@ -149,6 +149,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     }
 
     @Override
+    public List<PermissionDO> getUserPermissionsByModule(Long userId, String module) {
+        List<Long> groupIds = groupService.getUserGroupIdsByUserId(userId);
+        if (groupIds == null || groupIds.size() == 0) {
+            return new ArrayList<>();
+        }
+        return permissionService.getPermissionByGroupIdsAndModule(groupIds, module);
+    }
+
+    @Override
     public UserDO getUserByUsername(String username) {
         QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UserDO::getUsername, username);

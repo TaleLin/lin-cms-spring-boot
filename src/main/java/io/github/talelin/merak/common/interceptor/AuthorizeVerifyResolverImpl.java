@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("Duplicates")
 @Component
 public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
 
