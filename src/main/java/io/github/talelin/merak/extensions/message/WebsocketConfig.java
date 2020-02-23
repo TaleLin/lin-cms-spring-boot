@@ -11,6 +11,11 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebsocketConfig implements WebSocketConfigurer {
 
     @Bean
+    public MessageInfoCollector messageInfoCollector() {
+        return new MessageInfoCollector();
+    }
+
+    @Bean
     public MessageWebSocketHandler messageWebSocketHandler() {
         return new MessageWebSocketHandler();
     }

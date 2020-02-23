@@ -45,9 +45,9 @@ public class WsHandlerImpl implements WsHandler {
     @Override
     public void broadCast(String message) throws IOException {
         for (WebSocketSession session : sessions) {
-            if (session.isOpen()) {
-                sendMessage(session, message);
-            }
+            if (!session.isOpen())
+                continue;
+            sendMessage(session, message);
         }
     }
 
