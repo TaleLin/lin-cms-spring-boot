@@ -1,10 +1,14 @@
-package io.github.talelin.merak.extensions.message;
+package io.github.talelin.merak.modules.message;
 
+import io.github.talelin.merak.model.UserDO;
+import io.github.talelin.merak.service.GroupService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,6 +19,9 @@ public class WsHandlerImpl implements WsHandler {
     private static final AtomicInteger connectionCount = new AtomicInteger(0);
 
     private static CopyOnWriteArraySet<WebSocketSession> sessions = new CopyOnWriteArraySet<>();
+
+    @Autowired
+    private GroupService groupService;
 
     @Override
     public void handleOpen(WebSocketSession session) {
@@ -61,17 +68,24 @@ public class WsHandlerImpl implements WsHandler {
     }
 
     @Override
-    public void broadCast(String event, TextMessage message) throws IOException {
+    public void broadCastToGroup(Long groupId, String message) throws IOException {
+        this.broadCastToGroup(groupId, new TextMessage(message));
+    }
+
+    @Override
+    public void broadCastToGroup(Long groupId, TextMessage message) throws IOException {
+        List<Long> userIds = groupService.getGroupUserIds(groupId);
         for (WebSocketSession session : sessions) {
             if (!session.isOpen())
                 continue;
             Map<String, Object> attributes = session.getAttributes();
-            if (attributes.containsKey("events") &&
-                    (attributes.get("events").toString().equals("*")
-                            || attributes.get("events").toString().contains(event))
-            ) {
-                session.sendMessage(message);
-            }
+            if (!attributes.containsKey("user"))
+                continue;
+            UserDO user = (UserDO) attributes.get("user");
+            boolean matched = userIds.stream().anyMatch(id -> id.equals(user.getId()));
+            if (!matched)
+                continue;
+            session.sendMessage(message);
         }
     }
 

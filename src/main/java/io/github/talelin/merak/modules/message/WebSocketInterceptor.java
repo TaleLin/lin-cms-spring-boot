@@ -1,9 +1,8 @@
-package io.github.talelin.merak.extensions.message;
+package io.github.talelin.merak.modules.message;
 
 import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.interfaces.Claim;
 import io.github.talelin.core.token.DoubleJWT;
-import io.github.talelin.merak.model.PermissionDO;
 import io.github.talelin.merak.model.UserDO;
 import io.github.talelin.merak.service.GroupService;
 import io.github.talelin.merak.service.UserService;
@@ -17,9 +16,7 @@ import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("Duplicates")
 public class WebSocketInterceptor implements HandshakeInterceptor {
@@ -64,14 +61,10 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
             attributes.put("user", user);
             // 超级管理员，接收一切事件
             if (verifyAdmin(user)) {
-                attributes.put("events", "*");
                 return true;
             }
             long userId = user.getId();
             // 获得用户可以接收的事件
-            List<PermissionDO> permissions = userService.getUserPermissionsByModule(userId, "消息推送");
-            String events = permissions.stream().map(PermissionDO::getName).collect(Collectors.joining(","));
-            attributes.put("events", events);
             return true;
         }
         return false;

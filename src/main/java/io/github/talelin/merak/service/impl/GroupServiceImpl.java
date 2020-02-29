@@ -106,6 +106,14 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         return userGroupMapper.insertBatch(relations) > 0;
     }
 
+    @Override
+    public List<Long> getGroupUserIds(Long id) {
+        QueryWrapper<UserGroupDO> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(UserGroupDO::getGroupId, id);
+        List<UserGroupDO> list = userGroupMapper.selectList(wrapper);
+        return list.stream().map(UserGroupDO::getUserId).collect(Collectors.toList());
+    }
+
     private boolean checkGroupExistByIds(List<Long> ids) {
         return ids.stream().allMatch(this::checkGroupExistById);
     }

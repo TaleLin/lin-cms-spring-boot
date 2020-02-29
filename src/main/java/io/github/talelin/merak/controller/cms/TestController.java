@@ -4,7 +4,6 @@ import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.Logger;
 import io.github.talelin.core.annotation.LoginRequired;
 import io.github.talelin.core.annotation.RouteMeta;
-import io.github.talelin.merak.extensions.message.Message;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +15,6 @@ import java.util.Map;
 public class TestController {
 
     @RequestMapping("")
-    @Message(event = "主页", value = "有人访问了主页")
     public String index() {
         return "<style type=\"text/css\">*{ padding: 0; margin: 0; } div{ padding: 4px 48px;} a{color:#2E5CD5;cursor:" +
                 "pointer;text-decoration: none} a:hover{text-decoration:underline; } body{ background: #fff; font-family:" +

@@ -3,8 +3,6 @@ package io.github.talelin.merak.common.listener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.github.talelin.autoconfigure.beans.RouteMetaCollector;
 import io.github.talelin.core.annotation.RouteMeta;
-import io.github.talelin.merak.extensions.message.Message;
-import io.github.talelin.merak.extensions.message.MessageInfoCollector;
 import io.github.talelin.merak.model.PermissionDO;
 import io.github.talelin.merak.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +22,6 @@ public class PermissionHandleListener implements ApplicationListener<ContextRefr
     @Autowired
     private RouteMetaCollector metaCollector;
 
-    @Autowired
-    private MessageInfoCollector messageInfoCollector;
-
-    public static String messageModule = "消息推送";
-
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         addNewPermissions();
@@ -43,28 +36,18 @@ public class PermissionHandleListener implements ApplicationListener<ContextRefr
                 createPermissionIfNotExist(permission, module);
             }
         });
-        messageInfoCollector.getMessageMap().values().forEach(message -> {
-            String event = message.event();
-            createPermissionIfNotExist(event, messageModule);
-        });
     }
 
     private void removeUnusedPermissions() {
         List<PermissionDO> allPermissions = permissionService.list();
         Map<String, RouteMeta> metaMap = metaCollector.getMetaMap();
-        Map<String, Message> messageMap = messageInfoCollector.getMessageMap();
         for (PermissionDO permission : allPermissions) {
             boolean stayedInMeta = metaMap
                     .values()
                     .stream()
                     .anyMatch(meta -> meta.mount() && meta.module().equals(permission.getModule())
                             && meta.permission().equals(permission.getName()));
-            boolean stayedInMessage = messageMap
-                    .values()
-                    .stream()
-                    .anyMatch(message -> message.event().equals(permission.getName())
-                            && permission.getModule().equals(messageModule));
-            if (!stayedInMeta && !stayedInMessage) {
+            if (!stayedInMeta) {
                 permissionService.removeById(permission.getId());
             }
         }

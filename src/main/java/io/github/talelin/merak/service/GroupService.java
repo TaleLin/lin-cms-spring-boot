@@ -85,4 +85,12 @@ public interface GroupService extends IService<GroupDO> {
      * @param addIds 分组id
      */
     boolean addUserGroupRelations(Long userId, List<Long> addIds);
+
+    /**
+     * 获得分组下所有用户的id
+     *
+     * @param id 分组id
+     * @return 用户id
+     */
+    List<Long> getGroupUserIds(Long id);
 }

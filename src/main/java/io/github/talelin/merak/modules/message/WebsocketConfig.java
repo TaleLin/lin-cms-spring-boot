@@ -1,4 +1,4 @@
-package io.github.talelin.merak.extensions.message;
+package io.github.talelin.merak.modules.message;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,18 +11,8 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebsocketConfig implements WebSocketConfigurer {
 
     @Bean
-    public MessageInfoCollector messageInfoCollector() {
-        return new MessageInfoCollector();
-    }
-
-    @Bean
     public MessageWebSocketHandler messageWebSocketHandler() {
         return new MessageWebSocketHandler();
-    }
-
-    @Bean
-    public MessageInterceptor messageInterceptor() {
-        return new MessageInterceptor();
     }
 
     @Bean
