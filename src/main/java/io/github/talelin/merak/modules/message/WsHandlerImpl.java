@@ -27,21 +27,19 @@ public class WsHandlerImpl implements WsHandler {
     public void handleOpen(WebSocketSession session) {
         sessions.add(session);
         int cnt = connectionCount.incrementAndGet();
-        log.info("有连接加入，当前连接数为：{}", cnt);
+        log.info("a new connection opened，current online count：{}", cnt);
     }
 
     @Override
     public void handleClose(WebSocketSession session) {
         sessions.remove(session);
         int cnt = connectionCount.decrementAndGet();
-        log.info("有连接关闭，当前连接数为：{}", cnt);
+        log.info("a connection closed，current online count：{}", cnt);
     }
 
     @Override
     public void handleMessage(WebSocketSession session, String message) {
-        log.info("来自客户端{}-{}的消息：{}", session.getId(),
-                session.getAttributes().get("username"),
-                message);
+        log.info("from {}-{}'s message：{}", session.getId(), session.getAttributes().get("username"), message);
     }
 
     @Override
@@ -91,7 +89,7 @@ public class WsHandlerImpl implements WsHandler {
 
     @Override
     public void handleError(WebSocketSession session, Throwable error) {
-        log.error("发生错误：{}，Session ID： {}", error.getMessage(), session.getId());
+        log.error("websocket error：{}，session id： {}", error.getMessage(), session.getId());
         log.error("", error);
     }
 }
