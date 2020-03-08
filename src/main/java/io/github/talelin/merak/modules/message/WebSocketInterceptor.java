@@ -59,12 +59,6 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
                 return false;
             }
             attributes.put("user", user);
-            // 超级管理员，接收一切事件
-            if (verifyAdmin(user)) {
-                return true;
-            }
-            long userId = user.getId();
-            // 获得用户可以接收的事件
             return true;
         }
         return false;
