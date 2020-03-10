@@ -30,4 +30,11 @@ public class LocalUser {
     public static <T> T getLocalUser(Class<T> clazz) {
         return (T) local.get();
     }
+
+    /**
+     * 清理当前用户
+     */
+    public static void clearLocalUser() {
+        LocalUser.local.remove();
+    }
 }

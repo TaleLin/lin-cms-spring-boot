@@ -71,6 +71,16 @@ public interface UserService extends IService<UserDO> {
 
 
     /**
+     * 获得用户在模块下的所有权限
+     *
+     * @param userId 用户id
+     * @param module 权限模块
+     * @return 权限
+     */
+    List<PermissionDO> getUserPermissionsByModule(Long userId, String module);
+
+
+    /**
      * 通过用户名查找用户
      *
      * @param username 用户名

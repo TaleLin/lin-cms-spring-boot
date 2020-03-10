@@ -18,6 +18,7 @@ import io.github.talelin.core.token.DoubleJWT;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+@SuppressWarnings("Duplicates")
 @Component
 public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
 
@@ -97,6 +99,12 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
     @Override
     public boolean handleNotHandlerMethod(HttpServletRequest request, HttpServletResponse response, Object handler) {
         return true;
+    }
+
+    @Override
+    public void handlePostHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
+        // 记住：很重要，请求结束后，一定要清理 ThreadLocal 中的用户信息
+        LocalUser.clearLocalUser();
     }
 
     private boolean getClaim(Map<String, Claim> claims) {

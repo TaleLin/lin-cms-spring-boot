@@ -51,4 +51,13 @@ public interface PermissionService extends IService<PermissionDO> {
      * @return 结构化的权限
      */
     Map<String, List<String>> structuringPermissionsSimply(List<PermissionDO> permissions);
+
+    /**
+     * 通过分组id和权限模块得到分组的权限与分组id的映射
+     *
+     * @param groupIds 分组id
+     * @param module 权限模块
+     * @return 权限map
+     */
+    List<PermissionDO> getPermissionByGroupIdsAndModule(List<Long> groupIds, String module);
 }

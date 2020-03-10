@@ -29,6 +29,24 @@
         )
     </select>
 
+    <select id="selectPermissionsByGroupIdsAndModule" parameterType="java.util.List"
+            resultMap="BaseResultMap">
+        SELECT p.id, p.name, p.module,
+        p.create_time, p.update_time, p.delete_time
+        FROM lin_permission AS p
+        WHERE p.delete_time IS NULL
+        AND p.module = #{module}
+        AND p.id IN (
+        SELECT gp.permission_id
+        FROM lin_group_permission AS gp
+        WHERE gp.group_id IN
+        <foreach item="groupId" index="index" collection="groupIds"
+                 open="(" separator="," close=")">
+            #{groupId}
+        </foreach>
+        )
+    </select>
+
     <select id="selectPermissionsByGroupId" parameterType="java.lang.Long"
             resultMap="BaseResultMap">
         SELECT p.id, p.name, p.module,
