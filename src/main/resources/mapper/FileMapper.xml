@@ -21,6 +21,7 @@
         FROM lin_file f
         WHERE
         f.md5 = #{md5}
+        AND f.delete_time IS NULL
     </select>
 
     <select id="selectCountByMd5" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -28,6 +29,7 @@
         FROM lin_file f
         WHERE
         f.md5 = #{md5}
+        AND f.delete_time IS NULL
     </select>
 
 </mapper>

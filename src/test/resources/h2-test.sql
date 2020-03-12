@@ -27,7 +27,7 @@ CREATE TABLE lin_file
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)               DEFAULT NULL,
     PRIMARY KEY (id),
-    UNIQUE KEY md5 (md5)
+    UNIQUE KEY md5_del (md5, delete_time)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -78,7 +78,7 @@ CREATE TABLE lin_group
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)               DEFAULT NULL,
     PRIMARY KEY (id),
-    UNIQUE KEY name (name)
+    UNIQUE KEY name_del (name, delete_time)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 
@@ -110,8 +110,8 @@ CREATE TABLE lin_user
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)               DEFAULT NULL,
     PRIMARY KEY (id),
-    UNIQUE KEY username (username),
-    UNIQUE KEY email (email)
+    UNIQUE KEY username_del (username, delete_time),
+    UNIQUE KEY email_del (email, delete_time)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
 

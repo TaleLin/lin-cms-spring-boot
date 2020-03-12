@@ -27,6 +27,7 @@
         LEFT JOIN lin_user_group as ug
         ON ug.user_id = u.id
         WHERE u.id = #{userId}
+        AND u.delete_time IS NULL
         )
     </select>
 
@@ -43,6 +44,7 @@
         LEFT JOIN lin_user_group as ug
         ON ug.user_id = u.id
         WHERE u.id = #{userId}
+        AND u.delete_time IS NULL
         )
     </select>
 
@@ -57,7 +59,7 @@
         ug.user_id = #{userId}
         AND
         ug.group_id =
-        (SELECT g.id FROM lin_group AS g WHERE g.name = #{groupName} )
+        (SELECT g.id FROM lin_group AS g WHERE g.name = #{groupName} AND g.delete_time IS NULL)
     </select>
 
 </mapper>

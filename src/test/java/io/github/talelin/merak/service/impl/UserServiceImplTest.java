@@ -37,6 +37,9 @@ public class UserServiceImplTest {
     private UserServiceImpl userService;
 
     @Autowired
+    private AdminServiceImpl adminService;
+
+    @Autowired
     private UserIdentityServiceImpl userIdentityService;
 
     @Autowired
@@ -177,5 +180,25 @@ public class UserServiceImplTest {
         UserDO user = LocalUser.getLocalUser();
         boolean b = userService.checkUserExistById(user.getId());
         assertTrue(b);
+    }
+
+    @Test
+    public void checkCreateAndDeleteUser() {
+        // 新建某个用户
+        RegisterDTO dto = new RegisterDTO();
+        dto.setUsername("pedro111");
+        dto.setPassword("123456");
+        dto.setConfirmPassword("123456");
+        log.info("dto: {}", dto);
+        UserDO user = userService.createUser(dto);
+        log.info("user: {}", user);
+        assertEquals(user.getUsername(), "pedro111");
+        assertNull(user.getEmail());
+
+        boolean b = adminService.deleteUser(user.getId());
+        assertTrue(b);
+
+        UserDO newUser = userService.createUser(dto);
+        assertEquals(newUser.getUsername(), "pedro111");
     }
 }
