@@ -541,4 +541,28 @@ public class AdminServiceImplTest {
         boolean anyMatch = groups.stream().anyMatch(it -> it.getName().equals("测试分组1"));
         assertTrue(anyMatch);
     }
+
+    @Test
+    public void createGroupAndDeleteGroup() {
+        NewGroupDTO dto = new NewGroupDTO();
+        dto.setName("测试分组1");
+        dto.setInfo("just for test");
+        boolean ok = adminService.createGroup(dto);
+        assertTrue(ok);
+
+        QueryWrapper<GroupDO> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(GroupDO::getName, "测试分组1");
+        GroupDO group = groupMapper.selectOne(wrapper);
+        assertEquals("测试分组1", group.getName());
+        assertEquals("just for test", group.getInfo());
+
+        boolean b = adminService.deleteGroup(group.getId());
+        assertTrue(b);
+
+        boolean ok1 = adminService.createGroup(dto);
+        assertTrue(ok1);
+        group = groupMapper.selectOne(wrapper);
+        assertEquals("测试分组1", group.getName());
+        assertEquals("just for test", group.getInfo());
+    }
 }

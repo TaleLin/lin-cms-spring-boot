@@ -15,11 +15,11 @@
     </resultMap>
 
     <select id="selectCountByUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM lin_user as u WHERE u.username = #{username}
+        SELECT COUNT(*) FROM lin_user as u WHERE u.username = #{username} AND u.delete_time IS NULL
     </select>
 
     <select id="selectCountById" parameterType="java.lang.Long" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM lin_user as u WHERE u.id = #{id}
+        SELECT COUNT(*) FROM lin_user as u WHERE u.id = #{id} AND u.delete_time IS NULL
     </select>
 
     <select id="selectPageByGroupId" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -33,6 +33,7 @@
         FROM lin_user_group AS ug
         WHERE ug.group_id = #{groupId}
         )
+        AND u.delete_time IS NULL
     </select>
 
 </mapper>
