@@ -4,6 +4,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.io.IOException;
+import java.util.Set;
 
 public interface WsHandler {
 
@@ -37,6 +38,15 @@ public interface WsHandler {
      * @throws IOException 发送io异常
      */
     void sendMessage(WebSocketSession session, String message) throws IOException;
+
+    /**
+     * 发送消息
+     *
+     * @param session 当前会话
+     * @param message 要发送的消息
+     * @throws IOException 发送io异常
+     */
+    void sendMessage(WebSocketSession session, TextMessage message) throws IOException;
 
     /**
      * 广播
@@ -79,4 +89,18 @@ public interface WsHandler {
      * @param error   异常
      */
     void handleError(WebSocketSession session, Throwable error);
+
+    /**
+     * 获得所有的 websocket 会话
+     *
+     * @return 所有 websocket 会话
+     */
+    Set<WebSocketSession> getSessions();
+
+    /**
+     * 得到当前连接数
+     *
+     * @return 连接数
+     */
+    int getConnectionCount();
 }

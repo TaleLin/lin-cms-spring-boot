@@ -16,9 +16,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class WsHandlerImpl implements WsHandler {
 
-    private static final AtomicInteger connectionCount = new AtomicInteger(0);
+    private final AtomicInteger connectionCount = new AtomicInteger(0);
 
-    private static CopyOnWriteArraySet<WebSocketSession> sessions = new CopyOnWriteArraySet<>();
+    private CopyOnWriteArraySet<WebSocketSession> sessions = new CopyOnWriteArraySet<>();
 
     @Autowired
     private GroupService groupService;
@@ -44,7 +44,12 @@ public class WsHandlerImpl implements WsHandler {
 
     @Override
     public void sendMessage(WebSocketSession session, String message) throws IOException {
-        session.sendMessage(new TextMessage(message));
+        this.sendMessage(session, new TextMessage(message));
+    }
+
+    @Override
+    public void sendMessage(WebSocketSession session, TextMessage message) throws IOException {
+        session.sendMessage(message);
     }
 
     @Override
@@ -91,5 +96,13 @@ public class WsHandlerImpl implements WsHandler {
     public void handleError(WebSocketSession session, Throwable error) {
         log.error("websocket error：{}，session id： {}", error.getMessage(), session.getId());
         log.error("", error);
+    }
+
+    public CopyOnWriteArraySet<WebSocketSession> getSessions() {
+        return sessions;
+    }
+
+    public int getConnectionCount() {
+        return connectionCount.get();
     }
 }
