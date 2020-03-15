@@ -42,6 +42,24 @@ public interface WsHandler {
     /**
      * 发送消息
      *
+     * @param userId  用户id
+     * @param message 要发送的消息
+     * @throws IOException 发送io异常
+     */
+    void sendMessage(Long userId, TextMessage message) throws IOException;
+
+    /**
+     * 发送消息
+     *
+     * @param userId  用户id
+     * @param message 要发送的消息
+     * @throws IOException 发送io异常
+     */
+    void sendMessage(Long userId, String message) throws IOException;
+
+    /**
+     * 发送消息
+     *
      * @param session 当前会话
      * @param message 要发送的消息
      * @throws IOException 发送io异常

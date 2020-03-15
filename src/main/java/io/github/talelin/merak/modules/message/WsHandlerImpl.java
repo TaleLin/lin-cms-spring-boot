@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
+import static io.github.talelin.merak.modules.message.MessageConsts.USER_KEY;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -48,6 +51,29 @@ public class WsHandlerImpl implements WsHandler {
     }
 
     @Override
+    public void sendMessage(Long userId, TextMessage message) throws IOException {
+        Optional<WebSocketSession> userSession = sessions.stream().filter(session -> {
+            if (!session.isOpen()) {
+                return false;
+            }
+            Map<String, Object> attributes = session.getAttributes();
+            if (!attributes.containsKey(USER_KEY)) {
+                return false;
+            }
+            UserDO user = (UserDO) attributes.get(USER_KEY);
+            return user.getId().equals(userId);
+        }).findFirst();
+        if (userSession.isPresent()) {
+            userSession.get().sendMessage(message);
+        }
+    }
+
+    @Override
+    public void sendMessage(Long userId, String message) throws IOException {
+        sendMessage(userId, new TextMessage(message));
+    }
+
+    @Override
     public void sendMessage(WebSocketSession session, TextMessage message) throws IOException {
         session.sendMessage(message);
     }
@@ -82,9 +108,9 @@ public class WsHandlerImpl implements WsHandler {
             if (!session.isOpen())
                 continue;
             Map<String, Object> attributes = session.getAttributes();
-            if (!attributes.containsKey("user"))
+            if (!attributes.containsKey(USER_KEY))
                 continue;
-            UserDO user = (UserDO) attributes.get("user");
+            UserDO user = (UserDO) attributes.get(USER_KEY);
             boolean matched = userIds.stream().anyMatch(id -> id.equals(user.getId()));
             if (!matched)
                 continue;
