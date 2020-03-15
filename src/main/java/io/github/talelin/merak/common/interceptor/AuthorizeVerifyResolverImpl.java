@@ -102,7 +102,7 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
     }
 
     @Override
-    public void handlePostHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
+    public void handleAfterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         // 记住：很重要，请求结束后，一定要清理 ThreadLocal 中的用户信息
         LocalUser.clearLocalUser();
     }
