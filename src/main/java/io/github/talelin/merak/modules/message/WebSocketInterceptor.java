@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import static io.github.talelin.merak.modules.message.MessageConsts.USER_KEY;
+
 @SuppressWarnings("Duplicates")
 public class WebSocketInterceptor implements HandshakeInterceptor {
     @Autowired
@@ -58,7 +60,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
                 writeMessageToBody(response, "user is not found");
                 return false;
             }
-            attributes.put("user", user);
+            attributes.put(USER_KEY, user);
             return true;
         }
         return false;

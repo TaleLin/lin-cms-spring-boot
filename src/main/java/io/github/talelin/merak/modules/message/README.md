@@ -188,7 +188,7 @@ WsHandler 是 lin-cms 提供给开发者的消息推送接口，该接口有许�
 
 ### sendMessage
 
-给某个会话发送消息，有两个重载方法，如下：
+给某个会话或某个用户发送消息，有四个重载方法，如下：
 
 ```
 /**
@@ -208,9 +208,30 @@ void sendMessage(WebSocketSession session, String message) throws IOException;
  * @throws IOException 发送io异常
  */
 void sendMessage(WebSocketSession session, TextMessage message) throws IOException;
+
+/**
+ * 发送消息
+ *
+ * @param userId  用户id
+ * @param message 要发送的消息
+ * @throws IOException 发送io异常
+ */
+void sendMessage(Long userId, TextMessage message) throws IOException;
+
+/**
+ * 发送消息
+ *
+ * @param userId  用户id
+ * @param message 要发送的消息
+ * @throws IOException 发送io异常
+ */
+void sendMessage(Long userId, String message) throws IOException;
 ```
 
 方法的第二个参数可以直接接收字符串，也可以接收 TextMessage 类型的消息。
+
+当给用户发送消息时，只需要传入用户 id 即可，但一定要确保该用户通过令牌进行了
+连接。
 
 ### broadCast
 
