@@ -72,7 +72,7 @@ public class RestExceptionHandler {
         exception.getConstraintViolations().forEach(constraintViolation -> {
             String template = constraintViolation.getMessageTemplate();
             String path = constraintViolation.getPropertyPath().toString();
-            msg.put(path, template);
+            msg.put(StrUtil.toUnderlineCase(path), template);
         });
         UnifyResponseVO unifyResponse = new UnifyResponseVO();
         unifyResponse.setRequest(getSimpleRequest(request));
@@ -166,9 +166,9 @@ public class RestExceptionHandler {
         errors.forEach(error -> {
             if (error instanceof FieldError) {
                 FieldError fieldError = (FieldError) error;
-                msg.put(fieldError.getField(), fieldError.getDefaultMessage());
+                msg.put(StrUtil.toUnderlineCase(fieldError.getField()), fieldError.getDefaultMessage());
             } else {
-                msg.put(error.getObjectName(), error.getDefaultMessage());
+                msg.put(StrUtil.toUnderlineCase(error.getObjectName()), error.getDefaultMessage());
             }
         });
         UnifyResponseVO result = new UnifyResponseVO();
