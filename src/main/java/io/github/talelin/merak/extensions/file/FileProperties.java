@@ -11,22 +11,24 @@ public class FileProperties {
 
     private static final String[] DEFAULT_EMPTY_ARRAY = new String[0];
 
-    private String dir = "/assets";
+    private String storeDir = "/assets";
 
     private String singleLimit = "2MB";
 
     private Integer nums = 10;
 
+    private String domain;
+
     private String[] exclude = DEFAULT_EMPTY_ARRAY;
 
     private String[] include = DEFAULT_EMPTY_ARRAY;
 
-    public String getDir() {
-        return dir;
+    public String getStoreDir() {
+        return storeDir;
     }
 
-    public void setDir(String dir) {
-        this.dir = dir;
+    public void setStoreDir(String storeDir) {
+        this.storeDir = storeDir;
     }
 
     public String getSingleLimit() {
@@ -59,5 +61,13 @@ public class FileProperties {
 
     public void setInclude(String[] include) {
         this.include = include;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 }
