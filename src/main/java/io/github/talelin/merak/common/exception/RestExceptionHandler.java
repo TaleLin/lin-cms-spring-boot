@@ -70,7 +70,7 @@ public class RestExceptionHandler {
         log.error("", exception);
         Map<String, Object> msg = new HashMap<>();
         exception.getConstraintViolations().forEach(constraintViolation -> {
-            String template = constraintViolation.getMessageTemplate();
+            String template = constraintViolation.getMessage();
             String path = constraintViolation.getPropertyPath().toString();
             msg.put(StrUtil.toUnderlineCase(path), template);
         });
