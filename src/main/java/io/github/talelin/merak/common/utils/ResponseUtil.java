@@ -32,9 +32,9 @@ public class ResponseUtil {
                 .build();
     }
 
-    public static <T> UnifyResponseVO<T> generateUnifyResponse(int errorCode) {
+    public static <T> UnifyResponseVO<T> generateUnifyResponse(int code) {
         return (UnifyResponseVO<T>) UnifyResponseVO.builder()
-                .code(errorCode)
+                .code(code)
                 .request(RequestUtil.getSimpleRequest())
                 .build();
     }
