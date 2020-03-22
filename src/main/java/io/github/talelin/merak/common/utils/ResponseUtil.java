@@ -1,5 +1,6 @@
 package io.github.talelin.merak.common.utils;
 
+import io.github.talelin.merak.vo.PageResponseVO;
 import io.github.talelin.merak.vo.UnifyResponseVO;
 import io.github.talelin.autoconfigure.exception.HttpException;
 import io.github.talelin.autoconfigure.response.Created;
@@ -7,6 +8,11 @@ import io.github.talelin.autoconfigure.response.Success;
 import io.github.talelin.autoconfigure.beans.Code;
 import io.github.talelin.autoconfigure.utils.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 
 /**
@@ -14,6 +20,15 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class ResponseUtil {
+
+    /**
+     * 获得当前相应
+     *
+     * @return 相应
+     */
+    public static HttpServletResponse getResponse() {
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+    }
 
     public static UnifyResponseVO generateUnifyResponse(HttpException e) {
         return UnifyResponseVO.builder()
@@ -54,5 +69,9 @@ public class ResponseUtil {
                 .message(code.getDescription())
                 .request(RequestUtil.getSimpleRequest())
                 .build();
+    }
+
+    public static PageResponseVO generatePageResult(long total, List items, long page, long count) {
+        return new PageResponseVO(total, items, page, count);
     }
 }

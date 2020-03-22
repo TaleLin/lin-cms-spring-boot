@@ -3,6 +3,7 @@ package io.github.talelin.merak.controller.cms;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.RouteMeta;
+import io.github.talelin.merak.common.utils.ResponseUtil;
 import io.github.talelin.merak.model.LogDO;
 import io.github.talelin.merak.vo.PageResponseVO;
 import io.github.talelin.merak.service.LogService;
@@ -37,7 +38,7 @@ public class LogController {
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page}") Long page) {
         IPage<LogDO> iPage = logService.getLogPage(page, count, name, start, end);
-        return PageResponseVO.genPageResult(iPage.getTotal(), iPage.getRecords(), page, count);
+        return ResponseUtil.generatePageResult(iPage.getTotal(), iPage.getRecords(), page, count);
     }
 
     @GetMapping("/search")
@@ -53,7 +54,7 @@ public class LogController {
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page}") Long page) {
         IPage<LogDO> iPage = logService.searchLogPage(page, count, name, keyword, start, end);
-        return PageResponseVO.genPageResult(iPage.getTotal(), iPage.getRecords(), page, count);
+        return ResponseUtil.generatePageResult(iPage.getTotal(), iPage.getRecords(), page, count);
     }
 
     @GetMapping("/users")
@@ -65,6 +66,6 @@ public class LogController {
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page}") Long page) {
         IPage<String> iPage = logService.getUserNamePage(page, count);
-        return PageResponseVO.genPageResult(iPage.getTotal(), iPage.getRecords(), page, count);
+        return ResponseUtil.generatePageResult(iPage.getTotal(), iPage.getRecords(), page, count);
     }
 }
