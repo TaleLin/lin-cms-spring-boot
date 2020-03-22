@@ -30,6 +30,10 @@ public class ResponseUtil {
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
     }
 
+    public static void setCurrentResponseHttpStatus(int httpStatus) {
+        getResponse().setStatus(httpStatus);
+    }
+
     public static UnifyResponseVO generateUnifyResponse(HttpException e) {
         return UnifyResponseVO.builder()
                 .message(e.getMessage())
@@ -56,6 +60,7 @@ public class ResponseUtil {
 
     public static <T> UnifyResponseVO<T> generateCreatedResponse(T data) {
         Created created = new Created();
+        setCurrentResponseHttpStatus(created.getHttpCode());
         return (UnifyResponseVO<T>) UnifyResponseVO.builder()
                 .message(data)
                 .code(created.getCode())
@@ -64,6 +69,7 @@ public class ResponseUtil {
     }
 
     public static <T> UnifyResponseVO<T> generateUnifyResponse(Code code, int httpCode) {
+        setCurrentResponseHttpStatus(httpCode);
         return (UnifyResponseVO<T>) UnifyResponseVO.builder()
                 .code(code.getCode())
                 .message(code.getDescription())
