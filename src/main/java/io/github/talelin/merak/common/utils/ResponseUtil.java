@@ -22,9 +22,9 @@ import java.util.List;
 public class ResponseUtil {
 
     /**
-     * 获得当前相应
+     * 获得当前响应
      *
-     * @return 相应
+     * @return 响应
      */
     public static HttpServletResponse getResponse() {
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
