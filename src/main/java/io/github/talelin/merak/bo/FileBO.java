@@ -10,7 +10,7 @@ public class FileBO {
     private String path;
 
     /**
-     * LOCAL REMOTE
+     * LOCAL(本地) 或 REMOTE(远程)
      */
     private String type;
 
