@@ -1,6 +1,5 @@
 package io.github.talelin.merak.vo;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -2,9 +2,6 @@ package io.github.talelin.merak.common.utils;
 
 import io.github.talelin.merak.vo.PageResponseVO;
 import io.github.talelin.merak.vo.UnifyResponseVO;
-import io.github.talelin.autoconfigure.exception.HttpException;
-import io.github.talelin.autoconfigure.response.Created;
-import io.github.talelin.autoconfigure.response.Success;
 import io.github.talelin.autoconfigure.beans.Code;
 import io.github.talelin.autoconfigure.utils.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +15,7 @@ import java.util.List;
 /**
  * 响应结果生成工具
  */
+@SuppressWarnings("unchecked")
 @Slf4j
 public class ResponseUtil {
 
@@ -34,19 +32,50 @@ public class ResponseUtil {
         getResponse().setStatus(httpStatus);
     }
 
-    public static UnifyResponseVO generateUnifyResponse(HttpException e) {
-        return UnifyResponseVO.builder()
-                .message(e.getMessage())
-                .code(e.getCode())
+    public static <T> UnifyResponseVO<T> generateCreatedResponse(int code) {
+        return (UnifyResponseVO<T>) UnifyResponseVO.builder()
+                .message(Code.CREATED.getDescription())
+                .code(code)
                 .request(RequestUtil.getSimpleRequest())
                 .build();
     }
 
-    public static <T> UnifyResponseVO<T> generateSuccessResponse(T data) {
-        Success success = new Success();
+    public static <T> UnifyResponseVO<T> generateCreatedResponse(int code, T data) {
         return (UnifyResponseVO<T>) UnifyResponseVO.builder()
                 .message(data)
-                .code(success.getCode())
+                .code(code)
+                .request(RequestUtil.getSimpleRequest())
+                .build();
+    }
+
+    public static <T> UnifyResponseVO<T> generateDeletedResponse(int code) {
+        return (UnifyResponseVO<T>) UnifyResponseVO.builder()
+                .message(Code.SUCCESS.getDescription())
+                .code(code)
+                .request(RequestUtil.getSimpleRequest())
+                .build();
+    }
+
+    public static <T> UnifyResponseVO<T> generateDeletedResponse(int code, T data) {
+        return (UnifyResponseVO<T>) UnifyResponseVO.builder()
+                .message(data)
+                .code(code)
+                .request(RequestUtil.getSimpleRequest())
+                .build();
+    }
+
+    public static <T> UnifyResponseVO<T> generateUpdatedResponse(int code) {
+        return (UnifyResponseVO<T>) UnifyResponseVO.builder()
+                .message(Code.SUCCESS.getDescription())
+                .code(code)
+                .request(RequestUtil.getSimpleRequest())
+                .build();
+    }
+
+    public static <T> UnifyResponseVO<T> generateUpdatedResponse(int code, T data) {
+        return (UnifyResponseVO<T>) UnifyResponseVO.builder()
+                .message(data)
+                .code(code)
                 .request(RequestUtil.getSimpleRequest())
                 .build();
     }
@@ -54,25 +83,6 @@ public class ResponseUtil {
     public static <T> UnifyResponseVO<T> generateUnifyResponse(int code) {
         return (UnifyResponseVO<T>) UnifyResponseVO.builder()
                 .code(code)
-                .request(RequestUtil.getSimpleRequest())
-                .build();
-    }
-
-    public static <T> UnifyResponseVO<T> generateCreatedResponse(T data) {
-        Created created = new Created();
-        setCurrentResponseHttpStatus(created.getHttpCode());
-        return (UnifyResponseVO<T>) UnifyResponseVO.builder()
-                .message(data)
-                .code(created.getCode())
-                .request(RequestUtil.getSimpleRequest())
-                .build();
-    }
-
-    public static <T> UnifyResponseVO<T> generateUnifyResponse(Code code, int httpCode) {
-        setCurrentResponseHttpStatus(httpCode);
-        return (UnifyResponseVO<T>) UnifyResponseVO.builder()
-                .code(code.getCode())
-                .message(code.getDescription())
                 .request(RequestUtil.getSimpleRequest())
                 .build();
     }
