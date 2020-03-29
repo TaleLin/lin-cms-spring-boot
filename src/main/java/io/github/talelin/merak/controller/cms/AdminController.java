@@ -14,7 +14,6 @@ import io.github.talelin.merak.vo.PageResponseVO;
 import io.github.talelin.merak.model.GroupDO;
 import io.github.talelin.merak.dto.admin.*;
 import io.github.talelin.merak.vo.UserInfoVO;
-import io.github.talelin.merak.dto.admin.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -64,7 +63,7 @@ public class AdminController {
             List<GroupDO> groups = groupService.getUserGroupsByUserId(user.getId());
             return new UserInfoVO(user, groups);
         }).collect(Collectors.toList());
-        return PageResponseVO.genPageResult(iPage.getTotal(), userInfos, page, count);
+        return ResponseUtil.generatePageResult(iPage.getTotal(), userInfos, page, count);
     }
 
     @PutMapping("/user/{id}/password")
@@ -83,7 +82,6 @@ public class AdminController {
         return ResponseUtil.generateUnifyResponse(3);
     }
 
-
     @PutMapping("/user/{id}")
     @AdminRequired
     @RouteMeta(permission = "管理员更新用户信息", module = "管理员")
@@ -101,9 +99,8 @@ public class AdminController {
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page}") Long page) {
         IPage<GroupDO> iPage = adminService.getGroupPage(page, count);
-        return PageResponseVO.genPageResult(iPage.getTotal(), iPage.getRecords(), page, count);
+        return ResponseUtil.generatePageResult(iPage.getTotal(), iPage.getRecords(), page, count);
     }
-
 
     @GetMapping("/group/all")
     @AdminRequired
@@ -121,7 +118,6 @@ public class AdminController {
         return groupPermissions;
     }
 
-
     @PostMapping("/group")
     @AdminRequired
     @RouteMeta(permission = "新建权限组", module = "管理员")
@@ -129,7 +125,6 @@ public class AdminController {
         adminService.createGroup(validator);
         return ResponseUtil.generateUnifyResponse(13);
     }
-
 
     @PutMapping("/group/{id}")
     @AdminRequired

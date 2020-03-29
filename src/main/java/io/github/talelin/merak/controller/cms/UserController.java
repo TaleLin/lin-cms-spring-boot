@@ -105,7 +105,7 @@ public class UserController {
      */
     @GetMapping("/refresh")
     @RefreshRequired
-    public Tokens refreshToken() {
+    public Tokens getRefreshToken() {
         UserDO user = LocalUser.getLocalUser();
         return jwt.generateTokens(user.getId());
     }

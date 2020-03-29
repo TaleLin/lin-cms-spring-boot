@@ -23,8 +23,4 @@ public class PageResponseVO<T> {
     private long page;
 
     private long count;
-
-    public static PageResponseVO genPageResult(long total, List items, long page, long count) {
-        return new PageResponseVO(total, items, page, count);
-    }
 }
