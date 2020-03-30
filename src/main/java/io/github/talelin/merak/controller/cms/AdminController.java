@@ -63,7 +63,9 @@ public class AdminController {
             List<GroupDO> groups = groupService.getUserGroupsByUserId(user.getId());
             return new UserInfoVO(user, groups);
         }).collect(Collectors.toList());
-        return ResponseUtil.generatePageResult(iPage.getTotal(), userInfos, page, count);
+        boolean existedRoot = userInfos.removeIf(userInfo -> groupService.checkIsRootByUserId(userInfo.getId()));
+        long total = existedRoot ? iPage.getTotal() - 1 : iPage.getTotal();
+        return ResponseUtil.generatePageResult(total, userInfos, page, count);
     }
 
     @PutMapping("/user/{id}/password")

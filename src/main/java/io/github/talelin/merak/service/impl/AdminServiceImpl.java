@@ -166,7 +166,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<GroupDO> getAllGroups() {
-        return groupService.list();
+        List<GroupDO> groups = groupService.list();
+        groups.removeIf(group -> group.getId().equals(groupService.getRootGroupId()));
+        return groups;
     }
 
     @Override

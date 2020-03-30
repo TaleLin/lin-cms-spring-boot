@@ -93,4 +93,6 @@ public interface GroupService extends IService<GroupDO> {
      * @return 用户id
      */
     List<Long> getGroupUserIds(Long id);
+
+    Long getRootGroupId();
 }
