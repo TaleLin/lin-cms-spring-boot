@@ -1,10 +1,9 @@
 package io.github.talelin.merak.controller.v1;
 
+import io.github.talelin.core.annotation.GroupMeta;
 import io.github.talelin.merak.model.BookDO;
 import io.github.talelin.merak.service.BookService;
 import io.github.talelin.merak.dto.book.CreateOrUpdateBookDTO;
-import io.github.talelin.core.annotation.GroupRequired;
-import io.github.talelin.core.annotation.RouteMeta;
 import io.github.talelin.merak.vo.UnifyResponseVO;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.merak.common.utils.ResponseUtil;
@@ -65,8 +64,7 @@ public class BookController {
 
 
     @DeleteMapping("/{id}")
-    @RouteMeta(permission = "删除图书", module = "图书", mount = true)
-    @GroupRequired
+    @GroupMeta(permission = "删除图书", module = "图书", mount = true)
     public UnifyResponseVO deleteBook(@PathVariable("id") @Positive(message = "{id}") Long id) {
         BookDO book = bookService.getById(id);
         if (book == null) {

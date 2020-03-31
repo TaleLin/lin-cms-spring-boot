@@ -1,9 +1,6 @@
 package io.github.talelin.merak.controller.cms;
 
-import io.github.talelin.core.annotation.AdminRequired;
-import io.github.talelin.core.annotation.LoginRequired;
-import io.github.talelin.core.annotation.RefreshRequired;
-import io.github.talelin.core.annotation.RouteMeta;
+import io.github.talelin.core.annotation.*;
 import io.github.talelin.merak.common.LocalUser;
 import io.github.talelin.merak.common.utils.ResponseUtil;
 import io.github.talelin.merak.model.GroupDO;
@@ -15,7 +12,6 @@ import io.github.talelin.merak.vo.UserInfoVO;
 import io.github.talelin.merak.vo.UserPermissionsVO;
 import io.github.talelin.merak.service.UserService;
 import io.github.talelin.core.token.DoubleJWT;
-import io.github.talelin.merak.dto.user.*;
 import io.github.talelin.core.token.Tokens;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.ParameterException;
@@ -114,8 +110,7 @@ public class UserController {
      * 查询拥有权限
      */
     @GetMapping("/permissions")
-    @LoginRequired
-    @RouteMeta(permission = "查询自己拥有的权限", module = "用户", mount = true)
+    @LoginMeta(permission = "查询自己拥有的权限", module = "用户", mount = true)
     public UserPermissionsVO getPermissions() {
         UserDO user = LocalUser.getLocalUser();
         boolean admin = groupService.checkIsRootByUserId(user.getId());
@@ -128,8 +123,7 @@ public class UserController {
     /**
      * 查询自己信息
      */
-    @LoginRequired
-    @RouteMeta(permission = "查询自己信息", module = "用户", mount = true)
+    @LoginMeta(permission = "查询自己信息", module = "用户", mount = true)
     @GetMapping("/information")
     public UserInfoVO getInformation() {
         UserDO user = LocalUser.getLocalUser();
