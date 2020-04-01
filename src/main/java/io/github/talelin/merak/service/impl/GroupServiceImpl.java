@@ -117,11 +117,6 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         return list.stream().map(UserGroupDO::getUserId).collect(Collectors.toList());
     }
 
-    @Override
-    public Long getRootGroupId() {
-        return rootGroupId;
-    }
-
     private boolean checkGroupExistByIds(List<Long> ids) {
         return ids.stream().allMatch(this::checkGroupExistById);
     }
