@@ -2,7 +2,7 @@ package io.github.talelin.merak.controller.cms;
 
 import io.github.talelin.core.annotation.*;
 import io.github.talelin.merak.common.LocalUser;
-import io.github.talelin.merak.common.utils.ResponseUtil;
+import io.github.talelin.merak.common.util.ResponseUtil;
 import io.github.talelin.merak.model.GroupDO;
 import io.github.talelin.merak.service.GroupService;
 import io.github.talelin.merak.service.UserIdentityService;

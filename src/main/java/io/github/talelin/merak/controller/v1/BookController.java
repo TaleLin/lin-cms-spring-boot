@@ -6,7 +6,7 @@ import io.github.talelin.merak.service.BookService;
 import io.github.talelin.merak.dto.book.CreateOrUpdateBookDTO;
 import io.github.talelin.merak.vo.UnifyResponseVO;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
-import io.github.talelin.merak.common.utils.ResponseUtil;
+import io.github.talelin.merak.common.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

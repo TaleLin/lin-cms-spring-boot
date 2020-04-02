@@ -11,7 +11,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @Configuration
 @ConditionalOnProperty(prefix = "lin.cms.websocket", value = "enable", havingValue = "true")
 @EnableWebSocket
-public class WebsocketConfig implements WebSocketConfigurer {
+public class WebsocketConfiguration implements WebSocketConfigurer {
 
     @Value("${lin.cms.websocket.intercept:false}")
     private boolean intercepted;

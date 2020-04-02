@@ -2,7 +2,7 @@ package io.github.talelin.merak.controller.cms;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.core.annotation.GroupMeta;
-import io.github.talelin.merak.common.utils.ResponseUtil;
+import io.github.talelin.merak.common.util.ResponseUtil;
 import io.github.talelin.merak.model.LogDO;
 import io.github.talelin.merak.vo.PageResponseVO;
 import io.github.talelin.merak.service.LogService;

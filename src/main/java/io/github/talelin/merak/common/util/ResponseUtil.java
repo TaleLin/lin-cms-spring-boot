@@ -1,4 +1,4 @@
-package io.github.talelin.merak.common.utils;
+package io.github.talelin.merak.common.util;
 
 import io.github.talelin.merak.vo.PageResponseVO;
 import io.github.talelin.merak.vo.UnifyResponseVO;
