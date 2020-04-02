@@ -56,7 +56,7 @@ public class QiniuUploader extends AbstractUploader {
 
     @Override
     protected String getFileType() {
-        return FileConsts.REMOTE;
+        return FileConstant.REMOTE;
     }
 
     /**

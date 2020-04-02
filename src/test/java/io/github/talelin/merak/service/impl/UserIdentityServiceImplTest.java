@@ -1,7 +1,7 @@
 package io.github.talelin.merak.service.impl;
 
-import io.github.talelin.merak.common.consts.IdentityConsts;
-import io.github.talelin.core.utils.EncryptUtil;
+import io.github.talelin.merak.common.constant.IdentityConstant;
+import io.github.talelin.core.util.EncryptUtil;
 import io.github.talelin.merak.model.UserIdentityDO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class UserIdentityServiceImplTest {
     public UserIdentityDO setUp1() {
         UserIdentityDO userIdentity = new UserIdentityDO();
         userIdentity.setUserId(1L);
-        userIdentity.setIdentityType(IdentityConsts.USERNAME_PASSWORD_IDENTITY);
+        userIdentity.setIdentityType(IdentityConstant.USERNAME_PASSWORD_IDENTITY);
         userIdentity.setIdentifier("pedro");
         userIdentity.setCredential(EncryptUtil.encrypt("123456"));
         return userIdentity;
@@ -49,7 +49,7 @@ public class UserIdentityServiceImplTest {
     public void createIdentity() {
         UserIdentityDO userIdentity = userIdentityService.createIdentity(
                 1L,
-                IdentityConsts.USERNAME_PASSWORD_IDENTITY,
+                IdentityConstant.USERNAME_PASSWORD_IDENTITY,
                 "pedro",
                 EncryptUtil.encrypt("123456")
         );

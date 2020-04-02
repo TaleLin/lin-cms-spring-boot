@@ -51,6 +51,6 @@ public class LocalUploader extends AbstractUploader {
 
     @Override
     protected String getFileType() {
-        return FileConsts.LOCAL;
+        return FileConstant.LOCAL;
     }
 }

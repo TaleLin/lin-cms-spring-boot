@@ -3,7 +3,7 @@ package io.github.talelin.merak.common.interceptor;
 import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
-import io.github.talelin.autoconfigure.beans.MetaInfo;
+import io.github.talelin.autoconfigure.bean.MetaInfo;
 import io.github.talelin.autoconfigure.exception.AuthenticationException;
 import io.github.talelin.autoconfigure.exception.AuthorizationException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;

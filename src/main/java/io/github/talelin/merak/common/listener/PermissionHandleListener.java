@@ -1,8 +1,8 @@
 package io.github.talelin.merak.common.listener;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import io.github.talelin.autoconfigure.beans.MetaInfo;
-import io.github.talelin.autoconfigure.beans.RouteMetaCollector;
+import io.github.talelin.autoconfigure.bean.MetaInfo;
+import io.github.talelin.autoconfigure.bean.RouteMetaCollector;
 import io.github.talelin.merak.model.PermissionDO;
 import io.github.talelin.merak.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;

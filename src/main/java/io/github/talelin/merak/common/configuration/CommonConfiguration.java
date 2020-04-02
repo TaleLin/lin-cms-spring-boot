@@ -1,10 +1,10 @@
-package io.github.talelin.merak.common.configure;
+package io.github.talelin.merak.common.configuration;
 
 import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import io.github.talelin.autoconfigure.beans.RouteMetaCollector;
+import io.github.talelin.autoconfigure.bean.RouteMetaCollector;
 import io.github.talelin.merak.extensions.file.FileProperties;
 import io.github.talelin.merak.common.interceptor.RequestLogInterceptor;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(FileProperties.class)
-public class CommonConfig {
+public class CommonConfiguration {
 
     @Bean
     public RequestLogInterceptor requestLogInterceptor() {

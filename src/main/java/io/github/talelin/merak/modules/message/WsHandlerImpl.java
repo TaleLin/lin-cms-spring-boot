@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
-import static io.github.talelin.merak.modules.message.MessageConsts.USER_KEY;
+import static io.github.talelin.merak.modules.message.MessageConstant.USER_KEY;
 
 import java.io.IOException;
 import java.util.List;

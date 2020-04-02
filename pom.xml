@@ -46,7 +46,7 @@
         <dependency>
             <groupId>io.github.talelin</groupId>
             <artifactId>lin-cms-spring-boot-starter</artifactId>
-            <version>0.0.1-RC5</version>
+            <version>0.0.1-RC6</version>
         </dependency>
 
         <dependency>

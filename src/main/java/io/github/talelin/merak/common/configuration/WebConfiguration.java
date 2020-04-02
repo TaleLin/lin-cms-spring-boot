@@ -1,4 +1,4 @@
-package io.github.talelin.merak.common.configure;
+package io.github.talelin.merak.common.configuration;
 
 import io.github.talelin.merak.common.interceptor.RequestLogInterceptor;
 import io.github.talelin.autoconfigure.interceptor.AuthorizeInterceptor;
@@ -22,7 +22,7 @@ import java.nio.file.Path;
  */
 @Configuration(proxyBeanMethods = false)
 @Slf4j
-public class WebConfig implements WebMvcConfigurer {
+public class WebConfiguration implements WebMvcConfigurer {
 
     @Value("${auth.enabled:false}")
     private boolean authEnabled;

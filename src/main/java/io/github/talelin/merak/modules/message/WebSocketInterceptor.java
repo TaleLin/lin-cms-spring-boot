@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Map;
 
-import static io.github.talelin.merak.modules.message.MessageConsts.USER_KEY;
+import static io.github.talelin.merak.modules.message.MessageConstant.USER_KEY;
 
 @SuppressWarnings("Duplicates")
 public class WebSocketInterceptor implements HandshakeInterceptor {

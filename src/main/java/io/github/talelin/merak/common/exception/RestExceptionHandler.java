@@ -1,8 +1,8 @@
 package io.github.talelin.merak.common.exception;
 
 import cn.hutool.core.util.StrUtil;
-import io.github.talelin.autoconfigure.beans.Code;
-import io.github.talelin.merak.common.configure.CodeConfig;
+import io.github.talelin.autoconfigure.bean.Code;
+import io.github.talelin.merak.common.configuration.CodeMessageConfiguration;
 import io.github.talelin.merak.vo.UnifyResponseVO;
 import io.github.talelin.autoconfigure.exception.HttpException;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static io.github.talelin.autoconfigure.utils.RequestUtil.getSimpleRequest;
+import static io.github.talelin.autoconfigure.util.RequestUtil.getSimpleRequest;
 
 
 @SuppressWarnings("Duplicates")
@@ -53,7 +53,7 @@ public class RestExceptionHandler {
         int code = exception.getCode();
         unifyResponse.setCode(code);
         response.setStatus(exception.getHttpCode());
-        String errorMessage = CodeConfig.getMessage(code);
+        String errorMessage = CodeMessageConfiguration.getMessage(code);
         if (StrUtil.isBlank(errorMessage)) {
             unifyResponse.setMessage(exception.getMessage());
         } else {
@@ -90,7 +90,7 @@ public class RestExceptionHandler {
         log.error("", exception);
         UnifyResponseVO unifyResponse = new UnifyResponseVO();
         unifyResponse.setRequest(getSimpleRequest(request));
-        String message = CodeConfig.getMessage(10025);
+        String message = CodeMessageConfiguration.getMessage(10025);
         if (StrUtil.isBlank(message)) {
             unifyResponse.setMessage(exception.getMessage());
         } else {
@@ -110,7 +110,7 @@ public class RestExceptionHandler {
         UnifyResponseVO result = new UnifyResponseVO();
         result.setRequest(getSimpleRequest(request));
 
-        String errorMessage = CodeConfig.getMessage(10150);
+        String errorMessage = CodeMessageConfiguration.getMessage(10150);
         if (StrUtil.isBlank(errorMessage)) {
             result.setMessage(exception.getMessage());
         } else {
@@ -129,7 +129,7 @@ public class RestExceptionHandler {
         log.error("", exception);
         UnifyResponseVO result = new UnifyResponseVO();
         result.setRequest(getSimpleRequest(request));
-        String errorMessage = CodeConfig.getMessage(10160);
+        String errorMessage = CodeMessageConfiguration.getMessage(10160);
         if (StrUtil.isBlank(errorMessage)) {
             result.setMessage(exception.getMessage());
         } else {
@@ -187,7 +187,7 @@ public class RestExceptionHandler {
         log.error("", exception);
         UnifyResponseVO result = new UnifyResponseVO();
         result.setRequest(getSimpleRequest(request));
-        String errorMessage = CodeConfig.getMessage(10170);
+        String errorMessage = CodeMessageConfiguration.getMessage(10170);
         if (StrUtil.isBlank(errorMessage)) {
             result.setMessage(exception.getMessage());
         } else {
@@ -220,7 +220,7 @@ public class RestExceptionHandler {
         log.error("", exception);
         UnifyResponseVO result = new UnifyResponseVO();
         result.setRequest(getSimpleRequest(request));
-        String errorMessage = CodeConfig.getMessage(10180);
+        String errorMessage = CodeMessageConfiguration.getMessage(10180);
         if (StrUtil.isBlank(errorMessage)) {
             result.setMessage(exception.getMessage());
         } else {
