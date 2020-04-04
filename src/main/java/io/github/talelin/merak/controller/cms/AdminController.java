@@ -50,7 +50,7 @@ public class AdminController {
     @AdminMeta(permission = "查询所有用户", module = "管理员")
     public PageResponseVO getUsers(
             @RequestParam(name = "group_id", required = false)
-            @Min(value = 1, message = "{group_id}") Long groupId,
+            @Min(value = 1, message = "{group-id}") Long groupId,
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{count}") Long count,
             @RequestParam(name = "page", required = false, defaultValue = "0")
