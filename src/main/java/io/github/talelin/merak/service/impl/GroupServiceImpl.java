@@ -87,6 +87,9 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
     public boolean deleteUserGroupRelations(Long userId, List<Long> deleteIds) {
         if (deleteIds == null || deleteIds.isEmpty())
             return true;
+        if (checkIsRootByUserId(userId)) {
+            throw new ForbiddenException("can't modify the root user's group", 10078);
+        }
         QueryWrapper<UserGroupDO> wrapper = new QueryWrapper<>();
         wrapper.lambda()
                 .eq(UserGroupDO::getUserId, userId)

@@ -32,6 +32,7 @@
         SELECT ug.user_id
         FROM lin_user_group AS ug
         WHERE ug.group_id = #{groupId}
+        AND ug.group_id != #{rootGroupId}
         )
         AND u.delete_time IS NULL
     </select>
