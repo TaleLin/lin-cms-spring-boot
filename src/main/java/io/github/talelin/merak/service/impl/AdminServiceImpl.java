@@ -45,13 +45,18 @@ public class AdminServiceImpl implements AdminService {
     @Value("${group.guest.id}")
     private Long guestGroupId;
 
+    @Value("${user.root.id}")
+    private Long rootUserId;
+
     @Override
     public IPage<UserDO> getUserPageByGroupId(Long groupId, Long count, Long page) {
         Page pager = new Page(page, count);
         IPage<UserDO> iPage;
         // 如果group_id为空，则以分页的形式返回所有用户
         if (groupId == null) {
-            iPage = userService.page(pager);
+            QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
+            wrapper.lambda().ne(UserDO::getId, rootUserId);
+            iPage = userService.page(pager, wrapper);
         } else {
             iPage = userService.getUserPageByGroupId(pager, groupId);
         }
@@ -166,7 +171,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<GroupDO> getAllGroups() {
-        return groupService.list();
+        QueryWrapper<GroupDO> wrapper = new QueryWrapper<>();
+        wrapper.lambda().ne(GroupDO::getId, rootGroupId);
+        List<GroupDO> groups = groupService.list(wrapper);
+        return groups;
     }
 
     @Override

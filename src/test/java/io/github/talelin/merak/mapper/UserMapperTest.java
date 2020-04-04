@@ -73,7 +73,7 @@ public class UserMapperTest {
         userGroupMapper.insert(new UserGroupDO(userDO.getId(), group.getId()));
 
         Page page = new Page(0, 10);
-        IPage<UserDO> iPage = userMapper.selectPageByGroupId(page, group.getId());
+        IPage<UserDO> iPage = userMapper.selectPageByGroupId(page, group.getId(), 1L);
         assertTrue(iPage.getTotal() > 0);
         boolean anyMatch = iPage.getRecords().stream().anyMatch(it -> it.getUsername().equals(username));
         assertTrue(anyMatch);

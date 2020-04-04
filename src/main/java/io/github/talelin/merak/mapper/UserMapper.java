@@ -35,7 +35,8 @@ public interface UserMapper extends BaseMapper<UserDO> {
      *
      * @param pager   分页
      * @param groupId 分组id
+     * @param rootGroupId 超级用户组id(不返回超级用户组的用户)
      * @return 分页数据
      */
-    IPage<UserDO> selectPageByGroupId(Page pager, Long groupId);
+    IPage<UserDO> selectPageByGroupId(Page pager, Long groupId, Long rootGroupId);
 }

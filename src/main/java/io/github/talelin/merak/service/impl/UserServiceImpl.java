@@ -186,7 +186,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public IPage<UserDO> getUserPageByGroupId(Page pager, Long groupId) {
-        return this.baseMapper.selectPageByGroupId(pager, groupId);
+        return this.baseMapper.selectPageByGroupId(pager, groupId, rootGroupId);
     }
 
     private void checkGroupsExist(List<Long> ids) {
