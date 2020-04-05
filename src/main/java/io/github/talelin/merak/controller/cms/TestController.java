@@ -1,9 +1,6 @@
 package io.github.talelin.merak.controller.cms;
 
-import io.github.talelin.core.annotation.GroupRequired;
-import io.github.talelin.core.annotation.Logger;
-import io.github.talelin.core.annotation.LoginRequired;
-import io.github.talelin.core.annotation.RouteMeta;
+import io.github.talelin.core.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,8 +21,7 @@ public class TestController {
     }
 
     @RequestMapping("/json")
-    @RouteMeta(permission = "测试日志记录", module = "信息", mount = true)
-    @LoginRequired
+    @LoginMeta(permission = "测试日志记录", module = "信息", mount = true)
     @Logger(template = "{user.nickname}又皮了一波")
     public Map getTestMsg() {
         Map res = new HashMap();
@@ -34,13 +30,10 @@ public class TestController {
     }
 
     @RequestMapping("/info")
-    @RouteMeta(permission = "查看lin的信息", module = "信息", mount = true)
-    @GroupRequired
+    @GroupMeta(permission = "查看lin的信息", module = "信息", mount = true)
     public Map getTestInfo() {
         Map res = new HashMap();
         res.put("msg", "Lin 是一套基于 Spring boot 的一整套开箱即用的后台管理系统（CMS）。Lin 遵循简洁、高效的原则，通过核心库加插件的方式来驱动整个系统高效的运行");
         return res;
     }
-
-
 }

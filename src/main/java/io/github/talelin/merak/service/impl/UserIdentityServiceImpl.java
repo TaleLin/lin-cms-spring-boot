@@ -1,8 +1,8 @@
 package io.github.talelin.merak.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import io.github.talelin.merak.common.consts.IdentityConsts;
-import io.github.talelin.core.utils.EncryptUtil;
+import io.github.talelin.merak.common.constant.IdentityConstant;
+import io.github.talelin.core.util.EncryptUtil;
 import io.github.talelin.merak.model.UserIdentityDO;
 import io.github.talelin.merak.mapper.UserIdentityMapper;
 import io.github.talelin.merak.service.UserIdentityService;
@@ -37,14 +37,14 @@ public class UserIdentityServiceImpl extends ServiceImpl<UserIdentityMapper, Use
     public UserIdentityDO createUsernamePasswordIdentity(Long userId, String identifier, String credential) {
         // 密码加密
         credential = EncryptUtil.encrypt(credential);
-        return this.createIdentity(userId, IdentityConsts.USERNAME_PASSWORD_IDENTITY, identifier, credential);
+        return this.createIdentity(userId, IdentityConstant.USERNAME_PASSWORD_IDENTITY, identifier, credential);
     }
 
     @Override
     public boolean verifyUsernamePassword(Long userId, String username, String password) {
         QueryWrapper<UserIdentityDO> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UserIdentityDO::getUserId, userId)
-                .eq(UserIdentityDO::getIdentityType, IdentityConsts.USERNAME_PASSWORD_IDENTITY)
+                .eq(UserIdentityDO::getIdentityType, IdentityConstant.USERNAME_PASSWORD_IDENTITY)
                 .eq(UserIdentityDO::getIdentifier, username);
         UserIdentityDO userIdentity = this.baseMapper.selectOne(wrapper);
         return EncryptUtil.verify(userIdentity.getCredential(), password);

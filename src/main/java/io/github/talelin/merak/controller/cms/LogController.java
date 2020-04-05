@@ -1,9 +1,8 @@
 package io.github.talelin.merak.controller.cms;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.github.talelin.core.annotation.GroupRequired;
-import io.github.talelin.core.annotation.RouteMeta;
-import io.github.talelin.merak.common.utils.ResponseUtil;
+import io.github.talelin.core.annotation.GroupMeta;
+import io.github.talelin.merak.common.util.ResponseUtil;
 import io.github.talelin.merak.model.LogDO;
 import io.github.talelin.merak.vo.PageResponseVO;
 import io.github.talelin.merak.service.LogService;
@@ -27,8 +26,7 @@ public class LogController {
     private LogService logService;
 
     @GetMapping("")
-    @RouteMeta(permission = "查询所有日志", module = "日志", mount = true)
-    @GroupRequired
+    @GroupMeta(permission = "查询所有日志", module = "日志", mount = true)
     public PageResponseVO getLogs(
             @RequestParam(name = "start", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date start,
             @RequestParam(name = "end", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date end,
@@ -42,8 +40,7 @@ public class LogController {
     }
 
     @GetMapping("/search")
-    @RouteMeta(permission = "搜索日志", module = "日志", mount = true)
-    @GroupRequired
+    @GroupMeta(permission = "搜索日志", module = "日志", mount = true)
     public PageResponseVO searchLogs(
             @RequestParam(name = "start", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date start,
             @RequestParam(name = "end", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date end,
@@ -58,8 +55,7 @@ public class LogController {
     }
 
     @GetMapping("/users")
-    @RouteMeta(permission = "查询日志记录的用户", module = "日志", mount = true)
-    @GroupRequired
+    @GroupMeta(permission = "查询日志记录的用户", module = "日志", mount = true)
     public PageResponseVO getUsers(
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{count}") Long count,

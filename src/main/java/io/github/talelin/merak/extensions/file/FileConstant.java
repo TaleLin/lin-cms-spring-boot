@@ -6,7 +6,7 @@ package io.github.talelin.merak.extensions.file;
  * @author pedro
  * @since 2019-11-30
  */
-public class FileConsts {
+public class FileConstant {
 
     /**
      * 本地文件

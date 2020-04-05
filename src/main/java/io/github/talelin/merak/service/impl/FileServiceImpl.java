@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.FileUtil;
 import io.github.talelin.merak.bo.FileBO;
 import io.github.talelin.merak.extensions.file.File;
-import io.github.talelin.merak.extensions.file.FileConsts;
+import io.github.talelin.merak.extensions.file.FileConstant;
 import io.github.talelin.merak.extensions.file.Uploader;
 import io.github.talelin.merak.mapper.FileMapper;
 import io.github.talelin.merak.model.FileDO;
@@ -62,7 +62,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
         List<FileBO> res = tmp.stream().map(file -> {
             FileBO bo = new FileBO();
             BeanUtil.copyProperties(file, bo);
-            if (file.getType().equals(FileConsts.LOCAL)) {
+            if (file.getType().equals(FileConstant.LOCAL)) {
                 String s = FileUtil.mainName(dir);
                 bo.setPath(domain + s + "/" + file.getName());
             }

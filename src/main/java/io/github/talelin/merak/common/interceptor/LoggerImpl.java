@@ -5,7 +5,7 @@ import io.github.talelin.merak.model.UserDO;
 import io.github.talelin.autoconfigure.interfaces.LoggerResolver;
 import io.github.talelin.core.annotation.Logger;
 import io.github.talelin.core.annotation.RouteMeta;
-import io.github.talelin.core.utils.BeanUtil;
+import io.github.talelin.core.util.BeanUtil;
 import io.github.talelin.merak.service.LogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

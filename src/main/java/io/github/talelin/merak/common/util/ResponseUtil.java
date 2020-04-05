@@ -1,9 +1,9 @@
-package io.github.talelin.merak.common.utils;
+package io.github.talelin.merak.common.util;
 
 import io.github.talelin.merak.vo.PageResponseVO;
 import io.github.talelin.merak.vo.UnifyResponseVO;
-import io.github.talelin.autoconfigure.beans.Code;
-import io.github.talelin.autoconfigure.utils.RequestUtil;
+import io.github.talelin.autoconfigure.bean.Code;
+import io.github.talelin.autoconfigure.util.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

@@ -1,9 +1,9 @@
-package io.github.talelin.merak.common.consts;
+package io.github.talelin.merak.common.constant;
 
 /**
  * 身份认证常量
  */
-public class IdentityConsts {
+public class IdentityConstant {
 
     /**
      * 表示通过用户名和密码来进行身份认证

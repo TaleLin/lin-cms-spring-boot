@@ -3,11 +3,11 @@ package io.github.talelin.merak.common.interceptor;
 import com.auth0.jwt.exceptions.*;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
+import io.github.talelin.autoconfigure.bean.MetaInfo;
 import io.github.talelin.autoconfigure.exception.AuthenticationException;
 import io.github.talelin.autoconfigure.exception.AuthorizationException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.TokenInvalidException;
-import io.github.talelin.core.annotation.RouteMeta;
 import io.github.talelin.merak.common.LocalUser;
 import io.github.talelin.merak.model.PermissionDO;
 import io.github.talelin.merak.model.UserDO;
@@ -18,8 +18,6 @@ import io.github.talelin.core.token.DoubleJWT;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +43,7 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
     private GroupService groupService;
 
 
-    public boolean handleLogin(HttpServletRequest request, HttpServletResponse response, RouteMeta meta) {
+    public boolean handleLogin(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
         String tokenStr = verifyHeader(request, response);
         Map<String, Claim> claims = null;
         try {
@@ -59,14 +57,14 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
     }
 
     @Override
-    public boolean handleGroup(HttpServletRequest request, HttpServletResponse response, RouteMeta meta) {
+    public boolean handleGroup(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
         handleLogin(request, response, meta);
         UserDO user = LocalUser.getLocalUser();
         if (verifyAdmin(user))
             return true;
         long userId = user.getId();
-        String permission = meta.permission();
-        String module = meta.module();
+        String permission = meta.getPermission();
+        String module = meta.getModule();
         List<PermissionDO> permissions = userService.getUserPermissions(userId);
         boolean matched = permissions.stream().anyMatch(it -> it.getModule().equals(module) && it.getName().equals(permission));
         if (!matched)
@@ -74,7 +72,7 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
         return true;
     }
 
-    public boolean handleAdmin(HttpServletRequest request, HttpServletResponse response, RouteMeta meta) {
+    public boolean handleAdmin(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
         handleLogin(request, response, meta);
         UserDO user = LocalUser.getLocalUser();
         if (!verifyAdmin(user))
@@ -83,7 +81,7 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
     }
 
 
-    public boolean handleRefresh(HttpServletRequest request, HttpServletResponse response, RouteMeta meta) {
+    public boolean handleRefresh(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
         String tokenStr = verifyHeader(request, response);
         Map<String, Claim> claims = null;
         try {

@@ -1,7 +1,7 @@
 package io.github.talelin.merak.common.aop;
 
 import cn.hutool.core.util.StrUtil;
-import io.github.talelin.merak.common.configure.CodeConfig;
+import io.github.talelin.merak.common.configuration.CodeMessageConfiguration;
 import io.github.talelin.merak.vo.UnifyResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -29,7 +29,7 @@ public class ResultAspect {
         if (ret instanceof UnifyResponseVO) {
             UnifyResponseVO result = (UnifyResponseVO) ret;
             int code = result.getCode();
-            String message = CodeConfig.getMessage(code);
+            String message = CodeMessageConfiguration.getMessage(code);
             if (StrUtil.isNotBlank(message)) {
                 result.setMessage(message);
             }
