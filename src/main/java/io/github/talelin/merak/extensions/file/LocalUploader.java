@@ -25,10 +25,11 @@ public class LocalUploader extends AbstractUploader {
 
     @Override
     protected boolean handleOneFile(byte[] bytes, String newFilename) {
-        String storePath = getStorePath(newFilename);
+        String absolutePath =
+                FileUtil.getFileAbsolutePath(fileProperties.getStoreDir(), getStorePath(newFilename));
         try {
             BufferedOutputStream stream =
-                    new BufferedOutputStream(new FileOutputStream(new java.io.File(storePath)));
+                    new BufferedOutputStream(new FileOutputStream(new java.io.File(absolutePath)));
             stream.write(bytes);
             stream.close();
         } catch (Exception e) {
@@ -46,7 +47,7 @@ public class LocalUploader extends AbstractUploader {
 
     @Override
     protected String getStorePath(String newFilename) {
-        return FileUtil.getFileAbsolutePath(fileProperties.getStoreDir(), newFilename);
+        return newFilename;
     }
 
     @Override
