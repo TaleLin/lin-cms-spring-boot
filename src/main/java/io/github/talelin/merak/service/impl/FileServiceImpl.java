@@ -3,7 +3,6 @@ package io.github.talelin.merak.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.FileUtil;
 import io.github.talelin.merak.bo.FileBO;
-import io.github.talelin.merak.extensions.file.File;
 import io.github.talelin.merak.extensions.file.FileConstant;
 import io.github.talelin.merak.extensions.file.Uploader;
 import io.github.talelin.merak.mapper.FileMapper;
@@ -18,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author pedro
@@ -44,35 +42,39 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
      */
     @Override
     public List<FileBO> upload(MultiValueMap<String, MultipartFile> fileMap) {
-        List<FileDO> tmp = new ArrayList<>();
-        List<File> files = uploader.upload(fileMap, file -> {
+        List<FileBO> res = new ArrayList<>();
+        uploader.upload(fileMap, file -> {
             FileDO found = this.baseMapper.selectByMd5(file.getMd5());
-            if (found == null)
+            // 数据库中不存在
+            if (found == null) {
+                FileDO fileDO = new FileDO();
+                BeanUtil.copyProperties(file, fileDO);
+                this.getBaseMapper().insert(fileDO);
+                res.add(transformDoToBo(fileDO, file.getKey()));
                 return true;
-            tmp.add(found);
+            }
+            // 已存在，则直接转化返回
+            res.add(transformDoToBo(found, file.getKey()));
             return false;
         });
-        tmp.addAll(files.stream().map(file -> {
-            FileDO fileDO = new FileDO();
-            BeanUtil.copyProperties(file, fileDO);
-            this.getBaseMapper().insert(fileDO);
-            return fileDO;
-        }).collect(Collectors.toList()));
-
-        List<FileBO> res = tmp.stream().map(file -> {
-            FileBO bo = new FileBO();
-            BeanUtil.copyProperties(file, bo);
-            if (file.getType().equals(FileConstant.LOCAL)) {
-                String s = FileUtil.mainName(dir);
-                bo.setPath(domain + s + "/" + file.getName());
-            }
-            return bo;
-        }).collect(Collectors.toList());
         return res;
     }
 
     @Override
     public boolean checkFileExistByMd5(String md5) {
         return this.getBaseMapper().selectCountByMd5(md5) > 0;
+    }
+
+    private FileBO transformDoToBo(FileDO file, String key) {
+        FileBO bo = new FileBO();
+        BeanUtil.copyProperties(file, bo);
+        if (file.getType().equals(FileConstant.LOCAL)) {
+            String s = FileUtil.mainName(dir);
+            bo.setUrl(domain + s + "/" + file.getName());
+        } else {
+            bo.setUrl(file.getPath());
+        }
+        bo.setKey(key);
+        return bo;
     }
 }
