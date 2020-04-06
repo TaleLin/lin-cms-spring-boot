@@ -51,6 +51,7 @@ public abstract class AbstractUploader implements Uploader {
         File fileData = File.builder().
                 name(newFilename).
                 md5(md5).
+                key(file.getName()).
                 path(storePath).
                 size(bytes.length).
                 type(getFileType()).
