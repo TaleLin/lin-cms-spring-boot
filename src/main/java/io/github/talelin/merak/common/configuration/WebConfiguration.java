@@ -42,6 +42,9 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Value("${lin.cms.file.store-dir:assets/}")
     private String dir;
 
+    @Value("${lin.cms.file.serve-path:assets/**}")
+    private String servePath;
+
     /**
      * 跨域
      * 注意： 跨域问题涉及安全性问题，这里提供的是最方便简单的配置，任何host和任何方法都可跨域
@@ -83,8 +86,7 @@ public class WebConfiguration implements WebMvcConfigurer {
         // assets/
         // /usr/local/assets/
         // assets
-        String s = FileUtil.mainName(dir);
-        return s + "/**";
+        return servePath;
     }
 
     /**

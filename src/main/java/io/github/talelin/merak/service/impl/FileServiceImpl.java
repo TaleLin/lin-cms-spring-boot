@@ -1,7 +1,6 @@
 package io.github.talelin.merak.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.io.FileUtil;
 import io.github.talelin.merak.bo.FileBO;
 import io.github.talelin.merak.extension.file.FileConstant;
 import io.github.talelin.merak.extension.file.Uploader;
@@ -31,8 +30,8 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
     @Value("${lin.cms.file.domain}")
     private String domain;
 
-    @Value("${lin.cms.file.store-dir:assets/}")
-    private String dir;
+    @Value("${lin.cms.file.serve-path:assets/**}")
+    private String servePath;
 
     /**
      * 为什么不做批量插入
@@ -69,8 +68,8 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
         FileBO bo = new FileBO();
         BeanUtil.copyProperties(file, bo);
         if (file.getType().equals(FileConstant.LOCAL)) {
-            String s = FileUtil.mainName(dir);
-            bo.setUrl(domain + s + "/" + file.getName());
+            String s = servePath.split("/")[0];
+            bo.setUrl(domain + s + "/" + file.getPath());
         } else {
             bo.setUrl(file.getPath());
         }
