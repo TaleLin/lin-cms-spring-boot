@@ -1,4 +1,4 @@
-package io.github.talelin.merak.modules.message;
+package io.github.talelin.merak.module.message;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.*;
