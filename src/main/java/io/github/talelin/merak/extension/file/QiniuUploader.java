@@ -1,4 +1,4 @@
-package io.github.talelin.merak.extensions.file;
+package io.github.talelin.merak.extension.file;
 
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;

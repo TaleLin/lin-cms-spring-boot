@@ -1,4 +1,4 @@
-package io.github.talelin.merak.modules.message;
+package io.github.talelin.merak.module.message;
 
 import io.github.talelin.merak.model.UserDO;
 import io.github.talelin.merak.service.GroupService;
@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
-
-import static io.github.talelin.merak.modules.message.MessageConstant.USER_KEY;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,10 +55,10 @@ public class WsHandlerImpl implements WsHandler {
                 return false;
             }
             Map<String, Object> attributes = session.getAttributes();
-            if (!attributes.containsKey(USER_KEY)) {
+            if (!attributes.containsKey(MessageConstant.USER_KEY)) {
                 return false;
             }
-            UserDO user = (UserDO) attributes.get(USER_KEY);
+            UserDO user = (UserDO) attributes.get(MessageConstant.USER_KEY);
             return user.getId().equals(userId);
         }).findFirst();
         if (userSession.isPresent()) {
@@ -108,9 +106,9 @@ public class WsHandlerImpl implements WsHandler {
             if (!session.isOpen())
                 continue;
             Map<String, Object> attributes = session.getAttributes();
-            if (!attributes.containsKey(USER_KEY))
+            if (!attributes.containsKey(MessageConstant.USER_KEY))
                 continue;
-            UserDO user = (UserDO) attributes.get(USER_KEY);
+            UserDO user = (UserDO) attributes.get(MessageConstant.USER_KEY);
             boolean matched = userIds.stream().anyMatch(id -> id.equals(user.getId()));
             if (!matched)
                 continue;

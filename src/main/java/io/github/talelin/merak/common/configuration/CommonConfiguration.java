@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import io.github.talelin.autoconfigure.bean.RouteMetaCollector;
-import io.github.talelin.merak.extensions.file.FileProperties;
+import io.github.talelin.merak.extension.file.FileProperties;
 import io.github.talelin.merak.common.interceptor.RequestLogInterceptor;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

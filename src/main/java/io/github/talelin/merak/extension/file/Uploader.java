@@ -1,4 +1,4 @@
-package io.github.talelin.merak.extensions.file;
+package io.github.talelin.merak.extension.file;
 
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;

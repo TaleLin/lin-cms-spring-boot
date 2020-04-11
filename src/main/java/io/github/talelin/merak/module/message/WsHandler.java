@@ -1,4 +1,4 @@
-package io.github.talelin.merak.modules.message;
+package io.github.talelin.merak.module.message;
 
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;

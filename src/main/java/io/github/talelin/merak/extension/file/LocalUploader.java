@@ -1,4 +1,4 @@
-package io.github.talelin.merak.extensions.file;
+package io.github.talelin.merak.extension.file;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package io.github.talelin.merak.extensions.file;
+package io.github.talelin.merak.extension.file;
 
 /**
  * 文件前预处理器

@@ -1,4 +1,4 @@
-package io.github.talelin.merak.extensions.file;
+package io.github.talelin.merak.extension.file;
 
 import io.github.talelin.autoconfigure.exception.*;
 import org.springframework.util.MultiValueMap;

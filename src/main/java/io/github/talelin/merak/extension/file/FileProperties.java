@@ -1,4 +1,4 @@
-package io.github.talelin.merak.extensions.file;
+package io.github.talelin.merak.extension.file;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties(prefix = "lin.cms.file")
-@PropertySource(value = "classpath:io/github/talelin/merak/extensions/file/config.properties", encoding = "UTF-8")
+@PropertySource(value = "classpath:io/github/talelin/merak/extension/file/config.properties", encoding = "UTF-8")
 public class FileProperties {
 
     private static final String[] DEFAULT_EMPTY_ARRAY = new String[0];
