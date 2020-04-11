@@ -9,7 +9,7 @@ import io.github.talelin.merak.service.UserIdentityService;
 import io.github.talelin.merak.vo.UnifyResponseVO;
 import io.github.talelin.merak.model.UserDO;
 import io.github.talelin.merak.vo.UserInfoVO;
-import io.github.talelin.merak.vo.UserPermissionsVO;
+import io.github.talelin.merak.vo.UserPermissionVO;
 import io.github.talelin.merak.service.UserService;
 import io.github.talelin.core.token.DoubleJWT;
 import io.github.talelin.core.token.Tokens;
@@ -111,11 +111,11 @@ public class UserController {
      */
     @GetMapping("/permissions")
     @LoginMeta(permission = "查询自己拥有的权限", module = "用户", mount = true)
-    public UserPermissionsVO getPermissions() {
+    public UserPermissionVO getPermissions() {
         UserDO user = LocalUser.getLocalUser();
         boolean admin = groupService.checkIsRootByUserId(user.getId());
         List<Map<String, List<Map<String, String>>>> permissions = userService.getStructualUserPermissions(user.getId());
-        UserPermissionsVO userPermissions = new UserPermissionsVO(user, permissions);
+        UserPermissionVO userPermissions = new UserPermissionVO(user, permissions);
         userPermissions.setAdmin(admin);
         return userPermissions;
     }

@@ -10,7 +10,7 @@ import java.util.List;
  * 用户 + 权限 view object
  */
 @Data
-public class UserPermissionsVO {
+public class UserPermissionVO {
 
     private Long id;
 
@@ -24,15 +24,15 @@ public class UserPermissionsVO {
 
     private List permissions;
 
-    public UserPermissionsVO() {
+    public UserPermissionVO() {
     }
 
-    public UserPermissionsVO(UserDO userDO, List permissions) {
+    public UserPermissionVO(UserDO userDO, List permissions) {
         BeanUtils.copyProperties(userDO, this);
         this.permissions = permissions;
     }
 
-    public UserPermissionsVO(UserDO userDO) {
+    public UserPermissionVO(UserDO userDO) {
         BeanUtils.copyProperties(userDO, this);
     }
 }

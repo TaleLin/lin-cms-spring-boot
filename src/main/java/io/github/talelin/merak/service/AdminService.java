@@ -3,10 +3,9 @@ package io.github.talelin.merak.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.merak.model.PermissionDO;
 import io.github.talelin.merak.model.UserDO;
-import io.github.talelin.merak.bo.GroupPermissionsBO;
+import io.github.talelin.merak.bo.GroupPermissionBO;
 import io.github.talelin.merak.dto.admin.*;
 import io.github.talelin.merak.model.GroupDO;
-import io.github.talelin.merak.dto.admin.*;
 
 import java.util.List;
 import java.util.Map;
@@ -68,7 +67,7 @@ public interface AdminService {
      * @param id 分组id
      * @return 分组数据
      */
-    GroupPermissionsBO getGroup(Long id);
+    GroupPermissionBO getGroup(Long id);
 
     /**
      * 新建分组

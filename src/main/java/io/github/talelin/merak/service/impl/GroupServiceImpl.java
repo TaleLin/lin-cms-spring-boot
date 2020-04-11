@@ -2,7 +2,7 @@ package io.github.talelin.merak.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.github.talelin.merak.bo.GroupPermissionsBO;
+import io.github.talelin.merak.bo.GroupPermissionBO;
 import io.github.talelin.merak.common.mybatis.Page;
 import io.github.talelin.merak.mapper.UserGroupMapper;
 import io.github.talelin.merak.model.GroupDO;
@@ -61,10 +61,10 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
     }
 
     @Override
-    public GroupPermissionsBO getGroupAndPermissions(Long id) {
+    public GroupPermissionBO getGroupAndPermissions(Long id) {
         GroupDO group = this.baseMapper.selectById(id);
         List<PermissionDO> permissions = permissionService.getPermissionByGroupId(id);
-        return new GroupPermissionsBO(group, permissions);
+        return new GroupPermissionBO(group, permissions);
     }
 
     @Override

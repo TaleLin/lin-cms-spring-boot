@@ -2,7 +2,7 @@ package io.github.talelin.merak.controller.cms;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.core.annotation.AdminMeta;
-import io.github.talelin.merak.bo.GroupPermissionsBO;
+import io.github.talelin.merak.bo.GroupPermissionBO;
 import io.github.talelin.merak.common.util.ResponseUtil;
 import io.github.talelin.merak.model.PermissionDO;
 import io.github.talelin.merak.model.UserDO;
@@ -104,8 +104,8 @@ public class AdminController {
 
     @GetMapping("/group/{id}")
     @AdminMeta(permission = "查询一个权限组及其权限", module = "管理员")
-    public GroupPermissionsBO getGroup(@PathVariable @Positive(message = "{id}") Long id) {
-        GroupPermissionsBO groupPermissions = adminService.getGroup(id);
+    public GroupPermissionBO getGroup(@PathVariable @Positive(message = "{id}") Long id) {
+        GroupPermissionBO groupPermissions = adminService.getGroup(id);
         return groupPermissions;
     }
 

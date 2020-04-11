@@ -4,15 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.merak.model.*;
 import io.github.talelin.merak.service.*;
-import io.github.talelin.merak.bo.GroupPermissionsBO;
+import io.github.talelin.merak.bo.GroupPermissionBO;
 import io.github.talelin.merak.common.mybatis.Page;
 import io.github.talelin.merak.dto.admin.*;
 import io.github.talelin.merak.mapper.GroupPermissionMapper;
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
-import io.github.talelin.merak.dto.admin.*;
-import io.github.talelin.merak.model.*;
-import io.github.talelin.merak.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -104,7 +101,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public GroupPermissionsBO getGroup(Long id) {
+    public GroupPermissionBO getGroup(Long id) {
         throwGroupNotExistById(id);
         return groupService.getGroupAndPermissions(id);
     }

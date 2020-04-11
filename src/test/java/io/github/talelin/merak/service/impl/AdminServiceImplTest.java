@@ -4,14 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.merak.mapper.*;
 import io.github.talelin.merak.model.*;
-import io.github.talelin.merak.bo.GroupPermissionsBO;
+import io.github.talelin.merak.bo.GroupPermissionBO;
 import io.github.talelin.merak.dto.admin.*;
 import io.github.talelin.merak.dto.user.RegisterDTO;
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
-import io.github.talelin.merak.dto.admin.*;
-import io.github.talelin.merak.mapper.*;
-import io.github.talelin.merak.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -261,7 +258,7 @@ public class AdminServiceImplTest {
         relations.add(relation2);
         groupPermissionMapper.insertBatch(relations);
 
-        GroupPermissionsBO group1 = adminService.getGroup(group.getId());
+        GroupPermissionBO group1 = adminService.getGroup(group.getId());
         assertEquals("测试分组1", group1.getName());
         assertNotNull(group1.getId());
         boolean anyMatch = group1.getPermissions().stream().anyMatch(it -> {
@@ -274,7 +271,7 @@ public class AdminServiceImplTest {
     @Test(expected = NotFoundException.class)
     public void getGroup1() {
         Random random = new Random();
-        GroupPermissionsBO group1 = adminService.getGroup((long) random.nextInt(100));
+        GroupPermissionBO group1 = adminService.getGroup((long) random.nextInt(100));
         assertNull(group1);
     }
 
@@ -298,7 +295,7 @@ public class AdminServiceImplTest {
         assertEquals("测试分组1", group.getName());
         assertEquals("just for test", group.getInfo());
 
-        GroupPermissionsBO groupPermissions = adminService.getGroup(group.getId());
+        GroupPermissionBO groupPermissions = adminService.getGroup(group.getId());
         boolean anyMatch = groupPermissions.getPermissions().stream().anyMatch(it -> {
             PermissionDO p = (PermissionDO) it;
             return p.getName().equals("权限1");
@@ -320,7 +317,7 @@ public class AdminServiceImplTest {
         assertEquals("测试分组1", group.getName());
         assertEquals("just for test", group.getInfo());
 
-        GroupPermissionsBO groupPermissions = adminService.getGroup(group.getId());
+        GroupPermissionBO groupPermissions = adminService.getGroup(group.getId());
         assertEquals("测试分组1", groupPermissions.getName());
         assertEquals(groupPermissions.getPermissions().size(), 0);
     }
@@ -407,7 +404,7 @@ public class AdminServiceImplTest {
         dto.setPermissionId(permission3.getId());
         boolean ok = adminService.dispatchPermission(dto);
         assertTrue(ok);
-        GroupPermissionsBO groupPermissions = adminService.getGroup(group.getId());
+        GroupPermissionBO groupPermissions = adminService.getGroup(group.getId());
         boolean anyMatch = groupPermissions.getPermissions().stream().anyMatch(it -> {
             PermissionDO p = (PermissionDO) it;
             return p.getName().equals("权限3") && p.getModule().equals("炉石传说");
@@ -440,7 +437,7 @@ public class AdminServiceImplTest {
         dto.setPermissionIds(Arrays.asList(permission3.getId(), permission4.getId()));
         boolean ok = adminService.dispatchPermissions(dto);
         assertTrue(ok);
-        GroupPermissionsBO groupPermissions = adminService.getGroup(group.getId());
+        GroupPermissionBO groupPermissions = adminService.getGroup(group.getId());
         boolean anyMatch = groupPermissions.getPermissions().stream().anyMatch(it -> {
             PermissionDO p = (PermissionDO) it;
             return p.getName().equals("权限3") && p.getModule().equals("炉石传说");
@@ -479,7 +476,7 @@ public class AdminServiceImplTest {
         dto.setPermissionIds(Arrays.asList(permission3.getId(), permission2.getId()));
         boolean ok = adminService.removePermissions(dto);
         assertTrue(ok);
-        GroupPermissionsBO groupPermissions = adminService.getGroup(group.getId());
+        GroupPermissionBO groupPermissions = adminService.getGroup(group.getId());
         boolean anyMatch = groupPermissions.getPermissions().stream().anyMatch(it -> {
             PermissionDO p = (PermissionDO) it;
             return p.getName().equals("权限3") && p.getModule().equals("炉石传说");
@@ -518,7 +515,7 @@ public class AdminServiceImplTest {
         dto.setPermissionIds(Arrays.asList(permission3.getId()));
         boolean ok = adminService.removePermissions(dto);
         assertTrue(ok);
-        GroupPermissionsBO groupPermissions = adminService.getGroup(group.getId());
+        GroupPermissionBO groupPermissions = adminService.getGroup(group.getId());
         boolean anyMatch = groupPermissions.getPermissions().stream().anyMatch(it -> {
             PermissionDO p = (PermissionDO) it;
             return p.getName().equals("权限3") && p.getModule().equals("炉石传说");

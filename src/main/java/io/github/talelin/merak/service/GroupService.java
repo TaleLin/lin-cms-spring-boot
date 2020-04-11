@@ -1,7 +1,7 @@
 package io.github.talelin.merak.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.github.talelin.merak.bo.GroupPermissionsBO;
+import io.github.talelin.merak.bo.GroupPermissionBO;
 import io.github.talelin.merak.model.GroupDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -52,7 +52,7 @@ public interface GroupService extends IService<GroupDO> {
      * @param id 分组id
      * @return 分组及权限
      */
-    GroupPermissionsBO getGroupAndPermissions(Long id);
+    GroupPermissionBO getGroupAndPermissions(Long id);
 
     /**
      * 通过名称检查分组是否存在
