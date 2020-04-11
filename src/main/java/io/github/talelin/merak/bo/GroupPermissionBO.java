@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupPermissionsBO {
+public class GroupPermissionBO {
     private Long id;
 
     private String name;
@@ -19,7 +19,7 @@ public class GroupPermissionsBO {
 
     private List permissions;
 
-    public GroupPermissionsBO(GroupDO group, List<PermissionDO> permissions) {
+    public GroupPermissionBO(GroupDO group, List<PermissionDO> permissions) {
         BeanUtil.copyProperties(group, this);
         this.permissions = permissions;
     }

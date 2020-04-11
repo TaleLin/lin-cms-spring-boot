@@ -1,9 +1,7 @@
 package io.github.talelin.merak.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.github.talelin.merak.bo.GroupPermissionsBO;
-import io.github.talelin.merak.mapper.*;
-import io.github.talelin.merak.model.*;
+import io.github.talelin.merak.bo.GroupPermissionBO;
 import io.github.talelin.merak.mapper.*;
 import io.github.talelin.merak.model.*;
 import lombok.extern.slf4j.Slf4j;
@@ -136,7 +134,7 @@ public class GroupServiceImplTest {
     @Test
     public void getGroupAndPermissions() {
         Long id = mockData2();
-        GroupPermissionsBO groupAndPermissions = groupService.getGroupAndPermissions(id);
+        GroupPermissionBO groupAndPermissions = groupService.getGroupAndPermissions(id);
         assertTrue(groupAndPermissions.getName().equals("测试分组1"));
         boolean anyMatch = groupAndPermissions.getPermissions().stream().anyMatch(permission -> {
             PermissionDO permission1 = (PermissionDO) permission;
