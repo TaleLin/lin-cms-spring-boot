@@ -17,6 +17,7 @@ import io.github.talelin.autoconfigure.interfaces.AuthorizeVerifyResolver;
 import io.github.talelin.core.token.DoubleJWT;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,6 +42,12 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
 
     @Autowired
     private GroupService groupService;
+
+    @Value("${lin.cms.file.domain}")
+    private String domain;
+
+    @Value("${lin.cms.file.serve-path:assets/**}")
+    private String servePath;
 
 
     public boolean handleLogin(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
@@ -114,6 +121,13 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
         if (user == null) {
             throw new NotFoundException("user is not found", 10021);
         }
+        String avatarUrl;
+        if (user.getAvatar().startsWith("http")) {
+            avatarUrl = user.getAvatar();
+        } else {
+            avatarUrl = domain + servePath.split("/")[0] + "/" + user.getAvatar();
+        }
+        user.setAvatar(avatarUrl);
         LocalUser.setLocalUser(user);
         return true;
     }
