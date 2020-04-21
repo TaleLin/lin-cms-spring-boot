@@ -51,10 +51,11 @@ public class RestExceptionHandler {
         UnifyResponseVO unifyResponse = new UnifyResponseVO();
         unifyResponse.setRequest(getSimpleRequest(request));
         int code = exception.getCode();
+        boolean messageOnly = exception.isMessageOnly();
         unifyResponse.setCode(code);
         response.setStatus(exception.getHttpCode());
         String errorMessage = CodeMessageConfiguration.getMessage(code);
-        if (StrUtil.isBlank(errorMessage)) {
+        if (StrUtil.isBlank(errorMessage) || messageOnly) {
             unifyResponse.setMessage(exception.getMessage());
         } else {
             unifyResponse.setMessage(errorMessage);

@@ -48,7 +48,7 @@ public class BookController {
     @PostMapping("")
     public UnifyResponseVO createBook(@RequestBody @Validated CreateOrUpdateBookDTO validator) {
         bookService.createBook(validator);
-        return ResponseUtil.generateUnifyResponse(10);
+        return ResponseUtil.generateUnifyResponse(12);
     }
 
 
@@ -59,7 +59,7 @@ public class BookController {
             throw new NotFoundException("book not found", 10022);
         }
         bookService.updateBook(book, validator);
-        return ResponseUtil.generateUnifyResponse(11);
+        return ResponseUtil.generateUnifyResponse(13);
     }
 
 
@@ -71,7 +71,7 @@ public class BookController {
             throw new NotFoundException("book not found", 10022);
         }
         bookService.deleteById(book.getId());
-        return ResponseUtil.generateUnifyResponse(12);
+        return ResponseUtil.generateUnifyResponse(14);
     }
 
 

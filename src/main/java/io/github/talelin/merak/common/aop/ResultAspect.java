@@ -30,7 +30,7 @@ public class ResultAspect {
             UnifyResponseVO result = (UnifyResponseVO) ret;
             int code = result.getCode();
             String message = CodeMessageConfiguration.getMessage(code);
-            if (StrUtil.isNotBlank(message)) {
+            if (StrUtil.isNotBlank(message) && StrUtil.isBlank((CharSequence) result.getMessage())) {
                 result.setMessage(message);
             }
         }

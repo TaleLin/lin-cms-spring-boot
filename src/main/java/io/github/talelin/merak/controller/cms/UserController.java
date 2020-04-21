@@ -55,7 +55,7 @@ public class UserController {
     @AdminRequired
     public UnifyResponseVO<String> register(@RequestBody @Validated RegisterDTO validator) {
         userService.createUser(validator);
-        return ResponseUtil.generateUnifyResponse(9);
+        return ResponseUtil.generateUnifyResponse(11);
     }
 
     /**
@@ -83,7 +83,7 @@ public class UserController {
     @LoginRequired
     public UnifyResponseVO update(@RequestBody @Validated UpdateInfoDTO validator) {
         userService.updateUserInfo(validator);
-        return ResponseUtil.generateUnifyResponse(4);
+        return ResponseUtil.generateUnifyResponse(6);
     }
 
     /**
@@ -93,7 +93,7 @@ public class UserController {
     @LoginRequired
     public UnifyResponseVO updatePassword(@RequestBody @Validated ChangePasswordDTO validator) {
         userService.changeUserPassword(validator);
-        return ResponseUtil.generateUnifyResponse(2);
+        return ResponseUtil.generateUnifyResponse(4);
     }
 
     /**
