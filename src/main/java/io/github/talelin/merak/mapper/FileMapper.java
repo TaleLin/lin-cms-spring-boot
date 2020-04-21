@@ -6,8 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
  */
 @Repository
 public interface FileMapper extends BaseMapper<FileDO> {

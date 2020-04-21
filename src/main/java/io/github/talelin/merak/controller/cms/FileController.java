@@ -11,6 +11,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * @author pedro@TaleLin
+ */
 @RestController
 @RequestMapping("/cms/file")
 public class FileController {

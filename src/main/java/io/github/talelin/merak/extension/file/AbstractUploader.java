@@ -11,6 +11,8 @@ import java.util.UUID;
 /**
  * 文件上传类的基类
  * 模版模式
+ *
+ * @author pedro@TaleLin
  */
 public abstract class AbstractUploader implements Uploader {
 

@@ -5,6 +5,9 @@ import io.github.talelin.merak.dto.book.CreateOrUpdateBookDTO;
 
 import java.util.List;
 
+/**
+ * @author pedro@TaleLin
+ */
 public interface BookService {
 
     boolean createBook(CreateOrUpdateBookDTO validator);

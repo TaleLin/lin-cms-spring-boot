@@ -6,6 +6,9 @@ import org.springframework.web.socket.WebSocketSession;
 import java.io.IOException;
 import java.util.Set;
 
+/**
+ * @author pedro@TaleLin
+ */
 public interface WsHandler {
 
     /**

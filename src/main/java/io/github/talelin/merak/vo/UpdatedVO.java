@@ -2,6 +2,9 @@ package io.github.talelin.merak.vo;
 
 import io.github.talelin.autoconfigure.bean.Code;
 
+/**
+ * @author pedro@TaleLin
+ */
 public class UpdatedVO<T> extends UnifyResponseVO {
 
     public UpdatedVO() {

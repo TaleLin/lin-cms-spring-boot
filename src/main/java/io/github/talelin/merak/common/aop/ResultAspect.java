@@ -9,10 +9,12 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-
 /**
  * 处理返回结果为 UnifyResponseVO 的视图函数
  * 默认的返回均是英文，在此处通过code替换成中文
+ *
+ * @author pedro@TaleLin
+ * @author colorful@TaleLin
  */
 @Aspect
 @Component

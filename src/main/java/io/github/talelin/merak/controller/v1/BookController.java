@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+/**
+ * @author pedro@TaleLin
+ */
 @RestController
 @RequestMapping("/v1/book")
 @Validated

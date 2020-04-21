@@ -12,7 +12,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
+/**
+ * @author pedro@TaleLin
+ */
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(FileProperties.class)
 public class CommonConfiguration {

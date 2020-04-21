@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Data
 public class UpdateUserInfoDTO {
 

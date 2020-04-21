@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * 文件上传服务接口
+ *
+ * @author pedro@TaleLin
  */
 public interface Uploader {
 

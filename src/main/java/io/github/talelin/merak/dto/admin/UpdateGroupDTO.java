@@ -3,6 +3,9 @@ package io.github.talelin.merak.dto.admin;
 import io.github.talelin.autoconfigure.validator.Length;
 import lombok.Data;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Data
 public class UpdateGroupDTO {
 

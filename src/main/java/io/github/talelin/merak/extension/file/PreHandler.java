@@ -2,6 +2,8 @@ package io.github.talelin.merak.extension.file;
 
 /**
  * 文件前预处理器
+ *
+ * @author pedro@TaleLin
  */
 public interface PreHandler {
 

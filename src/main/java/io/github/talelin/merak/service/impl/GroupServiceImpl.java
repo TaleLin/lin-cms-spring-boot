@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
+ * @author colorful@TaleLin
  */
 @Service
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implements GroupService {

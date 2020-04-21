@@ -6,6 +6,9 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+/**
+ * @author pedro@TaleLin
+ */
 @EqualField(srcField = "newPassword", dstField = "confirmPassword", message = "{password.equal-field}")
 @Data
 public class ResetPasswordDTO {

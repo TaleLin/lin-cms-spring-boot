@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author pedro@TaleLin
+ */
 @SpringBootApplication(scanBasePackages = {"io.github.talelin.merak"})
 @MapperScan(basePackages = {"io.github.talelin.merak.mapper"})
 @RestController

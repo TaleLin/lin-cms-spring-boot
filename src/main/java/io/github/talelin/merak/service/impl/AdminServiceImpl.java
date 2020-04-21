@@ -18,6 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * @author pedro@TaleLin
+ * @author colorful@TaleLin
+ */
 @Service
 public class AdminServiceImpl implements AdminService {
 

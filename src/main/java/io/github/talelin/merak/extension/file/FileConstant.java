@@ -3,8 +3,7 @@ package io.github.talelin.merak.extension.file;
 /**
  * 文件相关常量值
  *
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
  */
 public class FileConstant {
 

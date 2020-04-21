@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author pedro@TaleLin
+ */
 @SuppressWarnings("ConfigurationProperties")
 @Component
 @ConfigurationProperties

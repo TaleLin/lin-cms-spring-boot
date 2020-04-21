@@ -16,8 +16,7 @@ import java.util.Map;
 /**
  * 用户业务
  *
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
  */
 public interface UserService extends IService<UserDO> {
 

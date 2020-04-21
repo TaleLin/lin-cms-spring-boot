@@ -8,6 +8,9 @@ import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
+/**
+ * @author pedro@TaleLin
+ */
 public class FileUtil {
 
     public static FileSystem getDefaultFileSystem() {

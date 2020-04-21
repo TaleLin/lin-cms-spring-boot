@@ -9,8 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 
 /**
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
  */
 @Repository
 public interface LogMapper extends BaseMapper<LogDO> {

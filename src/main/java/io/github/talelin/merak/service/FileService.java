@@ -9,8 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 /**
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
  */
 public interface FileService extends IService<FileDO> {
 
