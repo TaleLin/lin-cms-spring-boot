@@ -8,11 +8,9 @@ import io.github.talelin.merak.model.PermissionDO;
 import io.github.talelin.merak.model.UserDO;
 import io.github.talelin.merak.service.AdminService;
 import io.github.talelin.merak.service.GroupService;
-import io.github.talelin.merak.vo.UnifyResponseVO;
-import io.github.talelin.merak.vo.PageResponseVO;
+import io.github.talelin.merak.vo.*;
 import io.github.talelin.merak.model.GroupDO;
 import io.github.talelin.merak.dto.admin.*;
-import io.github.talelin.merak.vo.UserInfoVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -65,23 +63,23 @@ public class AdminController {
 
     @PutMapping("/user/{id}/password")
     @AdminMeta(permission = "修改用户密码", module = "管理员")
-    public UnifyResponseVO changeUserPassword(@PathVariable @Positive(message = "{id}") Long id, @RequestBody @Validated ResetPasswordDTO validator) {
+    public UpdatedVO changeUserPassword(@PathVariable @Positive(message = "{id}") Long id, @RequestBody @Validated ResetPasswordDTO validator) {
         adminService.changeUserPassword(id, validator);
-        return ResponseUtil.generateUnifyResponse(4);
+        return new UpdatedVO(4);
     }
 
     @DeleteMapping("/user/{id}")
     @AdminMeta(permission = "删除用户", module = "管理员")
-    public UnifyResponseVO deleteUser(@PathVariable @Positive(message = "{id}") Long id) {
+    public DeletedVO deleteUser(@PathVariable @Positive(message = "{id}") Long id) {
         adminService.deleteUser(id);
-        return ResponseUtil.generateUnifyResponse(5);
+        return new DeletedVO(5);
     }
 
     @PutMapping("/user/{id}")
     @AdminMeta(permission = "管理员更新用户信息", module = "管理员")
-    public UnifyResponseVO updateUser(@PathVariable @Positive(message = "{id}") Long id, @RequestBody @Validated UpdateUserInfoDTO validator) {
+    public UpdatedVO updateUser(@PathVariable @Positive(message = "{id}") Long id, @RequestBody @Validated UpdateUserInfoDTO validator) {
         adminService.updateUserInfo(id, validator);
-        return ResponseUtil.generateUnifyResponse(6);
+        return new UpdatedVO(6);
     }
 
     @GetMapping("/group")
@@ -111,45 +109,45 @@ public class AdminController {
 
     @PostMapping("/group")
     @AdminMeta(permission = "新建权限组", module = "管理员")
-    public UnifyResponseVO createGroup(@RequestBody @Validated NewGroupDTO validator) {
+    public CreatedVO createGroup(@RequestBody @Validated NewGroupDTO validator) {
         adminService.createGroup(validator);
-        return ResponseUtil.generateUnifyResponse(15);
+        return new CreatedVO(15);
     }
 
     @PutMapping("/group/{id}")
     @AdminMeta(permission = "更新一个权限组", module = "管理员")
-    public UnifyResponseVO updateGroup(@PathVariable @Positive(message = "{id}") Long id,
+    public UpdatedVO updateGroup(@PathVariable @Positive(message = "{id}") Long id,
                                        @RequestBody @Validated UpdateGroupDTO validator) {
         adminService.updateGroup(id, validator);
-        return ResponseUtil.generateUnifyResponse(7);
+        return new UpdatedVO(7);
     }
 
     @DeleteMapping("/group/{id}")
     @AdminMeta(permission = "删除一个权限组", module = "管理员")
-    public UnifyResponseVO deleteGroup(@PathVariable @Positive(message = "{id}") Long id) {
+    public DeletedVO deleteGroup(@PathVariable @Positive(message = "{id}") Long id) {
         adminService.deleteGroup(id);
-        return ResponseUtil.generateUnifyResponse(8);
+        return new DeletedVO(8);
     }
 
     @PostMapping("/permission/dispatch")
     @AdminMeta(permission = "分配单个权限", module = "管理员")
-    public UnifyResponseVO dispatchPermission(@RequestBody @Validated DispatchPermissionDTO validator) {
+    public CreatedVO dispatchPermission(@RequestBody @Validated DispatchPermissionDTO validator) {
         adminService.dispatchPermission(validator);
-        return ResponseUtil.generateUnifyResponse(9);
+        return new CreatedVO(9);
     }
 
     @PostMapping("/permission/dispatch/batch")
     @AdminMeta(permission = "分配多个权限", module = "管理员")
-    public UnifyResponseVO dispatchPermissions(@RequestBody @Validated DispatchPermissionsDTO validator) {
+    public CreatedVO dispatchPermissions(@RequestBody @Validated DispatchPermissionsDTO validator) {
         adminService.dispatchPermissions(validator);
-        return ResponseUtil.generateUnifyResponse(9);
+        return new CreatedVO(9);
     }
 
     @PostMapping("/permission/remove")
     @AdminMeta(permission = "删除多个权限", module = "管理员")
-    public UnifyResponseVO removePermissions(@RequestBody @Validated RemovePermissionsDTO validator) {
+    public CreatedVO removePermissions(@RequestBody @Validated RemovePermissionsDTO validator) {
         adminService.removePermissions(validator);
-        return ResponseUtil.generateUnifyResponse(10);
+        return new CreatedVO(10);
     }
 
 }
