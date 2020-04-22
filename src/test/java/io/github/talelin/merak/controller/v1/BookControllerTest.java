@@ -117,7 +117,7 @@ public class BookControllerTest {
         mvc.perform(post("/v1/book/")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("新建图书成功"));
     }

@@ -93,7 +93,7 @@ public class UserControllerTest {
         mvc.perform(post("/cms/user/register")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("注册成功"));
     }
