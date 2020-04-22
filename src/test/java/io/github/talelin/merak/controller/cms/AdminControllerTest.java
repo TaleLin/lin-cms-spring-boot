@@ -447,7 +447,7 @@ public class AdminControllerTest {
         mvc.perform(post("/cms/admin/permission/remove")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("删除权限成功"));
     }
 }
