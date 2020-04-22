@@ -145,9 +145,9 @@ public class AdminController {
 
     @PostMapping("/permission/remove")
     @AdminMeta(permission = "删除多个权限", module = "管理员")
-    public CreatedVO removePermissions(@RequestBody @Validated RemovePermissionsDTO validator) {
+    public DeletedVO removePermissions(@RequestBody @Validated RemovePermissionsDTO validator) {
         adminService.removePermissions(validator);
-        return new CreatedVO(10);
+        return new DeletedVO(10);
     }
 
 }
