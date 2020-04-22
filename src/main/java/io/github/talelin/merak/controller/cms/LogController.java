@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.Min;
 import java.util.Date;
 
+/**
+ * @author pedro@TaleLin
+ */
 @RestController
 @RequestMapping("/cms/log")
 @Validated

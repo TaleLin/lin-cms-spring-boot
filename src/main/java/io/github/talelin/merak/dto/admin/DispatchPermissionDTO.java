@@ -5,6 +5,9 @@ import lombok.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Data
 public class DispatchPermissionDTO {
 

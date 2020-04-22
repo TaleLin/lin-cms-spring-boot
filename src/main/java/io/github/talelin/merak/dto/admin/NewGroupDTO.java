@@ -7,6 +7,9 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Data
 public class NewGroupDTO {
     @NotBlank(message = "{group.name.not-blank}")

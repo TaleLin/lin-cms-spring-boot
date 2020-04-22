@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Component
 public class PermissionHandleListener implements ApplicationListener<ContextRefreshedEvent> {
 

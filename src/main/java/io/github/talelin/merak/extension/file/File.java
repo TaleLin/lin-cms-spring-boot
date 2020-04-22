@@ -2,6 +2,9 @@ package io.github.talelin.merak.extension.file;
 
 import lombok.*;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Setter
 @Getter
 @NoArgsConstructor

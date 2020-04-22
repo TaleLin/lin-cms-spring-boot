@@ -5,6 +5,9 @@ import lombok.*;
 
 import javax.validation.constraints.Email;
 
+/**
+ * @author pedro@TaleLin
+ */
 @NoArgsConstructor
 @Data
 public class UpdateInfoDTO {

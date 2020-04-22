@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * 用户信息 view object
+ *
+ * @author pedro@TaleLin
  */
 @Data
 @Builder

@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Data
 public class DispatchPermissionsDTO {
 

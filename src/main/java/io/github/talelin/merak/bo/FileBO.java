@@ -2,6 +2,9 @@ package io.github.talelin.merak.bo;
 
 import lombok.Data;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Data
 public class FileBO {
 

@@ -9,6 +9,9 @@ import lombok.Setter;
 import javax.validation.constraints.*;
 import java.util.List;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Setter
 @Getter
 @NoArgsConstructor

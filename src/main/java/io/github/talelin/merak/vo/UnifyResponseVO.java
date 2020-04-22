@@ -11,6 +11,9 @@ import org.springframework.http.HttpStatus;
 
 /**
  * 统一API响应结果封装
+ *
+ * @author pedro@TaleLin
+ * @author colorful@TaleLin
  */
 @Data
 @Builder

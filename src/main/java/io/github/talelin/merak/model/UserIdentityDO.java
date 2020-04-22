@@ -11,8 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @author pedro
- * @since 2019-12-02
+ * @author pedro@TaleLin
  */
 @Setter
 @Getter

@@ -9,6 +9,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author pedro@TaleLin
+ */
 @TableName("book")
 @Data
 public class BookDO {

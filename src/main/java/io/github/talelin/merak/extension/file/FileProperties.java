@@ -4,6 +4,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Component
 @ConfigurationProperties(prefix = "lin.cms.file")
 @PropertySource(value = "classpath:io/github/talelin/merak/extension/file/config.properties", encoding = "UTF-8")

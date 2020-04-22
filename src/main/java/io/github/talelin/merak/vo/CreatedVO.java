@@ -4,6 +4,9 @@ import io.github.talelin.autoconfigure.bean.Code;
 import io.github.talelin.merak.common.util.ResponseUtil;
 import org.springframework.http.HttpStatus;
 
+/**
+ * @author colorful@TaleLin
+ */
 public class CreatedVO<T> extends UnifyResponseVO {
 
     public CreatedVO() {

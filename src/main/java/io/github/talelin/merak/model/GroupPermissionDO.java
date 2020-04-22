@@ -8,8 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
  */
 @TableName("lin_group_permission")
 @Data

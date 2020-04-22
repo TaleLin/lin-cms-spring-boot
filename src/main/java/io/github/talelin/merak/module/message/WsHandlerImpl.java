@@ -14,6 +14,9 @@ import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Slf4j
 public class WsHandlerImpl implements WsHandler {
 

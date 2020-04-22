@@ -4,8 +4,7 @@ import io.github.talelin.merak.model.UserIdentityDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * @author pedro
- * @since 2019-12-02
+ * @author pedro@TaleLin
  */
 public interface UserIdentityService extends IService<UserIdentityDO> {
 

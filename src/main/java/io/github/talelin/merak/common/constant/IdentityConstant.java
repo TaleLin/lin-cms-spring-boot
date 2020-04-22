@@ -2,6 +2,8 @@ package io.github.talelin.merak.common.constant;
 
 /**
  * 身份认证常量
+ *
+ * @author pedro@TaleLin
  */
 public class IdentityConstant {
 

@@ -2,6 +2,9 @@ package io.github.talelin.merak.vo;
 
 import io.github.talelin.autoconfigure.bean.Code;
 
+/**
+ * @author colorful@TaleLin
+ */
 public class DeletedVO<T> extends UnifyResponseVO {
 
     public DeletedVO() {

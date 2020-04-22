@@ -3,6 +3,9 @@ package io.github.talelin.merak.module.message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.*;
 
+/**
+ * @author pedro@TaleLin
+ */
 public class MessageWebSocketHandler implements WebSocketHandler {
 
     @Autowired

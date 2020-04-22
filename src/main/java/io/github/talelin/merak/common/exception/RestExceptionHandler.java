@@ -32,7 +32,10 @@ import java.util.Map;
 
 import static io.github.talelin.autoconfigure.util.RequestUtil.getSimpleRequest;
 
-
+/**
+ * @author pedro@TaleLin
+ * @author colorful@TaleLin
+ */
 @SuppressWarnings("Duplicates")
 @Order
 @RestControllerAdvice
