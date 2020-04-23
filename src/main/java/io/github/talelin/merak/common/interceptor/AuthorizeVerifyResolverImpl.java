@@ -125,7 +125,9 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
             throw new NotFoundException("user is not found", 10021);
         }
         String avatarUrl;
-        if (user.getAvatar().startsWith("http")) {
+        if (user.getAvatar() == null) {
+            avatarUrl = null;
+        } else if (user.getAvatar().startsWith("http")) {
             avatarUrl = user.getAvatar();
         } else {
             avatarUrl = domain + servePath.split("/")[0] + "/" + user.getAvatar();
