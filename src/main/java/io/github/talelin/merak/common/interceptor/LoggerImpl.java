@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Slf4j
 @Component
 public class LoggerImpl implements LoggerResolver {

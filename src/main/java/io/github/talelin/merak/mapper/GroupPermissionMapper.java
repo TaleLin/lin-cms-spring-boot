@@ -8,8 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
  */
 @Repository
 public interface GroupPermissionMapper extends BaseMapper<GroupPermissionDO> {

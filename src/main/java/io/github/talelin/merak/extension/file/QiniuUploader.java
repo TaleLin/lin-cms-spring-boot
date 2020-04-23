@@ -13,6 +13,11 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 
+/**
+ * 文件上传服务实现，上传到七牛
+ *
+ * @author pedro@TaleLin
+ */
 @Slf4j
 public class QiniuUploader extends AbstractUploader {
 

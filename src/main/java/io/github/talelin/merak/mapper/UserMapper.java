@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * @author pedro
- * @since 2019-12-02
+ * @author pedro@TaleLin
+ * @author colorful@TaleLin
  */
 @Repository
 public interface UserMapper extends BaseMapper<UserDO> {

@@ -11,8 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
  */
 public interface AdminService {
 

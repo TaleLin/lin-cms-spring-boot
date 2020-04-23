@@ -2,9 +2,11 @@ package io.github.talelin.merak.dto.admin;
 
 import io.github.talelin.autoconfigure.validator.Length;
 import lombok.Data;
-
 import javax.validation.constraints.NotBlank;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Data
 public class UpdateGroupDTO {
 

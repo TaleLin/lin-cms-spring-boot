@@ -7,6 +7,9 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

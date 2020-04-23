@@ -22,10 +22,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * Created by lin on 2019/06/12.
- * License MIT
+ * @author pedro@TaleLin
  */
-
 @RestController
 @RequestMapping("/cms/admin")
 @Validated

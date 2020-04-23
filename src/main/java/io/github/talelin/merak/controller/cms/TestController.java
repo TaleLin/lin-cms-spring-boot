@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author pedro@TaleLin
+ */
 @RestController
 @RequestMapping("/cms/test")
 public class TestController {

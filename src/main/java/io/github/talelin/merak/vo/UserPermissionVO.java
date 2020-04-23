@@ -8,6 +8,8 @@ import java.util.List;
 
 /**
  * 用户 + 权限 view object
+ *
+ * @author pedro@TaleLin
  */
 @Data
 public class UserPermissionVO {

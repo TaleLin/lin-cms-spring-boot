@@ -35,8 +35,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
+ * @author colorful@TaleLin
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {

@@ -7,8 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.Date;
 
 /**
- * @author pedro
- * @since 2019-11-30
+ * @author pedro@TaleLin
  */
 public interface LogService extends IService<LogDO> {
 

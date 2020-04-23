@@ -4,6 +4,8 @@ import io.github.talelin.merak.model.UserDO;
 
 /**
  * 线程安全的当前登录用户，如果用户为登录，则得到 null
+ *
+ * @author pedro@TaleLin
  */
 public class LocalUser {
 

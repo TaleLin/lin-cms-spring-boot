@@ -16,9 +16,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
-
 /**
  * Spring MVC 配置
+ *
+ * @author pedro@TaleLin
  */
 @Configuration(proxyBeanMethods = false)
 @Slf4j

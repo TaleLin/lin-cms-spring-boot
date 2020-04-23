@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author pedro
- * @since 2019-12-02
+ * @author pedro@TaleLin
  */
 @Repository
 public interface UserIdentityMapper extends BaseMapper<UserIdentityDO> {

@@ -30,10 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by lin on 2019/05/23.
- * License MIT
+ * @author pedro@TaleLin
  */
-
 @RestController
 @RequestMapping("/cms/user")
 @Validated

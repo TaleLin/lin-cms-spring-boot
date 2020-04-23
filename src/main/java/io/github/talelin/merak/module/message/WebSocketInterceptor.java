@@ -20,6 +20,9 @@ import java.util.Map;
 
 import static io.github.talelin.merak.module.message.MessageConstant.USER_KEY;
 
+/**
+ * @author pedro@TaleLin
+ */
 @SuppressWarnings("Duplicates")
 public class WebSocketInterceptor implements HandshakeInterceptor {
     @Autowired

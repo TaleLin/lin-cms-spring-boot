@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author pedro@TaleLin
+ */
 @Service
 public class BookServiceImpl implements BookService {
 
