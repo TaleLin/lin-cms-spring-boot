@@ -1,24 +1,27 @@
 package io.github.talelin.merak.controller.cms;
 
-import io.github.talelin.core.annotation.*;
-import io.github.talelin.merak.common.LocalUser;
-import io.github.talelin.merak.common.util.ResponseUtil;
-import io.github.talelin.merak.model.GroupDO;
-import io.github.talelin.merak.service.GroupService;
-import io.github.talelin.merak.service.UserIdentityService;
-import io.github.talelin.merak.vo.UnifyResponseVO;
-import io.github.talelin.merak.model.UserDO;
-import io.github.talelin.merak.vo.UserInfoVO;
-import io.github.talelin.merak.vo.UserPermissionVO;
-import io.github.talelin.merak.service.UserService;
-import io.github.talelin.core.token.DoubleJWT;
-import io.github.talelin.core.token.Tokens;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.ParameterException;
+import io.github.talelin.core.annotation.AdminRequired;
+import io.github.talelin.core.annotation.LoginMeta;
+import io.github.talelin.core.annotation.LoginRequired;
+import io.github.talelin.core.annotation.RefreshRequired;
+import io.github.talelin.core.token.DoubleJWT;
+import io.github.talelin.core.token.Tokens;
+import io.github.talelin.merak.common.LocalUser;
 import io.github.talelin.merak.dto.user.ChangePasswordDTO;
 import io.github.talelin.merak.dto.user.LoginDTO;
 import io.github.talelin.merak.dto.user.RegisterDTO;
 import io.github.talelin.merak.dto.user.UpdateInfoDTO;
+import io.github.talelin.merak.model.GroupDO;
+import io.github.talelin.merak.model.UserDO;
+import io.github.talelin.merak.service.GroupService;
+import io.github.talelin.merak.service.UserIdentityService;
+import io.github.talelin.merak.service.UserService;
+import io.github.talelin.merak.vo.CreatedVO;
+import io.github.talelin.merak.vo.UpdatedVO;
+import io.github.talelin.merak.vo.UserInfoVO;
+import io.github.talelin.merak.vo.UserPermissionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -51,9 +54,9 @@ public class UserController {
      */
     @PostMapping("/register")
     @AdminRequired
-    public UnifyResponseVO<String> register(@RequestBody @Validated RegisterDTO validator) {
+    public CreatedVO<String> register(@RequestBody @Validated RegisterDTO validator) {
         userService.createUser(validator);
-        return ResponseUtil.generateUnifyResponse(11);
+        return new CreatedVO(11);
     }
 
     /**
@@ -79,9 +82,9 @@ public class UserController {
      */
     @PutMapping
     @LoginRequired
-    public UnifyResponseVO update(@RequestBody @Validated UpdateInfoDTO validator) {
+    public UpdatedVO update(@RequestBody @Validated UpdateInfoDTO validator) {
         userService.updateUserInfo(validator);
-        return ResponseUtil.generateUnifyResponse(6);
+        return new UpdatedVO(6);
     }
 
     /**
@@ -89,9 +92,9 @@ public class UserController {
      */
     @PutMapping("/change_password")
     @LoginRequired
-    public UnifyResponseVO updatePassword(@RequestBody @Validated ChangePasswordDTO validator) {
+    public UpdatedVO updatePassword(@RequestBody @Validated ChangePasswordDTO validator) {
         userService.changeUserPassword(validator);
-        return ResponseUtil.generateUnifyResponse(4);
+        return new UpdatedVO(4);
     }
 
     /**

@@ -303,7 +303,7 @@ public class AdminControllerTest {
         mvc.perform(post("/cms/admin/group/")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("新建分组成功"));
     }
 
@@ -384,7 +384,7 @@ public class AdminControllerTest {
         mvc.perform(post("/cms/admin/permission/dispatch")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("添加权限成功"));
     }
 
@@ -414,7 +414,7 @@ public class AdminControllerTest {
         mvc.perform(post("/cms/admin/permission/dispatch/batch")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("添加权限成功"));
     }
 
