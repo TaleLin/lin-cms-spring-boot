@@ -1,18 +1,17 @@
 package io.github.talelin.latticy.dto.user;
 
 import io.github.talelin.autoconfigure.validator.EqualField;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 @EqualField(srcField = "newPassword", dstField = "confirmPassword", message = "{password.equal-field}")
 public class ChangePasswordDTO {
@@ -26,4 +25,5 @@ public class ChangePasswordDTO {
 
     @NotBlank(message = "{password.old-password.not-blank}")
     private String oldPassword;
+
 }

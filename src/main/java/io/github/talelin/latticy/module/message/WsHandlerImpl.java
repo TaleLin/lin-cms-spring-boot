@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Slf4j
 public class WsHandlerImpl implements WsHandler {
@@ -82,8 +83,9 @@ public class WsHandlerImpl implements WsHandler {
     @Override
     public void broadCast(String message) throws IOException {
         for (WebSocketSession session : sessions) {
-            if (!session.isOpen())
+            if (!session.isOpen()) {
                 continue;
+            }
             sendMessage(session, message);
         }
     }
@@ -91,8 +93,9 @@ public class WsHandlerImpl implements WsHandler {
     @Override
     public void broadCast(TextMessage message) throws IOException {
         for (WebSocketSession session : sessions) {
-            if (!session.isOpen())
+            if (!session.isOpen()) {
                 continue;
+            }
             session.sendMessage(message);
         }
     }
@@ -106,15 +109,18 @@ public class WsHandlerImpl implements WsHandler {
     public void broadCastToGroup(Long groupId, TextMessage message) throws IOException {
         List<Long> userIds = groupService.getGroupUserIds(groupId);
         for (WebSocketSession session : sessions) {
-            if (!session.isOpen())
+            if (!session.isOpen()) {
                 continue;
+            }
             Map<String, Object> attributes = session.getAttributes();
-            if (!attributes.containsKey(MessageConstant.USER_KEY))
+            if (!attributes.containsKey(MessageConstant.USER_KEY)) {
                 continue;
+            }
             UserDO user = (UserDO) attributes.get(MessageConstant.USER_KEY);
             boolean matched = userIds.stream().anyMatch(id -> id.equals(user.getId()));
-            if (!matched)
+            if (!matched) {
                 continue;
+            }
             session.sendMessage(message);
         }
     }
@@ -125,10 +131,12 @@ public class WsHandlerImpl implements WsHandler {
         log.error("", error);
     }
 
+    @Override
     public CopyOnWriteArraySet<WebSocketSession> getSessions() {
         return sessions;
     }
 
+    @Override
     public int getConnectionCount() {
         return connectionCount.get();
     }

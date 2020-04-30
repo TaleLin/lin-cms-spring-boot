@@ -13,11 +13,13 @@ import java.util.UUID;
  * 模版模式
  *
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 public abstract class AbstractUploader implements Uploader {
 
     private PreHandler preHandler;
 
+    @Override
     public List<File> upload(MultiValueMap<String, MultipartFile> fileMap) {
         checkFileMap(fileMap);
         // 得到单个文件的大小限制
@@ -25,6 +27,7 @@ public abstract class AbstractUploader implements Uploader {
         return handleMultipartFiles(fileMap);
     }
 
+    @Override
     public List<File> upload(MultiValueMap<String, MultipartFile> fileMap, PreHandler preHandler) {
         this.preHandler = preHandler;
         return this.upload(fileMap);
@@ -60,8 +63,9 @@ public abstract class AbstractUploader implements Uploader {
                 extension(ext).
                 build();
         // 如果预处理器不为空，且处理结果为false，直接返回, 否则处理
-        if (preHandler != null && !preHandler.handle(fileData))
+        if (preHandler != null && !preHandler.handle(fileData)) {
             return;
+        }
         boolean ok = handleOneFile(bytes, newFilename);
         if (ok) {
             res.add(fileData);
