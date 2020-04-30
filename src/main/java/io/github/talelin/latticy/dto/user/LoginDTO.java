@@ -1,16 +1,15 @@
 package io.github.talelin.latticy.dto.user;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 public class LoginDTO {
 

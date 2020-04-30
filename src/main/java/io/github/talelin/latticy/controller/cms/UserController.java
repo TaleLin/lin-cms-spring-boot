@@ -31,6 +31,7 @@ import java.util.Map;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @RestController
 @RequestMapping("/cms/user")
@@ -72,8 +73,9 @@ public class UserController {
                 user.getId(),
                 user.getUsername(),
                 validator.getPassword());
-        if (!valid)
+        if (!valid) {
             throw new ParameterException("username or password is fault", 10031);
+        }
         return jwt.generateTokens(user.getId());
     }
 

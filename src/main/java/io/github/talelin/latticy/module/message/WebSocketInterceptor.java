@@ -1,6 +1,10 @@
 package io.github.talelin.latticy.module.message;
 
-import com.auth0.jwt.exceptions.*;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.InvalidClaimException;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import io.github.talelin.core.token.DoubleJWT;
 import io.github.talelin.latticy.model.UserDO;
@@ -15,15 +19,15 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 import static io.github.talelin.latticy.module.message.MessageConstant.USER_KEY;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
-@SuppressWarnings("Duplicates")
 public class WebSocketInterceptor implements HandshakeInterceptor {
     @Autowired
     private DoubleJWT jwt;
@@ -80,7 +84,7 @@ public class WebSocketInterceptor implements HandshakeInterceptor {
 
     private void writeMessageToBody(ServerHttpResponse response, String message) throws IOException {
         response.setStatusCode(HttpStatus.BAD_REQUEST);
-        response.getBody().write(message.getBytes(Charset.forName("UTF8")));
+        response.getBody().write(message.getBytes(StandardCharsets.UTF_8));
     }
 
 }

@@ -1,6 +1,9 @@
 package io.github.talelin.latticy.common.interceptor;
 
-import com.auth0.jwt.exceptions.*;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.InvalidClaimException;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import io.github.talelin.autoconfigure.bean.MetaInfo;
@@ -28,14 +31,14 @@ import java.util.regex.Pattern;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
-@SuppressWarnings("Duplicates")
 @Component
 public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
 
-    public final static String authorizationHeader = "Authorization";
+    public final static String AUTHORIZATION_HEADER = "Authorization";
 
-    public final static String bearerPattern = "^Bearer$";
+    public final static String BEARER_PATTERN = "^Bearer$";
 
     @Autowired
     private DoubleJWT jwt;
@@ -53,9 +56,10 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
     private String servePath;
 
 
+    @Override
     public boolean handleLogin(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
         String tokenStr = verifyHeader(request, response);
-        Map<String, Claim> claims = null;
+        Map<String, Claim> claims;
         try {
             claims = jwt.decodeAccessToken(tokenStr);
         } catch (TokenExpiredException e) {
@@ -70,30 +74,35 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
     public boolean handleGroup(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
         handleLogin(request, response, meta);
         UserDO user = LocalUser.getLocalUser();
-        if (verifyAdmin(user))
+        if (verifyAdmin(user)) {
             return true;
+        }
         long userId = user.getId();
         String permission = meta.getPermission();
         String module = meta.getModule();
         List<PermissionDO> permissions = userService.getUserPermissions(userId);
         boolean matched = permissions.stream().anyMatch(it -> it.getModule().equals(module) && it.getName().equals(permission));
-        if (!matched)
+        if (!matched) {
             throw new AuthenticationException("you don't have the permission to access", 10001);
+        }
         return true;
     }
 
+    @Override
     public boolean handleAdmin(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
         handleLogin(request, response, meta);
         UserDO user = LocalUser.getLocalUser();
-        if (!verifyAdmin(user))
+        if (!verifyAdmin(user)) {
             throw new AuthenticationException("you don't have the permission to access", 10001);
+        }
         return true;
     }
 
 
+    @Override
     public boolean handleRefresh(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
         String tokenStr = verifyHeader(request, response);
-        Map<String, Claim> claims = null;
+        Map<String, Claim> claims;
         try {
             claims = jwt.decodeRefreshToken(tokenStr);
         } catch (TokenExpiredException e) {
@@ -148,7 +157,7 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
 
     private String verifyHeader(HttpServletRequest request, HttpServletResponse response) {
         // 处理头部header,带有access_token的可以访问
-        String authorization = request.getHeader(authorizationHeader);
+        String authorization = request.getHeader(AUTHORIZATION_HEADER);
         if (authorization == null || Strings.isBlank(authorization)) {
             throw new AuthorizationException("authorization field is required", 10012);
         }
@@ -160,7 +169,7 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
         String scheme = splits[0];
         // token 字段
         String tokenStr = splits[1];
-        if (!Pattern.matches(bearerPattern, scheme)) {
+        if (!Pattern.matches(BEARER_PATTERN, scheme)) {
             throw new AuthorizationException("authorization field is invalid", 10013);
         }
         return tokenStr;

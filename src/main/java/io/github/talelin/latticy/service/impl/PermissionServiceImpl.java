@@ -1,9 +1,9 @@
 package io.github.talelin.latticy.service.impl;
 
-import io.github.talelin.latticy.model.PermissionDO;
-import io.github.talelin.latticy.mapper.PermissionMapper;
-import io.github.talelin.latticy.service.PermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.github.talelin.latticy.mapper.PermissionMapper;
+import io.github.talelin.latticy.model.PermissionDO;
+import io.github.talelin.latticy.service.PermissionService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Service
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, PermissionDO> implements PermissionService {
@@ -62,7 +63,6 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
                 tiny.put("permission", permission.getName());
                 tmp.get(permission.getModule()).add(tiny);
             }
-            permission.getName();
         });
         List<Map<String, List<Map<String, String>>>> structualPermissions = new ArrayList();
         tmp.forEach((k, v) -> {
