@@ -10,9 +10,9 @@
     </parent>
 
     <groupId>io.github.talelin</groupId>
-    <artifactId>merak</artifactId>
+    <artifactId>latticy</artifactId>
     <version>0.1.0-RELEASE</version>
-    <name>merak</name>
+    <name>latticy</name>
     <description>Demo project for lin cms</description>
 
     <properties>
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>io.github.talelin</groupId>
             <artifactId>lin-cms-spring-boot-starter</artifactId>
-            <version>0.1.0-RELEASE</version>
+            <version>0.1.1-RC1</version>
         </dependency>
 
         <dependency>
