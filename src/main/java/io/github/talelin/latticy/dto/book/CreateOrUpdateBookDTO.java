@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.dto.book;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,9 +9,9 @@ import javax.validation.constraints.*;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
-@Setter
-@Getter
+@Data
 @NoArgsConstructor
 public class CreateOrUpdateBookDTO {
 

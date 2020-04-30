@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Service
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, PermissionDO> implements PermissionService {
@@ -62,7 +63,6 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
                 tiny.put("permission", permission.getName());
                 tmp.get(permission.getModule()).add(tiny);
             }
-            permission.getName();
         });
         List<Map<String, List<Map<String, String>>>> structualPermissions = new ArrayList();
         tmp.forEach((k, v) -> {

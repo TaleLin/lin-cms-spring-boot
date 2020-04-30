@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Setter
 @Getter
@@ -35,5 +36,14 @@ public class RegisterDTO {
     @NotBlank(message = "{password.confirm-password.not-blank}")
     private String confirmPassword;
 
-
+    @Override
+    public String toString() {
+        return "RegisterDTO{" +
+                "username='" + username + '\'' +
+                ", groupIds=" + groupIds +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                '}';
+    }
 }

@@ -35,8 +35,8 @@ import static io.github.talelin.autoconfigure.util.RequestUtil.getSimpleRequest;
 /**
  * @author pedro@TaleLin
  * @author colorful@TaleLin
+ * @author Juzi@TaleLin
  */
-@SuppressWarnings("Duplicates")
 @Order
 @RestControllerAdvice
 @Slf4j

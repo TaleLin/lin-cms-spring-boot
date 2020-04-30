@@ -14,13 +14,14 @@ import org.springframework.http.HttpStatus;
  *
  * @author pedro@TaleLin
  * @author colorful@TaleLin
+ * @author Juzi@TaleLin
  */
 @Data
 @Builder
 @AllArgsConstructor
 public class UnifyResponseVO<T> {
 
-    private int code;
+    private Integer code;
 
     private T message;
 
