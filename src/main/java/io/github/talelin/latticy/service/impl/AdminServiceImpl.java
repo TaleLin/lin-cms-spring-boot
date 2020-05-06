@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public IPage<UserDO> getUserPageByGroupId(Long groupId, Long count, Long page) {
-        Page pager = new Page(page, count);
+        Page<UserDO> pager = new Page<>(page, count);
         IPage<UserDO> iPage;
         // 如果group_id为空，则以分页的形式返回所有用户
         if (groupId == null) {
