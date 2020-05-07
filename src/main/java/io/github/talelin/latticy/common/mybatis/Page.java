@@ -31,9 +31,10 @@ public class Page<T> extends com.baomidou.mybatisplus.extension.plugins.paginati
 
     /**
      * 该构造方法将小于 0 的 current 置为 0
-     * @param current 当前页
-     * @param size 每页显示条数，默认 10
-     * @param total 总数
+     *
+     * @param current       当前页
+     * @param size          每页显示条数，默认 10
+     * @param total         总数
      * @param isSearchCount 是否进行 count 查询
      */
     public Page(long current, long size, long total, boolean isSearchCount) {
@@ -53,5 +54,15 @@ public class Page<T> extends com.baomidou.mybatisplus.extension.plugins.paginati
     @Override
     public boolean hasNext() {
         return super.getCurrent() + 1 < this.getPages();
+    }
+
+    /**
+     * 重写计算偏移量，将分页从第 0 开始
+     *
+     * @return 偏移量
+     */
+    @Override
+    public long offset() {
+        return getCurrent() > 0 ? super.getCurrent() * getSize() : 0;
     }
 }
