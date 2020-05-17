@@ -3,14 +3,14 @@ package io.github.talelin.latticy.controller.cms;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.core.annotation.AdminMeta;
 import io.github.talelin.latticy.bo.GroupPermissionBO;
-import io.github.talelin.latticy.common.util.ResponseUtil;
+import io.github.talelin.latticy.common.util.PageUtil;
+import io.github.talelin.latticy.dto.admin.*;
+import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.PermissionDO;
 import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.latticy.service.AdminService;
 import io.github.talelin.latticy.service.GroupService;
 import io.github.talelin.latticy.vo.*;
-import io.github.talelin.latticy.model.GroupDO;
-import io.github.talelin.latticy.dto.admin.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +56,7 @@ public class AdminController {
             List<GroupDO> groups = groupService.getUserGroupsByUserId(user.getId());
             return new UserInfoVO(user, groups);
         }).collect(Collectors.toList());
-        return ResponseUtil.generatePageResult(iPage.getTotal(), userInfos, page, count);
+        return PageUtil.build(iPage, userInfos);
     }
 
     @PutMapping("/user/{id}/password")
@@ -88,7 +88,7 @@ public class AdminController {
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page}") Long page) {
         IPage<GroupDO> iPage = adminService.getGroupPage(page, count);
-        return ResponseUtil.generatePageResult(iPage.getTotal(), iPage.getRecords(), page, count);
+        return PageUtil.build(iPage);
     }
 
     @GetMapping("/group/all")

@@ -2,10 +2,10 @@ package io.github.talelin.latticy.controller.cms;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.core.annotation.GroupMeta;
-import io.github.talelin.latticy.common.util.ResponseUtil;
+import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.model.LogDO;
-import io.github.talelin.latticy.vo.PageResponseVO;
 import io.github.talelin.latticy.service.LogService;
+import io.github.talelin.latticy.vo.PageResponseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
@@ -39,7 +39,7 @@ public class LogController {
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page}") Long page) {
         IPage<LogDO> iPage = logService.getLogPage(page, count, name, start, end);
-        return ResponseUtil.generatePageResult(iPage.getTotal(), iPage.getRecords(), page, count);
+        return PageUtil.build(iPage);
     }
 
     @GetMapping("/search")
@@ -54,7 +54,7 @@ public class LogController {
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page}") Long page) {
         IPage<LogDO> iPage = logService.searchLogPage(page, count, name, keyword, start, end);
-        return ResponseUtil.generatePageResult(iPage.getTotal(), iPage.getRecords(), page, count);
+        return PageUtil.build(iPage);
     }
 
     @GetMapping("/users")
@@ -65,6 +65,6 @@ public class LogController {
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page}") Long page) {
         IPage<String> iPage = logService.getUserNamePage(page, count);
-        return ResponseUtil.generatePageResult(iPage.getTotal(), iPage.getRecords(), page, count);
+        return PageUtil.build(iPage);
     }
 }
