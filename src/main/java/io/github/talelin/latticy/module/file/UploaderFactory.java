@@ -16,15 +16,9 @@ public class UploaderFactory {
     private String uploader;
 
     @Bean
-    public Uploader createUploader() {
-        switch (uploader) {
-            case "local":
-                return new LocalUploader();
-            case "qiniuyun":
-                return new QiniuUploader();
-            default:
-                break;
-        }
-        return null;
+    public Uploader createUploader() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        String uploaderClassName = uploader.substring(0, 1).toUpperCase().concat(uploader.substring(1)).concat("Uploader");
+        Class<?> uploader = Class.forName("io.github.talelin.latticy.extension.file.".concat(uploaderClassName));
+        return (Uploader) uploader.newInstance();
     }
 }

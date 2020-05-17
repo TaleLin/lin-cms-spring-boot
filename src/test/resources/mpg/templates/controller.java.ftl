@@ -14,6 +14,7 @@ import io.github.talelin.latticy.vo.DeletedVO;
 import io.github.talelin.latticy.vo.PageResponseVO;
 import io.github.talelin.latticy.vo.UpdatedVO;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 
@@ -32,6 +33,7 @@ import ${superControllerClassPackage};
  *
 </#if>
 * @author ${author}
+* @since ${date}
 */
 <#if restControllerStyle>
 @RestController
@@ -63,10 +65,16 @@ public class ${table.controllerName} {
         return new DeletedVO();
     }
 
+    @GetMapping("/{id}")
+    public ${entity} get(@PathVariable @Positive(message = "{id}") Long id) {
+        return null;
+    }
+
     @GetMapping("/page")
     public PageResponseVO<${entity}> page(
-            @RequestParam(name = "count", required = false, defaultValue = "10")
-            @Min(value = 1, message = "{count}") Long count,
+            @RequestParam(name = "count", required = false, defaultValue = "15")
+            @Min(value = 1, message = "{page.count.min}")
+            @Max(value = 30, message = "{page.count.max${30}}") Long count,
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page}") Long page
     ) {
