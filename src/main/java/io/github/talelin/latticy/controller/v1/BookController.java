@@ -28,7 +28,7 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/{id}")
-    public BookDO getBook(@PathVariable(value = "id") @Positive(message = "{id}") Long id) {
+    public BookDO getBook(@PathVariable(value = "id") @Positive(message = "{id.positive}") Long id) {
         BookDO book = bookService.getById(id);
         if (book == null) {
             throw new NotFoundException("book not found", 10022);
@@ -58,7 +58,7 @@ public class BookController {
 
 
     @PutMapping("/{id}")
-    public UpdatedVO updateBook(@PathVariable("id") @Positive(message = "{id}") Long id, @RequestBody @Validated CreateOrUpdateBookDTO validator) {
+    public UpdatedVO updateBook(@PathVariable("id") @Positive(message = "{id.positive}") Long id, @RequestBody @Validated CreateOrUpdateBookDTO validator) {
         BookDO book = bookService.getById(id);
         if (book == null) {
             throw new NotFoundException("book not found", 10022);
@@ -71,7 +71,7 @@ public class BookController {
     @DeleteMapping("/{id}")
     @GroupRequired
     @PermissionMeta(value = "删除图书", module = "图书")
-    public DeletedVO deleteBook(@PathVariable("id") @Positive(message = "{id}") Long id) {
+    public DeletedVO deleteBook(@PathVariable("id") @Positive(message = "{id.positive}") Long id) {
         BookDO book = bookService.getById(id);
         if (book == null) {
             throw new NotFoundException("book not found", 10022);

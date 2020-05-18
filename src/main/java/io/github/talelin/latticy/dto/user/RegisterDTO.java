@@ -20,20 +20,20 @@ import java.util.List;
 @EqualField(srcField = "password", dstField = "confirmPassword", message = "{password.equal-field}")
 public class RegisterDTO {
 
-    @NotBlank(message = "{user.register.username.not-blank}")
-    @Size(min = 2, max = 10, message = "{user.register.username.size}")
+    @NotBlank(message = "{username.not-blank}")
+    @Size(min = 2, max = 10, message = "{username.size}")
     private String username;
 
-    @LongList(allowBlank = true, message = "{user.register.group-ids.long-list}")
+    @LongList(allowBlank = true, message = "{group.ids.long-list}")
     private List<Long> groupIds;
 
     @Email(message = "{email}")
     private String email;
 
-    @NotBlank(message = "{password.new-password.not-blank}")
-    @Pattern(regexp = "^[A-Za-z0-9_*&$#@]{6,22}$", message = "{password.new-password.pattern}")
+    @NotBlank(message = "{new.password.not-blank}")
+    @Pattern(regexp = "^[A-Za-z0-9_*&$#@]{6,22}$", message = "{new.password.pattern}")
     private String password;
 
-    @NotBlank(message = "{password.confirm-password.not-blank}")
+    @NotBlank(message = "{confirm.password.not-blank}")
     private String confirmPassword;
 }
