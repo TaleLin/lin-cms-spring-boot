@@ -1,7 +1,6 @@
 package io.github.talelin.latticy.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -21,7 +20,6 @@ public class BaseModel {
     private Date createTime;
 
     @JsonIgnore
-    @TableField(update = "now()")
     private Date updateTime;
 
     @TableLogic

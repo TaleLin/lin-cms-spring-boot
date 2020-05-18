@@ -1,0 +1,24 @@
+#生产环境配置
+
+server:
+  # 服务端口
+  port: 5000
+
+spring:
+  # 数据源配置，请修改为你项目的实际配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 123456
+    url: jdbc:mysql://localhost:3306/lin-cms?useSSL=false&serverTimezone=UTC&characterEncoding=UTF8
+    username: root
+
+# 开启权限拦截
+auth:
+  enabled: true
+
+# 开启请求日志记录
+request-log:
+  enabled: true
+
+
+

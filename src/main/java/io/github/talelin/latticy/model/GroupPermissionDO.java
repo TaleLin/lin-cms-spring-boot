@@ -4,17 +4,19 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
-@TableName("lin_group_permission")
 @Data
+@TableName("lin_group_permission")
 public class GroupPermissionDO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -358487811336536495L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
