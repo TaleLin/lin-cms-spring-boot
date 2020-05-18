@@ -171,11 +171,11 @@ INSERT INTO lin_user_identity (id, user_id, identity_type, identifier, credentia
 VALUES (1, 1, 'USERNAME_PASSWORD', 'root',
         'pbkdf2sha256:64000:18:24:n:yUnDokcNRbwILZllmUOItIyo9MnI00QW:6ZcPf+sfzyoygOU8h/GSoirF');
 
-INSERT INTO lin_group(id, name, info)
-VALUES (1, 'root', '超级用户组');
+INSERT INTO lin_group(id, name, info, level)
+VALUES (1, 'root', '超级用户组', 'root');
 
-INSERT INTO lin_group(id, name, info)
-VALUES (2, 'guest', '游客组');
+INSERT INTO lin_group(id, name, info, level)
+VALUES (2, 'guest', '游客组', 'guest');
 
 INSERT INTO lin_user_group(id, user_id, group_id)
 VALUES (1, 1, 1);
