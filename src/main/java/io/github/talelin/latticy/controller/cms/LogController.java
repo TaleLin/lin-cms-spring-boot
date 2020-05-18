@@ -1,7 +1,9 @@
 package io.github.talelin.latticy.controller.cms;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.github.talelin.core.annotation.GroupMeta;
+import io.github.talelin.core.annotation.GroupRequired;
+import io.github.talelin.core.annotation.PermissionMeta;
+import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.model.LogDO;
 import io.github.talelin.latticy.service.LogService;
@@ -22,6 +24,7 @@ import java.util.Date;
  */
 @RestController
 @RequestMapping("/cms/log")
+@PermissionModule(value = "日志")
 @Validated
 public class LogController {
 
@@ -29,7 +32,8 @@ public class LogController {
     private LogService logService;
 
     @GetMapping("")
-    @GroupMeta(permission = "查询所有日志", module = "日志", mount = true)
+    @GroupRequired
+    @PermissionMeta(value = "查询所有日志")
     public PageResponseVO getLogs(
             @RequestParam(name = "start", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date start,
             @RequestParam(name = "end", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date end,
@@ -43,7 +47,8 @@ public class LogController {
     }
 
     @GetMapping("/search")
-    @GroupMeta(permission = "搜索日志", module = "日志", mount = true)
+    @GroupRequired
+    @PermissionMeta(value = "搜索日志")
     public PageResponseVO searchLogs(
             @RequestParam(name = "start", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date start,
             @RequestParam(name = "end", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date end,
@@ -58,7 +63,8 @@ public class LogController {
     }
 
     @GetMapping("/users")
-    @GroupMeta(permission = "查询日志记录的用户", module = "日志", mount = true)
+    @GroupRequired
+    @PermissionMeta(value = "查询日志记录的用户")
     public PageResponseVO getUsers(
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{count}") Long count,

@@ -74,9 +74,9 @@ public class ${table.controllerName} {
     public PageResponseVO<${entity}> page(
             @RequestParam(name = "count", required = false, defaultValue = "15")
             @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max${30}}") Long count,
+            @Max(value = 30, message = "{page.count.max${30}}") Integer count,
             @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page}") Long page
+            @Min(value = 0, message = "{page}") Integer page
     ) {
             return null;
     }

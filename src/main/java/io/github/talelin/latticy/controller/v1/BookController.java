@@ -1,7 +1,8 @@
 package io.github.talelin.latticy.controller.v1;
 
 import io.github.talelin.autoconfigure.exception.NotFoundException;
-import io.github.talelin.core.annotation.GroupMeta;
+import io.github.talelin.core.annotation.GroupRequired;
+import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.latticy.dto.book.CreateOrUpdateBookDTO;
 import io.github.talelin.latticy.model.BookDO;
 import io.github.talelin.latticy.service.BookService;
@@ -68,7 +69,8 @@ public class BookController {
 
 
     @DeleteMapping("/{id}")
-    @GroupMeta(permission = "删除图书", module = "图书", mount = true)
+    @GroupRequired
+    @PermissionMeta(value = "删除图书", module = "图书")
     public DeletedVO deleteBook(@PathVariable("id") @Positive(message = "{id}") Long id) {
         BookDO book = bookService.getById(id);
         if (book == null) {

@@ -1,7 +1,9 @@
 package io.github.talelin.latticy.controller.cms;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.github.talelin.core.annotation.AdminMeta;
+import io.github.talelin.core.annotation.AdminRequired;
+import io.github.talelin.core.annotation.PermissionMeta;
+import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.latticy.bo.GroupPermissionBO;
 import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.dto.admin.*;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/cms/admin")
+@PermissionModule(value = "管理员")
 @Validated
 public class AdminController {
 
@@ -36,14 +39,16 @@ public class AdminController {
     private GroupService groupService;
 
     @GetMapping("/permission")
-    @AdminMeta(permission = "查询所有可分配的权限", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "查询所有可分配的权限", mount = false)
     public Map<String, List<PermissionDO>> getAllPermissions() {
         return adminService.getAllStructualPermissions();
     }
 
 
     @GetMapping("/users")
-    @AdminMeta(permission = "查询所有用户", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "查询所有用户", mount = false)
     public PageResponseVO getUsers(
             @RequestParam(name = "group_id", required = false)
             @Min(value = 1, message = "{group-id}") Long groupId,
@@ -60,28 +65,32 @@ public class AdminController {
     }
 
     @PutMapping("/user/{id}/password")
-    @AdminMeta(permission = "修改用户密码", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "修改用户密码", mount = false)
     public UpdatedVO changeUserPassword(@PathVariable @Positive(message = "{id}") Long id, @RequestBody @Validated ResetPasswordDTO validator) {
         adminService.changeUserPassword(id, validator);
         return new UpdatedVO(4);
     }
 
     @DeleteMapping("/user/{id}")
-    @AdminMeta(permission = "删除用户", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "删除用户", mount = false)
     public DeletedVO deleteUser(@PathVariable @Positive(message = "{id}") Long id) {
         adminService.deleteUser(id);
         return new DeletedVO(5);
     }
 
     @PutMapping("/user/{id}")
-    @AdminMeta(permission = "管理员更新用户信息", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "管理员更新用户信息", mount = false)
     public UpdatedVO updateUser(@PathVariable @Positive(message = "{id}") Long id, @RequestBody @Validated UpdateUserInfoDTO validator) {
         adminService.updateUserInfo(id, validator);
         return new UpdatedVO(6);
     }
 
     @GetMapping("/group")
-    @AdminMeta(permission = "查询所有权限组及其权限", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "查询所有权限组及其权限", mount = false)
     public PageResponseVO getGroups(
             @RequestParam(name = "count", required = false, defaultValue = "10")
             @Min(value = 1, message = "{count}") Long count,
@@ -92,28 +101,32 @@ public class AdminController {
     }
 
     @GetMapping("/group/all")
-    @AdminMeta(permission = "查询所有权限组", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "查询所有权限组", mount = false)
     public List<GroupDO> getAllGroup() {
         List<GroupDO> groups = adminService.getAllGroups();
         return groups;
     }
 
     @GetMapping("/group/{id}")
-    @AdminMeta(permission = "查询一个权限组及其权限", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "查询一个权限组及其权限", mount = false)
     public GroupPermissionBO getGroup(@PathVariable @Positive(message = "{id}") Long id) {
         GroupPermissionBO groupPermissions = adminService.getGroup(id);
         return groupPermissions;
     }
 
     @PostMapping("/group")
-    @AdminMeta(permission = "新建权限组", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "新建权限组", mount = false)
     public CreatedVO createGroup(@RequestBody @Validated NewGroupDTO validator) {
         adminService.createGroup(validator);
         return new CreatedVO(15);
     }
 
     @PutMapping("/group/{id}")
-    @AdminMeta(permission = "更新一个权限组", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "更新一个权限组", mount = false)
     public UpdatedVO updateGroup(@PathVariable @Positive(message = "{id}") Long id,
                                        @RequestBody @Validated UpdateGroupDTO validator) {
         adminService.updateGroup(id, validator);
@@ -121,28 +134,32 @@ public class AdminController {
     }
 
     @DeleteMapping("/group/{id}")
-    @AdminMeta(permission = "删除一个权限组", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "删除一个权限组", mount = false)
     public DeletedVO deleteGroup(@PathVariable @Positive(message = "{id}") Long id) {
         adminService.deleteGroup(id);
         return new DeletedVO(8);
     }
 
     @PostMapping("/permission/dispatch")
-    @AdminMeta(permission = "分配单个权限", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "分配单个权限", mount = false)
     public CreatedVO dispatchPermission(@RequestBody @Validated DispatchPermissionDTO validator) {
         adminService.dispatchPermission(validator);
         return new CreatedVO(9);
     }
 
     @PostMapping("/permission/dispatch/batch")
-    @AdminMeta(permission = "分配多个权限", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "分配多个权限", mount = false)
     public CreatedVO dispatchPermissions(@RequestBody @Validated DispatchPermissionsDTO validator) {
         adminService.dispatchPermissions(validator);
         return new CreatedVO(9);
     }
 
     @PostMapping("/permission/remove")
-    @AdminMeta(permission = "删除多个权限", module = "管理员")
+    @AdminRequired
+    @PermissionMeta(value = "删除多个权限", mount = false)
     public DeletedVO removePermissions(@RequestBody @Validated RemovePermissionsDTO validator) {
         adminService.removePermissions(validator);
         return new DeletedVO(10);

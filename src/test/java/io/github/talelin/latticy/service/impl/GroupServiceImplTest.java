@@ -52,9 +52,6 @@ public class GroupServiceImplTest {
     @Autowired
     private SqlSession sqlSession;
 
-    @Value("${group.root.id}")
-    private Long rootGroupId;
-
     public Long mockData() {
         UserDO user = UserDO.builder().nickname("pedro大大").username("pedro大大").build();
         GroupDO group1 = GroupDO.builder().name("测试分组12").info("just for test").build();

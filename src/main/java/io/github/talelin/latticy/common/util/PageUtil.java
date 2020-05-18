@@ -14,7 +14,7 @@ public class PageUtil {
         return new PageResponseVO<>(iPage.getTotal(), iPage.getRecords(), iPage.getCurrent(), iPage.getSize());
     }
 
-    public static <T> PageResponseVO<T> build(IPage<T> iPage, List records) {
+    public static <K, T> PageResponseVO<K> build(IPage<T> iPage, List<K> records) {
         return new PageResponseVO<>(iPage.getTotal(), records, iPage.getCurrent(), iPage.getSize());
     }
 

@@ -34,6 +34,11 @@ public class PermissionDO implements Serializable {
      */
     private String module;
 
+    /**
+     * 0：关闭 1：开启
+     */
+    private Boolean mount;
+
     @JsonIgnore
     private Date createTime;
 

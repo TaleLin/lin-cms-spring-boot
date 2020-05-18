@@ -1,11 +1,11 @@
 package io.github.talelin.latticy.common.interceptor;
 
-import io.github.talelin.latticy.common.LocalUser;
-import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.autoconfigure.interfaces.LoggerResolver;
 import io.github.talelin.core.annotation.Logger;
-import io.github.talelin.core.annotation.RouteMeta;
+import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.util.BeanUtil;
+import io.github.talelin.latticy.common.LocalUser;
+import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.latticy.service.LogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class LoggerImpl implements LoggerResolver {
 
 
     @Override
-    public void handle(RouteMeta meta, Logger logger, HttpServletRequest request, HttpServletResponse response) {
+    public void handle(PermissionMeta meta, Logger logger, HttpServletRequest request, HttpServletResponse response) {
         // parse template and extract properties from request,response and modelAndView
         String template = logger.template();
         UserDO user = LocalUser.getLocalUser();

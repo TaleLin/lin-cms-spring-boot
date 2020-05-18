@@ -35,6 +35,13 @@ public class GroupDO implements Serializable {
      */
     private String info;
 
+    /**
+     * 分组级别（root、guest、user，其中 root、guest 分组只能存在一个）
+     */
+    @TableField(value = "`level`")
+    private String level;
+
+
     @JsonIgnore
     private Date createTime;
 
