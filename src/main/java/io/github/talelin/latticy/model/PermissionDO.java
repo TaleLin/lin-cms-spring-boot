@@ -1,9 +1,7 @@
 package io.github.talelin.latticy.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -15,6 +13,8 @@ import java.io.Serializable;
 @Builder
 @TableName("lin_permission")
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
 public class PermissionDO extends BaseModel implements Serializable {
 
     private static final long serialVersionUID = -2400022443732120128L;

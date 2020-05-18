@@ -152,7 +152,6 @@ CREATE TABLE lin_user_group
     id       int(10) unsigned NOT NULL AUTO_INCREMENT,
     user_id  int(10) unsigned NOT NULL COMMENT '用户id',
     group_id int(10) unsigned NOT NULL COMMENT '分组id',
-    level    ENUM('ROOT', 'GUEST', 'USER')
     PRIMARY KEY (id),
     KEY user_id_group_id (user_id, group_id) USING BTREE COMMENT '联合索引'
 ) ENGINE = InnoDB

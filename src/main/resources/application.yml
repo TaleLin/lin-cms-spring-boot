@@ -44,26 +44,3 @@ lin:
     token-refresh-expire: 2592000
     # 令牌 secret
     token-secret: x88Wf0991079889x8796a0Ac68f9ecJJU17c5Vbe8beod7d8d3e695*4
-
-
-group:
-  guest:
-    # 默认游客分组id 为 2
-    id: 2
-    # 默认游客分组名称为 guest
-    name: guest
-  root:
-    # 默认root分组id为 1
-    id: 1
-    # 默认root分组名称为 root
-    name: root
-
-
-user:
-  root:
-    # 默认 root 用户id为 1
-    id: 1
-    # 默认 root 用户 昵称 为 root
-    nickname: root
-    # 默认 root 用户 用户名 为 root
-    username: root
