@@ -135,7 +135,8 @@ public class AdminServiceImpl implements AdminService {
         if (!exist.getName().equals(dto.getName())) {
             throwGroupNameExist(dto.getName());
         }
-        GroupDO group = GroupDO.builder().id(id).name(dto.getName()).info(dto.getInfo()).build();
+        GroupDO group = GroupDO.builder().name(dto.getName()).info(dto.getInfo()).build();
+        group.setId(id);
         return groupService.updateById(group);
     }
 
