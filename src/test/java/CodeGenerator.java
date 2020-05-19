@@ -99,7 +99,7 @@ public class CodeGenerator {
         pathInfo.put(ConstVal.SERVICE_PATH, System.getProperty("user.dir") + "/src/main/java/io/github/talelin/latticy/service");
         pathInfo.put(ConstVal.SERVICE_IMPL_PATH, System.getProperty("user.dir") + "/src/main/java/io/github/talelin/latticy/service/impl");
         pathInfo.put(ConstVal.CONTROLLER_PATH, System.getProperty("user.dir") + "/src/main/java/io/github/talelin/latticy/controller/v1");
-        pathInfo.put(ConstVal.XML_PATH, System.getProperty("user.dir") + "/src/main/resources/mapper1");
+        pathInfo.put(ConstVal.XML_PATH, System.getProperty("user.dir") + "/src/main/resources/mapper");
         return pathInfo;
     }
 }
