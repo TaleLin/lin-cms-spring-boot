@@ -26,10 +26,10 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
     @Autowired
     private Uploader uploader;
 
-    @Value("${lin.cms.file.domain}")
+    @Value("${lin.file.domain}")
     private String domain;
 
-    @Value("${lin.cms.file.serve-path:assets/**}")
+    @Value("${lin.file.serve-path:assets/**}")
     private String servePath;
 
     /**

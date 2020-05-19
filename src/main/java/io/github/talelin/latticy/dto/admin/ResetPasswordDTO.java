@@ -13,10 +13,10 @@ import javax.validation.constraints.Pattern;
 @Data
 public class ResetPasswordDTO {
 
-    @NotBlank(message = "{new.password.not-blank}")
-    @Pattern(regexp = "^[A-Za-z0-9_*&$#@]{6,22}$", message = "{new.password.pattern}")
+    @NotBlank(message = "{password.new.not-blank}")
+    @Pattern(regexp = "^[A-Za-z0-9_*&$#@]{6,22}$", message = "{password.new.pattern}")
     private String newPassword;
 
-    @NotBlank(message = "{confirm.password.not-blank}")
+    @NotBlank(message = "{password.confirm.not-blank}")
     private String confirmPassword;
 }

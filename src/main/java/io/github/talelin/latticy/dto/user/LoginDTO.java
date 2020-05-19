@@ -16,6 +16,6 @@ public class LoginDTO {
     @NotBlank(message = "{username.not-blank}")
     private String username;
 
-    @NotBlank(message = "{new.password.not-blank}")
+    @NotBlank(message = "{password.new.not-blank}")
     private String password;
 }

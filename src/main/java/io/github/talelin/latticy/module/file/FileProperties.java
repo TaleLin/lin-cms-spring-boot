@@ -3,13 +3,14 @@ package io.github.talelin.latticy.module.file;
 import io.github.talelin.latticy.common.factory.YamlPropertySourceFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
  * @author pedro@TaleLin
  */
 @Component
-@ConfigurationProperties(prefix = "lin.cms.file")
+@ConfigurationProperties(prefix = "lin.file")
 @PropertySource(
         value = "classpath:io/github/talelin/latticy/extension/file/config.yml",
         encoding = "UTF-8",factory = YamlPropertySourceFactory.class)

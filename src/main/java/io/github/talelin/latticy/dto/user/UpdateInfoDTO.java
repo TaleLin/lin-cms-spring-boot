@@ -15,12 +15,12 @@ public class UpdateInfoDTO {
     @Email(message = "{email}")
     private String email;
 
-    @Length(min = 2, max = 10, message = "{nickname.size}")
+    @Length(min = 2, max = 10, message = "{nickname.length}")
     private String nickname;
 
-    @Length(min = 2, max = 10, message = "{username.size}")
+    @Length(min = 2, max = 10, message = "{username.length}")
     private String username;
 
-    @Length(max = 500, message = "{avatar.size}")
+    @Length(max = 500, message = "{avatar.length}")
     private String avatar;
 }

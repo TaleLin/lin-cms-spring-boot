@@ -24,7 +24,7 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig
-                .setAuthor("Generator@TaleLin")
+                .setAuthor("generator@TaleLin")
                 .setOpen(false)
                 .setFileOverride(false)
                 .setIdType(IdType.AUTO)
@@ -66,6 +66,7 @@ public class CodeGenerator {
                 .setNaming(NamingStrategy.underline_to_camel)
                 .setSuperEntityClass("io.github.talelin.latticy.model.BaseModel")
                 .setTablePrefix("lin_")
+                .setEntitySerialVersionUID(false)
                 .setEntityLombokModel(true)
                 .setRestControllerStyle(true)
                 .setSuperEntityColumns("id", "create_time", "update_time", "delete_time")

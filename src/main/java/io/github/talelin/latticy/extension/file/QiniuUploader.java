@@ -27,13 +27,13 @@ public class QiniuUploader extends AbstractUploader {
     @Autowired
     private FileProperties fileProperties;
 
-    @Value("${lin.cms.file.qiniuyun.access-key}")
+    @Value("${lin.file.qiniuyun.access-key}")
     private String accessKey;
 
-    @Value("${lin.cms.file.qiniuyun.secret-key}")
+    @Value("${lin.file.qiniuyun.secret-key}")
     private String secretKey;
 
-    @Value("${lin.cms.file.qiniuyun.bucket}")
+    @Value("${lin.file.qiniuyun.bucket}")
     private String bucket;
 
     private UploadManager uploadManager;
