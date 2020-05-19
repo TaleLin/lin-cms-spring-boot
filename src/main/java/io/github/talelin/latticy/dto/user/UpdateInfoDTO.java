@@ -1,7 +1,7 @@
 package io.github.talelin.latticy.dto.user;
 
-import io.github.talelin.autoconfigure.validator.Length;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 
