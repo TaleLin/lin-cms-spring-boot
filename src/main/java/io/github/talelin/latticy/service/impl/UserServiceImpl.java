@@ -4,7 +4,13 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.github.talelin.autoconfigure.exception.FailedException;
+import io.github.talelin.autoconfigure.exception.ForbiddenException;
+import io.github.talelin.autoconfigure.exception.NotFoundException;
+import io.github.talelin.autoconfigure.exception.ParameterException;
 import io.github.talelin.latticy.common.LocalUser;
+import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
@@ -19,13 +25,7 @@ import io.github.talelin.latticy.service.GroupService;
 import io.github.talelin.latticy.service.PermissionService;
 import io.github.talelin.latticy.service.UserIdentityService;
 import io.github.talelin.latticy.service.UserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import io.github.talelin.autoconfigure.exception.FailedException;
-import io.github.talelin.autoconfigure.exception.ForbiddenException;
-import io.github.talelin.autoconfigure.exception.NotFoundException;
-import io.github.talelin.autoconfigure.exception.ParameterException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,12 +52,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Autowired
     private UserGroupMapper userGroupMapper;
-
-    @Value("${group.root.id}")
-    private Long rootGroupId;
-
-    @Value("${group.guest.id}")
-    private Long guestGroupId;
 
     @Transactional
     @Override
@@ -89,6 +83,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
             userGroupMapper.insertBatch(relations);
         } else {
             // id为2的分组为游客分组
+            Long guestGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.GUEST);
             UserGroupDO relation = new UserGroupDO(user.getId(), guestGroupId);
             userGroupMapper.insert(relation);
         }
@@ -186,7 +181,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public IPage<UserDO> getUserPageByGroupId(Page<UserDO> pager, Long groupId) {
+        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         return this.baseMapper.selectPageByGroupId(pager, groupId, rootGroupId);
+    }
+
+    @Override
+    public Long getRootUserId() {
+        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
+        QueryWrapper<UserGroupDO> wrapper = new QueryWrapper<>();
+        wrapper.lambda().eq(UserGroupDO::getGroupId, rootGroupId);
+        UserGroupDO userGroupDO = userGroupMapper.selectOne(wrapper);
+        return userGroupDO == null ? 0 : userGroupDO.getUserId();
     }
 
     private void checkGroupsExist(List<Long> ids) {
@@ -198,6 +203,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     }
 
     private void checkGroupsValid(List<Long> ids) {
+        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         boolean anyMatch = ids.stream().anyMatch(it -> it.equals(rootGroupId));
         if (anyMatch) {
             throw new ForbiddenException("you can't add user to root group", 10073);

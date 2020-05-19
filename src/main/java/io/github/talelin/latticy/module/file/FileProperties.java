@@ -1,15 +1,19 @@
 package io.github.talelin.latticy.module.file;
 
+import io.github.talelin.latticy.common.factory.YamlPropertySourceFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
  * @author pedro@TaleLin
  */
 @Component
-@ConfigurationProperties(prefix = "lin.cms.file")
-@PropertySource(value = "classpath:io/github/talelin/latticy/extension/file/config.properties", encoding = "UTF-8")
+@ConfigurationProperties(prefix = "lin.file")
+@PropertySource(
+        value = "classpath:io/github/talelin/latticy/extension/file/config.yml",
+        encoding = "UTF-8",factory = YamlPropertySourceFactory.class)
 public class FileProperties {
 
     private static final String[] DEFAULT_EMPTY_ARRAY = new String[0];

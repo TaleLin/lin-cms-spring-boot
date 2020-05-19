@@ -1,29 +1,24 @@
 package io.github.talelin.latticy.model;
 
-import com.baomidou.mybatisplus.annotation.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Data
 @Builder
-@TableName("lin_group")
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupDO implements Serializable {
+@TableName("lin_group")
+@EqualsAndHashCode(callSuper = true)
+public class GroupDO extends BaseModel implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private static final long serialVersionUID = -8994898895671436007L;
 
     /**
      * 分组名称，例如：搬砖者
@@ -35,13 +30,10 @@ public class GroupDO implements Serializable {
      */
     private String info;
 
-    @JsonIgnore
-    private Date createTime;
+    /**
+     * 分组级别（root、guest、user，其中 root、guest 分组只能存在一个）
+     */
+    @TableField(value = "`level`")
+    private String level;
 
-    @JsonIgnore
-    private Date updateTime;
-
-    @JsonIgnore
-    @TableLogic
-    private Date deleteTime;
 }

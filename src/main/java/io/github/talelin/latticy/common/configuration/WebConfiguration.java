@@ -40,10 +40,10 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Autowired
     private RequestLogInterceptor requestLogInterceptor;
 
-    @Value("${lin.cms.file.store-dir:assets/}")
+    @Value("${lin.file.store-dir:assets/}")
     private String dir;
 
-    @Value("${lin.cms.file.serve-path:assets/**}")
+    @Value("${lin.file.serve-path:assets/**}")
     private String servePath;
 
     /**

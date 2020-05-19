@@ -2,7 +2,9 @@ package io.github.talelin.latticy.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.latticy.bo.GroupPermissionBO;
+import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.mapper.UserGroupMapper;
 import io.github.talelin.latticy.model.GroupDO;
@@ -27,12 +29,6 @@ import java.util.stream.Collectors;
  */
 @Service
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implements GroupService {
-
-    @Value("${group.root.name}")
-    private String rootGroupName;
-
-    @Value("${group.root.id}")
-    private Long rootGroupId;
 
     @Autowired
     private PermissionService permissionService;
@@ -78,6 +74,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
     @Override
     public boolean checkIsRootByUserId(Long userId) {
         QueryWrapper<UserGroupDO> wrapper = new QueryWrapper<>();
+        Long rootGroupId = this.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         wrapper.lambda().eq(UserGroupDO::getUserId, userId)
                 .eq(UserGroupDO::getGroupId, rootGroupId);
         UserGroupDO relation = userGroupMapper.selectOne(wrapper);
@@ -118,6 +115,24 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         wrapper.lambda().eq(UserGroupDO::getGroupId, id);
         List<UserGroupDO> list = userGroupMapper.selectList(wrapper);
         return list.stream().map(UserGroupDO::getUserId).collect(Collectors.toList());
+    }
+
+    @Override
+    public GroupDO getParticularGroupByLevel(GroupLevelEnum level) {
+        if (GroupLevelEnum.USER.getValue().equals(level.getValue())) {
+            return null;
+        } else {
+            QueryWrapper<GroupDO> wrapper = new QueryWrapper<>();
+            wrapper.lambda().eq(GroupDO::getLevel, level);
+            GroupDO groupDO = this.baseMapper.selectOne(wrapper);
+            return groupDO;
+        }
+    }
+
+    @Override
+    public Long getParticularGroupIdByLevel(GroupLevelEnum level) {
+        GroupDO group = this.getParticularGroupByLevel(level);
+        return group == null ? 0L : group.getId();
     }
 
     private boolean checkGroupExistByIds(List<Long> ids) {

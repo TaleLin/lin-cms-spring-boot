@@ -1,7 +1,7 @@
 package io.github.talelin.latticy.dto.user;
 
-import io.github.talelin.autoconfigure.validator.Length;
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 
@@ -15,12 +15,12 @@ public class UpdateInfoDTO {
     @Email(message = "{email}")
     private String email;
 
-    @Length(min = 2, max = 10, message = "{user.nickname.size}")
+    @Length(min = 2, max = 10, message = "{nickname.length}")
     private String nickname;
 
-    @Length(min = 2, max = 10, message = "{user.username.size}")
+    @Length(min = 2, max = 10, message = "{username.length}")
     private String username;
 
-    @Length(max = 500, message = "{user.avatar.size}")
+    @Length(max = 500, message = "{avatar.length}")
     private String avatar;
 }

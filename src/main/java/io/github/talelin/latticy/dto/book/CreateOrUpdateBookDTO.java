@@ -2,9 +2,9 @@ package io.github.talelin.latticy.dto.book;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 /**
  * @author pedro@TaleLin
@@ -15,17 +15,17 @@ import javax.validation.constraints.Size;
 public class CreateOrUpdateBookDTO {
 
     @NotEmpty(message = "{book.title.not-empty}")
-    @Size(max = 50, message = "{book.title.size}")
+    @Length(max = 50, message = "{book.title.length}")
     private String title;
 
     @NotEmpty(message = "{book.author.not-empty}")
-    @Size(max = 50, message = "{book.author.size}")
+    @Length(max = 50, message = "{book.author.length}")
     private String author;
 
     @NotEmpty(message = "{book.summary.not-empty}")
-    @Size(max = 1000, message = "{book.summary.size}")
+    @Length(max = 1000, message = "{book.summary.length}")
     private String summary;
 
-    @Size(max = 100, message = "{book.image.size}")
+    @Length(max = 100, message = "{book.image.length}")
     private String image;
 }

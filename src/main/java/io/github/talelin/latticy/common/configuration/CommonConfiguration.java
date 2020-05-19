@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import io.github.talelin.autoconfigure.bean.RouteMetaCollector;
+import io.github.talelin.autoconfigure.bean.PermissionMetaCollector;
 import io.github.talelin.latticy.module.file.FileProperties;
 import io.github.talelin.latticy.common.interceptor.RequestLogInterceptor;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -35,13 +35,13 @@ public class CommonConfiguration {
     }
 
     /**
-     * 记录每个被 @RouteMeta 记录的信息，在beans的后置调用
+     * 记录每个被 @PermissionMeta 记录的信息，在beans的后置调用
      *
-     * @return RouteMetaCollector
+     * @return PermissionMetaCollector
      */
     @Bean
-    public RouteMetaCollector postProcessBeans() {
-        return new RouteMetaCollector();
+    public PermissionMetaCollector postProcessBeans() {
+        return new PermissionMetaCollector();
     }
 
 

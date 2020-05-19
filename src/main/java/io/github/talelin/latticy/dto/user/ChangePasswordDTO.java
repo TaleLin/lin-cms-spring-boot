@@ -16,14 +16,14 @@ import javax.validation.constraints.Pattern;
 @EqualField(srcField = "newPassword", dstField = "confirmPassword", message = "{password.equal-field}")
 public class ChangePasswordDTO {
 
-    @NotBlank(message = "{password.new-password.not-blank}")
-    @Pattern(regexp = "^[A-Za-z0-9_*&$#@]{6,22}$", message = "{password.new-password.pattern}")
+    @NotBlank(message = "{password.new.not-blank}")
+    @Pattern(regexp = "^[A-Za-z0-9_*&$#@]{6,22}$", message = "{password.new.pattern}")
     private String newPassword;
 
-    @NotBlank(message = "{password.confirm-password.not-blank}")
+    @NotBlank(message = "{password.confirm.not-blank}")
     private String confirmPassword;
 
-    @NotBlank(message = "{password.old-password.not-blank}")
+    @NotBlank(message = "{password.old.not-blank}")
     private String oldPassword;
 
 }

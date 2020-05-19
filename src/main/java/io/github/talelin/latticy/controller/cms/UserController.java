@@ -3,8 +3,8 @@ package io.github.talelin.latticy.controller.cms;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.ParameterException;
 import io.github.talelin.core.annotation.AdminRequired;
-import io.github.talelin.core.annotation.LoginMeta;
 import io.github.talelin.core.annotation.LoginRequired;
+import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.core.annotation.RefreshRequired;
 import io.github.talelin.core.token.DoubleJWT;
 import io.github.talelin.core.token.Tokens;
@@ -35,6 +35,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/cms/user")
+@PermissionModule(value = "用户")
 @Validated
 public class UserController {
 
@@ -113,7 +114,7 @@ public class UserController {
      * 查询拥有权限
      */
     @GetMapping("/permissions")
-    @LoginMeta(permission = "查询自己拥有的权限", module = "用户", mount = true)
+    @LoginRequired
     public UserPermissionVO getPermissions() {
         UserDO user = LocalUser.getLocalUser();
         boolean admin = groupService.checkIsRootByUserId(user.getId());
@@ -126,7 +127,7 @@ public class UserController {
     /**
      * 查询自己信息
      */
-    @LoginMeta(permission = "查询自己信息", module = "用户", mount = true)
+    @LoginRequired
     @GetMapping("/information")
     public UserInfoVO getInformation() {
         UserDO user = LocalUser.getLocalUser();

@@ -49,10 +49,10 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
     @Autowired
     private GroupService groupService;
 
-    @Value("${lin.cms.file.domain}")
+    @Value("${lin.file.domain}")
     private String domain;
 
-    @Value("${lin.cms.file.serve-path:assets/**}")
+    @Value("${lin.file.serve-path:assets/**}")
     private String servePath;
 
 

@@ -1,14 +1,14 @@
 package io.github.talelin.latticy.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author pedro@TaleLin
@@ -20,12 +20,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("lin_user_identity")
-public class UserIdentityDO implements Serializable {
+public class UserIdentityDO extends BaseModel implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private static final long serialVersionUID = 456555840105356178L;
 
     /**
      * 用户id
@@ -46,14 +43,4 @@ public class UserIdentityDO implements Serializable {
      * 凭证，例如 密码
      */
     private String credential;
-
-    @JsonIgnore
-    private Date createTime;
-
-    @JsonIgnore
-    private Date updateTime;
-
-    @TableLogic
-    @JsonIgnore
-    private Date deleteTime;
 }

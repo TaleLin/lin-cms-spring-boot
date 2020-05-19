@@ -1,0 +1,25 @@
+# 测试环境环境配置
+
+server:
+  # 服务端口
+  port: 5000
+
+logging:
+  level:
+    # SQL日志记录
+    io.github.talelin.latticy.mapper: debug
+
+spring:
+  # h2 内存数据库配置，供测试使用，其它环境勿用
+  datasource:
+    continue-on-error: false
+    driver-class-name: org.h2.Driver
+    password: ''
+    platform: h2
+    schema: classpath:/h2-test.sql
+    url: jdbc:h2:mem:testdbsa;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    username: sa
+  h2:
+    console:
+      enabled: true
+      path: /h2

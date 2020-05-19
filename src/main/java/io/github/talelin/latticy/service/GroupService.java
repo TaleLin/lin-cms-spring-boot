@@ -2,6 +2,7 @@ package io.github.talelin.latticy.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.latticy.bo.GroupPermissionBO;
+import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
 import io.github.talelin.latticy.model.GroupDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -92,4 +93,21 @@ public interface GroupService extends IService<GroupDO> {
      * @return 用户id
      */
     List<Long> getGroupUserIds(Long id);
+
+
+    /**
+     * 通过分组级别获取超级管理员分组或游客分组
+     *
+     * @param level GroupLevelEnum 枚举类
+     * @return 用户组
+     */
+    GroupDO getParticularGroupByLevel(GroupLevelEnum level);
+
+    /**
+     * 通过分组级别获取超级管理员分组或游客分组的id
+     *
+     * @param level GroupLevelEnum 枚举类
+     * @return 用户组id
+     */
+    Long getParticularGroupIdByLevel(GroupLevelEnum level);
 }

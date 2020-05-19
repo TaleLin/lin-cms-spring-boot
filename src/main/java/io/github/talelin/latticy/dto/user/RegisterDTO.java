@@ -4,11 +4,11 @@ import io.github.talelin.autoconfigure.validator.EqualField;
 import io.github.talelin.autoconfigure.validator.LongList;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -20,20 +20,20 @@ import java.util.List;
 @EqualField(srcField = "password", dstField = "confirmPassword", message = "{password.equal-field}")
 public class RegisterDTO {
 
-    @NotBlank(message = "{user.register.username.not-blank}")
-    @Size(min = 2, max = 10, message = "{user.register.username.size}")
+    @NotBlank(message = "{username.not-blank}")
+    @Length(min = 2, max = 10, message = "{username.length}")
     private String username;
 
-    @LongList(allowBlank = true, message = "{user.register.group-ids.long-list}")
+    @LongList(allowBlank = true, message = "{group.ids.long-list}")
     private List<Long> groupIds;
 
     @Email(message = "{email}")
     private String email;
 
-    @NotBlank(message = "{password.new-password.not-blank}")
-    @Pattern(regexp = "^[A-Za-z0-9_*&$#@]{6,22}$", message = "{password.new-password.pattern}")
+    @NotBlank(message = "{password.new.not-blank}")
+    @Pattern(regexp = "^[A-Za-z0-9_*&$#@]{6,22}$", message = "{password.new.pattern}")
     private String password;
 
-    @NotBlank(message = "{password.confirm-password.not-blank}")
+    @NotBlank(message = "{password.confirm.not-blank}")
     private String confirmPassword;
 }
