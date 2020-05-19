@@ -19,7 +19,7 @@ mybatis-plus:
     # 开启下划线转驼峰
     map-underscore-to-camel-case: true
   global-config:
-    # 关闭banner打印
+    # 开启/关闭 banner 打印
     banner: false
     db-config:
       # 逻辑删除（软删除）
