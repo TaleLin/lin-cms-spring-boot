@@ -13,9 +13,9 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class LoginDTO {
 
-    @NotBlank(message = "{user.username.not-blank}")
+    @NotBlank(message = "{username.not-blank}")
     private String username;
 
-    @NotBlank(message = "{password.new-password.not-blank}")
+    @NotBlank(message = "{new.password.not-blank}")
     private String password;
 }

@@ -2,7 +2,7 @@ package io.github.talelin.latticy.common.listener;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import io.github.talelin.autoconfigure.bean.MetaInfo;
-import io.github.talelin.autoconfigure.bean.RouteMetaCollector;
+import io.github.talelin.autoconfigure.bean.PermissionMetaCollector;
 import io.github.talelin.latticy.model.PermissionDO;
 import io.github.talelin.latticy.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * @author pedro@TaleLin
+ * @author colorful@TaleLin
  */
 @Component
 public class PermissionHandleListener implements ApplicationListener<ContextRefreshedEvent> {
@@ -23,7 +24,7 @@ public class PermissionHandleListener implements ApplicationListener<ContextRefr
     private PermissionService permissionService;
 
     @Autowired
-    private RouteMetaCollector metaCollector;
+    private PermissionMetaCollector metaCollector;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -49,7 +50,8 @@ public class PermissionHandleListener implements ApplicationListener<ContextRefr
                     .anyMatch(meta -> meta.getModule().equals(permission.getModule())
                             && meta.getPermission().equals(permission.getName()));
             if (!stayedInMeta) {
-                permissionService.removeById(permission.getId());
+                permission.setMount(false);
+                permissionService.updateById(permission);
             }
         }
     }
@@ -57,9 +59,13 @@ public class PermissionHandleListener implements ApplicationListener<ContextRefr
     private void createPermissionIfNotExist(String name, String module) {
         QueryWrapper<PermissionDO> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(PermissionDO::getName, name).eq(PermissionDO::getModule, module);
-        PermissionDO one = permissionService.getOne(wrapper);
-        if (one == null) {
+        PermissionDO permission = permissionService.getOne(wrapper);
+        if (permission == null) {
             permissionService.save(PermissionDO.builder().module(module).name(name).build());
+        }
+        if (permission != null && !permission.getMount()) {
+            permission.setMount(true);
+            permissionService.updateById(permission);
         }
     }
 }

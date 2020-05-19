@@ -1,11 +1,8 @@
 package io.github.talelin.latticy.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -32,4 +29,11 @@ public class GroupDO extends BaseModel implements Serializable {
      * 分组信息：例如：搬砖的人
      */
     private String info;
+
+    /**
+     * 分组级别（root、guest、user，其中 root、guest 分组只能存在一个）
+     */
+    @TableField(value = "`level`")
+    private String level;
+
 }

@@ -2,10 +2,7 @@ package io.github.talelin.latticy.controller.cms;
 
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.ParameterException;
-import io.github.talelin.core.annotation.AdminRequired;
-import io.github.talelin.core.annotation.LoginMeta;
-import io.github.talelin.core.annotation.LoginRequired;
-import io.github.talelin.core.annotation.RefreshRequired;
+import io.github.talelin.core.annotation.*;
 import io.github.talelin.core.token.DoubleJWT;
 import io.github.talelin.core.token.Tokens;
 import io.github.talelin.latticy.common.LocalUser;
@@ -35,6 +32,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/cms/user")
+@PermissionModule(value = "用户")
 @Validated
 public class UserController {
 
@@ -83,7 +81,7 @@ public class UserController {
      * 更新用户信息
      */
     @PutMapping
-    @LoginRequired
+    @GroupRequired
     public UpdatedVO update(@RequestBody @Validated UpdateInfoDTO validator) {
         userService.updateUserInfo(validator);
         return new UpdatedVO(6);
@@ -93,7 +91,7 @@ public class UserController {
      * 修改密码
      */
     @PutMapping("/change_password")
-    @LoginRequired
+    @GroupRequired
     public UpdatedVO updatePassword(@RequestBody @Validated ChangePasswordDTO validator) {
         userService.changeUserPassword(validator);
         return new UpdatedVO(4);
@@ -113,7 +111,8 @@ public class UserController {
      * 查询拥有权限
      */
     @GetMapping("/permissions")
-    @LoginMeta(permission = "查询自己拥有的权限", module = "用户", mount = true)
+    @GroupRequired
+    @PermissionMeta(value = "查询自己拥有的权限")
     public UserPermissionVO getPermissions() {
         UserDO user = LocalUser.getLocalUser();
         boolean admin = groupService.checkIsRootByUserId(user.getId());
@@ -126,7 +125,8 @@ public class UserController {
     /**
      * 查询自己信息
      */
-    @LoginMeta(permission = "查询自己信息", module = "用户", mount = true)
+    @GroupRequired
+    @PermissionMeta(value = "查询自己信息")
     @GetMapping("/information")
     public UserInfoVO getInformation() {
         UserDO user = LocalUser.getLocalUser();

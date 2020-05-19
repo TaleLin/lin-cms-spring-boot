@@ -2,6 +2,7 @@ package io.github.talelin.latticy.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
 import io.github.talelin.latticy.mapper.*;
 import io.github.talelin.latticy.model.*;
 import io.github.talelin.latticy.bo.GroupPermissionBO;
@@ -9,6 +10,7 @@ import io.github.talelin.latticy.dto.admin.*;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
+import io.github.talelin.latticy.service.GroupService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,8 +62,8 @@ public class AdminServiceImplTest {
     @Autowired
     private UserIdentityServiceImpl userIdentityService;
 
-    @Value("${group.root.id}")
-    private Long rootGroupId;
+    @Autowired
+    private GroupService groupService;
 
 
     public UserDO mockData() {
@@ -182,6 +184,7 @@ public class AdminServiceImplTest {
         userMapper.insert(user1);
         Random random = new Random();
         UpdateUserInfoDTO dto = new UpdateUserInfoDTO();
+        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         dto.setGroupIds(Arrays.asList(rootGroupId, (long) random.nextInt(100)));
         boolean b = adminService.updateUserInfo(user1.getId(), dto);
         assertFalse(b);
