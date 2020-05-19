@@ -145,7 +145,7 @@ public class BookControllerTest {
         mvc.perform(put("/v1/book/" + this.id)
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("更新图书成功"));
     }
@@ -162,7 +162,7 @@ public class BookControllerTest {
 
         mvc.perform(delete("/v1/book/" + this.id))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("删除图书成功"));
     }

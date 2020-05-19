@@ -177,7 +177,7 @@ public class UserControllerTest {
         mvc.perform(MockMvcRequestBuilders.put("/cms/user/")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("更新用户成功"));
 
@@ -213,7 +213,7 @@ public class UserControllerTest {
         mvc.perform(MockMvcRequestBuilders.put("/cms/user/change_password")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("密码修改成功"));
     }
