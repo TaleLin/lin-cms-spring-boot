@@ -68,7 +68,6 @@ public class CodeGenerator {
                 .setTablePrefix("lin_")
                 .setEntityLombokModel(true)
                 .setRestControllerStyle(true)
-                .setEntityTableFieldAnnotationEnable(true)
                 .setSuperEntityColumns("id", "create_time", "update_time", "delete_time")
                 .setInclude(scanner("表名，多个英文逗号分割").split(","))
                 .setControllerMappingHyphenStyle(true);
