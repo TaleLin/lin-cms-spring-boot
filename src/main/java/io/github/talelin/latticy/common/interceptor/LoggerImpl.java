@@ -10,6 +10,7 @@ import io.github.talelin.latticy.service.LogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,10 @@ public class LoggerImpl implements LoggerResolver {
         String template = logger.template();
         UserDO user = LocalUser.getLocalUser();
         template = this.parseTemplate(template, user, request, response);
-        String permission = meta.permission();
+        String permission = "";
+        if (meta != null) {
+            permission = StringUtils.isEmpty(meta.permission()) ? meta.value() : meta.permission();
+        }
         Long userId = user.getId();
         String username = user.getUsername();
         String method = request.getMethod();
