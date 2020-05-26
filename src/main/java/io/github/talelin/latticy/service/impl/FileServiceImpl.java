@@ -70,7 +70,13 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
         BeanUtil.copyProperties(file, bo);
         if (file.getType().equals(FileConstant.LOCAL)) {
             String s = fileProperties.getServePath().split("/")[0];
-            bo.setUrl(fileProperties.getDomain() + s + "/" + file.getPath());
+
+            // replaceAll 是将 windows 平台下的 \ 替换为 /
+            if(System.getProperties().getProperty("os.name").toUpperCase().contains("WINDOWS")){
+                bo.setUrl(fileProperties.getDomain() + s + "/" + file.getPath().replaceAll("\\\\","/"));
+            }else {
+                bo.setUrl(fileProperties.getDomain() + s + "/" + file.getPath());
+            }
         } else {
             bo.setUrl(file.getPath());
         }
