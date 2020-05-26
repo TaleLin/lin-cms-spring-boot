@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @RestController
 @RequestMapping("/cms/file")
@@ -24,13 +24,17 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
-    @PostMapping("")
+    /**
+     * 文件上传
+     *
+     * @param multipartHttpServletRequest 携带文件的 request
+     * @return 文件信息
+     */
+    @PostMapping
     @LoginRequired
-    public List<FileBO> upload(HttpServletRequest request) {
-        MultipartHttpServletRequest multipartHttpServletRequest = ((MultipartHttpServletRequest) request);
-        MultiValueMap<String, MultipartFile> fileMap = multipartHttpServletRequest.getMultiFileMap();
-        List<FileBO> files = fileService.upload(fileMap);
-        return files;
+    public List<FileBO> upload(MultipartHttpServletRequest multipartHttpServletRequest) {
+        MultiValueMap<String, MultipartFile> fileMap =
+                multipartHttpServletRequest.getMultiFileMap();
+        return fileService.upload(fileMap);
     }
-
 }
