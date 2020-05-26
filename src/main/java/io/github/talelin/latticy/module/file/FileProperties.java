@@ -3,17 +3,16 @@ package io.github.talelin.latticy.module.file;
 import io.github.talelin.latticy.common.factory.YamlPropertySourceFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
  * @author pedro@TaleLin
  */
 @Component
-@ConfigurationProperties(prefix = "lin.file")
+@ConfigurationProperties("lin.file")
 @PropertySource(
         value = "classpath:io/github/talelin/latticy/extension/file/config.yml",
-        encoding = "UTF-8",factory = YamlPropertySourceFactory.class)
+        encoding = "UTF-8", factory = YamlPropertySourceFactory.class)
 public class FileProperties {
 
     private static final String[] DEFAULT_EMPTY_ARRAY = new String[0];
@@ -29,6 +28,19 @@ public class FileProperties {
     private String[] exclude = DEFAULT_EMPTY_ARRAY;
 
     private String[] include = DEFAULT_EMPTY_ARRAY;
+
+    /**
+     * 文件存储路径
+     */
+    private String servePath = "assets/**";
+
+    public String getServePath() {
+        return servePath;
+    }
+
+    public void setServePath(String servePath) {
+        this.servePath = servePath;
+    }
 
     public String getStoreDir() {
         return storeDir;
