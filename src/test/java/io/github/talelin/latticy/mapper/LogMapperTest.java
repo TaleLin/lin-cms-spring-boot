@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,7 +36,7 @@ public class LogMapperTest {
     private String method = "GET";
     private String path = "/";
     private Integer statusCode = 200;
-    private Long userId = 1L;
+    private Integer userId = 1;
     private String username = "super";
 
     @Before

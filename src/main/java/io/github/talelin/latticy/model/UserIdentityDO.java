@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Setter
 @Getter
@@ -27,7 +28,7 @@ public class UserIdentityDO extends BaseModel implements Serializable {
     /**
      * 用户id
      */
-    private Long userId;
+    private Integer userId;
 
     /**
      * 认证类型，例如 username_password，用户名-密码认证

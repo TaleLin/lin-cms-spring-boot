@@ -25,7 +25,7 @@ public class RegisterDTO {
     private String username;
 
     @LongList(allowBlank = true, message = "{group.ids.long-list}")
-    private List<Long> groupIds;
+    private List<Integer> groupIds;
 
     @Email(message = "{email}")
     private String email;

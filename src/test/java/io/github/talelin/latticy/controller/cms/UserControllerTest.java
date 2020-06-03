@@ -2,6 +2,7 @@ package io.github.talelin.latticy.controller.cms;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.LoginDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
@@ -10,7 +11,6 @@ import io.github.talelin.latticy.mapper.GroupMapper;
 import io.github.talelin.latticy.mapper.UserMapper;
 import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.UserDO;
-import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.After;
@@ -101,7 +101,7 @@ public class UserControllerTest {
         GroupDO group = GroupDO.builder().name("少林足球").info("致敬周星星").build();
         groupMapper.insert(group);
         Random random = new Random();
-        long rand = random.nextLong();
+        int rand = random.nextInt();
         RegisterDTO dto = new RegisterDTO();
         dto.setGroupIds(Arrays.asList(group.getId(), rand));
         dto.setEmail(email);

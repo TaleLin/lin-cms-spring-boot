@@ -11,13 +11,13 @@ import io.github.talelin.autoconfigure.exception.AuthenticationException;
 import io.github.talelin.autoconfigure.exception.AuthorizationException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.TokenInvalidException;
+import io.github.talelin.autoconfigure.interfaces.AuthorizeVerifyResolver;
+import io.github.talelin.core.token.DoubleJWT;
 import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.model.PermissionDO;
 import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.latticy.service.GroupService;
 import io.github.talelin.latticy.service.UserService;
-import io.github.talelin.autoconfigure.interfaces.AuthorizeVerifyResolver;
-import io.github.talelin.core.token.DoubleJWT;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -77,7 +77,7 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
         if (verifyAdmin(user)) {
             return true;
         }
-        long userId = user.getId();
+        Integer userId = user.getId();
         String permission = meta.getPermission();
         String module = meta.getModule();
         List<PermissionDO> permissions = userService.getUserPermissions(userId);

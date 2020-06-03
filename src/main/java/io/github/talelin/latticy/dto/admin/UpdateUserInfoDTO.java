@@ -7,10 +7,11 @@ import java.util.List;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Data
 public class UpdateUserInfoDTO {
 
     @LongList(min = 1, message = "{group.ids.long-list}")
-    private List<Long> groupIds;
+    private List<Integer> groupIds;
 }

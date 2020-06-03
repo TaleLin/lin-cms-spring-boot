@@ -1,9 +1,9 @@
 package io.github.talelin.latticy.common.util;
 
-import io.github.talelin.latticy.vo.PageResponseVO;
-import io.github.talelin.latticy.vo.UnifyResponseVO;
 import io.github.talelin.autoconfigure.bean.Code;
 import io.github.talelin.autoconfigure.util.RequestUtil;
+import io.github.talelin.latticy.vo.PageResponseVO;
+import io.github.talelin.latticy.vo.UnifyResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -87,7 +87,7 @@ public class ResponseUtil {
                 .build();
     }
 
-    public static PageResponseVO generatePageResult(long total, List items, long page, long count) {
+    public static PageResponseVO generatePageResult(int total, List items, int page, int count) {
         return new PageResponseVO(total, items, page, count);
     }
 }

@@ -16,7 +16,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -43,14 +44,14 @@ public class LogServiceImplTest {
     public void getLogs() {
         String message = "put your face to the light!";
         String authority = "查看lin的信息";
-        Long userId = 100L;
+        Integer userId = 100;
         String userName = "pedro";
         String method = "GET";
         String path = "/";
         Integer status = 200;
         logService.createLog(message, authority, userId, userName, method, path, status);
 
-        IPage<LogDO> iPage = logService.getLogPage(0L, 10L, null, null, null);
+        IPage<LogDO> iPage = logService.getLogPage(0, 10, null, null, null);
         assertTrue(iPage.getSize() > 0);
     }
 
@@ -58,14 +59,14 @@ public class LogServiceImplTest {
     public void searchLogs() {
         String message = "put your face to the light!";
         String authority = "查看lin的信息";
-        Long userId = 100L;
+        Integer userId = 100;
         String userName = "pedro";
         String method = "GET";
         String path = "/";
         Integer status = 200;
         logService.createLog(message, authority, userId, userName, method, path, status);
 
-        IPage<LogDO> iPage = logService.searchLogPage(0L, 10L, null, "put", null, null);
+        IPage<LogDO> iPage = logService.searchLogPage(0, 10, null, "put", null, null);
         assertTrue(iPage.getSize() > 0);
     }
 
@@ -73,14 +74,14 @@ public class LogServiceImplTest {
     public void getUserNames() {
         String message = "put your face to the light!";
         String authority = "查看lin的信息";
-        Long userId = 100L;
+        Integer userId = 100;
         String userName = "pedro";
         String method = "GET";
         String path = "/";
         Integer status = 200;
         logService.createLog(message, authority, userId, userName, method, path, status);
 
-        IPage<String> iPage = logService.getUserNamePage(0L, 10L);
+        IPage<String> iPage = logService.getUserNamePage(0, 10);
         assertTrue(iPage.getRecords().size() > 0);
     }
 
@@ -88,7 +89,7 @@ public class LogServiceImplTest {
     public void createOneLog() {
         String message = "put your face to the light!";
         String permission = "查看lin的信息";
-        Long userId = 100L;
+        Integer userId = 100;
         String userName = "pedro";
         String method = "GET";
         String path = "/";

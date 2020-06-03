@@ -4,8 +4,16 @@ import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
 import io.github.talelin.latticy.dto.user.UpdateInfoDTO;
-import io.github.talelin.latticy.mapper.*;
-import io.github.talelin.latticy.model.*;
+import io.github.talelin.latticy.mapper.GroupMapper;
+import io.github.talelin.latticy.mapper.GroupPermissionMapper;
+import io.github.talelin.latticy.mapper.PermissionMapper;
+import io.github.talelin.latticy.mapper.UserGroupMapper;
+import io.github.talelin.latticy.mapper.UserMapper;
+import io.github.talelin.latticy.model.GroupDO;
+import io.github.talelin.latticy.model.GroupPermissionDO;
+import io.github.talelin.latticy.model.PermissionDO;
+import io.github.talelin.latticy.model.UserDO;
+import io.github.talelin.latticy.model.UserGroupDO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +66,7 @@ public class UserServiceImplTest {
     @Autowired
     private UserMapper userMapper;
 
-    public Long mockData() {
+    public Integer mockData() {
         UserDO user = UserDO.builder().username("pedro大大咧咧").nickname("pedro大大咧咧").build();
         GroupDO group = GroupDO.builder().name("测试分组1").info("just for test").build();
         PermissionDO permission1 = PermissionDO.builder().name("权限1").module("炉石传说").build();
@@ -148,7 +156,7 @@ public class UserServiceImplTest {
 
     @Test
     public void getUserPermissions() {
-        Long id = mockData();
+        Integer id = mockData();
         List<Map<String, List<Map<String, String>>>> structuringPermissions = userService.getStructualUserPermissions(id);
         assertTrue(structuringPermissions.size() > 0);
         log.info("structuringPermissions: {}", structuringPermissions);
@@ -172,7 +180,7 @@ public class UserServiceImplTest {
 
     @Test
     public void checkUserExistById() {
-        boolean b = userService.checkUserExistById(100L);
+        boolean b = userService.checkUserExistById(100);
         assertFalse(b);
     }
 

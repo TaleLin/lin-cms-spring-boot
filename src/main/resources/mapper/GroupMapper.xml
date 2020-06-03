@@ -14,7 +14,7 @@
     </resultMap>
 
 
-    <select id="selectUserGroups" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectUserGroups" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT g.id, g.name, g.info,g.level,
         g.create_time,g.update_time,g.delete_time
         from lin_group AS g
@@ -32,7 +32,7 @@
         )
     </select>
 
-    <select id="selectUserGroupIds" parameterType="java.lang.Long" resultType="java.lang.Long">
+    <select id="selectUserGroupIds" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT g.id
         from lin_group AS g
         WHERE
@@ -49,7 +49,7 @@
         )
     </select>
 
-    <select id="selectCountById" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    <select id="selectCountById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT COUNT(*) AS count FROM lin_group WHERE delete_time IS NULL AND id = #{id}
     </select>
 

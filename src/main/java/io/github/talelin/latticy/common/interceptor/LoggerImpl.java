@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Slf4j
 @Component
@@ -34,7 +35,6 @@ public class LoggerImpl implements LoggerResolver {
 
     @Override
     public void handle(PermissionMeta meta, Logger logger, HttpServletRequest request, HttpServletResponse response) {
-        // parse template and extract properties from request,response and modelAndView
         String template = logger.template();
         UserDO user = LocalUser.getLocalUser();
         template = this.parseTemplate(template, user, request, response);
@@ -42,7 +42,7 @@ public class LoggerImpl implements LoggerResolver {
         if (meta != null) {
             permission = StringUtils.isEmpty(meta.permission()) ? meta.value() : meta.permission();
         }
-        Long userId = user.getId();
+        Integer userId = user.getId();
         String username = user.getUsername();
         String method = request.getMethod();
         String path = request.getServletPath();

@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Data
 public class NewGroupDTO {
@@ -20,5 +21,5 @@ public class NewGroupDTO {
     private String info;
 
     @LongList(allowBlank = true, message = "{permission.ids.long-list}")
-    private List<Long> permissionIds;
+    private List<Integer> permissionIds;
 }
