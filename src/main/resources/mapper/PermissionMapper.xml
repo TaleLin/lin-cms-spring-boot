@@ -50,7 +50,7 @@
         )
     </select>
 
-    <select id="selectPermissionsByGroupId" parameterType="java.lang.Long"
+    <select id="selectPermissionsByGroupId" parameterType="java.lang.Integer"
             resultMap="BaseResultMap">
         SELECT p.id, p.name, p.module, p.mount,
         p.create_time, p.update_time, p.delete_time

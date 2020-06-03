@@ -14,7 +14,7 @@ import java.util.Date;
 @Data
 public class BaseModel {
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     @JsonIgnore
     private Date createTime;

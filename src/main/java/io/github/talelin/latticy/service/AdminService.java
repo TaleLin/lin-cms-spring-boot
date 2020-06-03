@@ -1,17 +1,24 @@
 package io.github.talelin.latticy.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.github.talelin.latticy.bo.GroupPermissionBO;
+import io.github.talelin.latticy.dto.admin.DispatchPermissionDTO;
+import io.github.talelin.latticy.dto.admin.DispatchPermissionsDTO;
+import io.github.talelin.latticy.dto.admin.NewGroupDTO;
+import io.github.talelin.latticy.dto.admin.RemovePermissionsDTO;
+import io.github.talelin.latticy.dto.admin.ResetPasswordDTO;
+import io.github.talelin.latticy.dto.admin.UpdateGroupDTO;
+import io.github.talelin.latticy.dto.admin.UpdateUserInfoDTO;
+import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.PermissionDO;
 import io.github.talelin.latticy.model.UserDO;
-import io.github.talelin.latticy.bo.GroupPermissionBO;
-import io.github.talelin.latticy.dto.admin.*;
-import io.github.talelin.latticy.model.GroupDO;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 public interface AdminService {
 
@@ -23,7 +30,7 @@ public interface AdminService {
      * @param page    当前分页
      * @return 用户数据
      */
-    IPage<UserDO> getUserPageByGroupId(Long groupId, Long count, Long page);
+    IPage<UserDO> getUserPageByGroupId(Integer groupId, Integer count, Integer page);
 
     /**
      * 修改用户密码（重置用户密码）
@@ -32,7 +39,7 @@ public interface AdminService {
      * @param dto 密码信息
      * @return 是否修改成功
      */
-    boolean changeUserPassword(Long id, ResetPasswordDTO dto);
+    boolean changeUserPassword(Integer id, ResetPasswordDTO dto);
 
     /**
      * 删除用户
@@ -40,7 +47,7 @@ public interface AdminService {
      * @param id 用户id
      * @return 是否删除成功
      */
-    boolean deleteUser(Long id);
+    boolean deleteUser(Integer id);
 
     /**
      * 更新用户信息
@@ -49,7 +56,7 @@ public interface AdminService {
      * @param dto 数据信息
      * @return 是否成功
      */
-    boolean updateUserInfo(Long id, UpdateUserInfoDTO dto);
+    boolean updateUserInfo(Integer id, UpdateUserInfoDTO dto);
 
     /**
      * 分页获取分组数据
@@ -58,7 +65,7 @@ public interface AdminService {
      * @param count 当前页数量
      * @return 分组数据
      */
-    IPage<GroupDO> getGroupPage(Long page, Long count);
+    IPage<GroupDO> getGroupPage(Integer page, Integer count);
 
     /**
      * 获得分组数据
@@ -66,7 +73,7 @@ public interface AdminService {
      * @param id 分组id
      * @return 分组数据
      */
-    GroupPermissionBO getGroup(Long id);
+    GroupPermissionBO getGroup(Integer id);
 
     /**
      * 新建分组
@@ -83,7 +90,7 @@ public interface AdminService {
      * @param dto 分组信息
      * @return 是否成功
      */
-    boolean updateGroup(Long id, UpdateGroupDTO dto);
+    boolean updateGroup(Integer id, UpdateGroupDTO dto);
 
     /**
      * 删除分组
@@ -91,7 +98,7 @@ public interface AdminService {
      * @param id 分组id
      * @return 是否成功
      */
-    boolean deleteGroup(Long id);
+    boolean deleteGroup(Integer id);
 
     /**
      * 分配权限

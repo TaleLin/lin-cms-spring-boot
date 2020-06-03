@@ -17,9 +17,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -41,7 +45,7 @@ public class PermissionServiceImplTest {
     @Autowired
     private GroupPermissionMapper groupPermissionMapper;
 
-    public Long mockData() {
+    public Integer mockData() {
         GroupDO group = GroupDO.builder().name("测试分组1").info("just for test").build();
         PermissionDO permission1 = PermissionDO.builder().name("权限1").module("炉石传说").build();
         PermissionDO permission2 = PermissionDO.builder().name("权限2").module("炉石传说").build();
@@ -64,7 +68,7 @@ public class PermissionServiceImplTest {
 
     @Test
     public void getPermissionByGroupId() {
-        Long id = mockData();
+        Integer id = mockData();
         List<PermissionDO> permissions = permissionService.getPermissionByGroupId(id);
         assertTrue(permissions.size() > 0);
         boolean anyMatch = permissions.stream().anyMatch(permission -> permission.getName().equals("权限2"));
@@ -73,7 +77,7 @@ public class PermissionServiceImplTest {
 
     @Test
     public void getPermissionByGroupIds() {
-        Long id = mockData();
+        Integer id = mockData();
         List<PermissionDO> permissions = permissionService.getPermissionByGroupIds(Collections.singletonList(id));
         assertTrue(permissions.size() > 0);
         boolean anyMatch = permissions.stream().anyMatch(permission -> permission.getName().equals("权限2"));
@@ -82,7 +86,7 @@ public class PermissionServiceImplTest {
 
     @Test
     public void getPermissionMapByGroupIds() {
-        Long id = mockData();
+        Integer id = mockData();
         Map<Long, List<PermissionDO>> map = permissionService.getPermissionMapByGroupIds(Collections.singletonList(id));
         assertNotNull(map.get(id));
         boolean anyMatch = map.get(id).stream().anyMatch(permission -> permission.getName().equals("权限2"));
@@ -91,7 +95,7 @@ public class PermissionServiceImplTest {
 
     @Test
     public void structuringPermissions() {
-        Long id = mockData();
+        Integer id = mockData();
         List<PermissionDO> permissions = permissionService.getPermissionByGroupIds(Collections.singletonList(id));
         List<Map<String, List<Map<String, String>>>> structuringPermissions = permissionService.structuringPermissions(permissions);
         assertTrue(structuringPermissions.size() > 0);
@@ -102,7 +106,7 @@ public class PermissionServiceImplTest {
 
     @Test
     public void structuringPermissionsSimply() {
-        Long id = mockData();
+        Integer id = mockData();
         List<PermissionDO> permissions = permissionService.getPermissionByGroupIds(Collections.singletonList(id));
         Map<String, List<String>> structuringPermissions = permissionService.structuringPermissionsSimply(permissions);
         assertTrue(structuringPermissions.size() > 0);

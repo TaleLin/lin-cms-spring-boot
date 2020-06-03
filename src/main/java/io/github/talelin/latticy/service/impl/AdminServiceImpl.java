@@ -2,26 +2,43 @@ package io.github.talelin.latticy.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
-import io.github.talelin.latticy.model.*;
-import io.github.talelin.latticy.service.*;
-import io.github.talelin.latticy.bo.GroupPermissionBO;
-import io.github.talelin.latticy.common.mybatis.Page;
-import io.github.talelin.latticy.dto.admin.*;
-import io.github.talelin.latticy.mapper.GroupPermissionMapper;
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
+import io.github.talelin.latticy.bo.GroupPermissionBO;
+import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
+import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.dto.admin.DispatchPermissionDTO;
+import io.github.talelin.latticy.dto.admin.DispatchPermissionsDTO;
+import io.github.talelin.latticy.dto.admin.NewGroupDTO;
+import io.github.talelin.latticy.dto.admin.RemovePermissionsDTO;
+import io.github.talelin.latticy.dto.admin.ResetPasswordDTO;
+import io.github.talelin.latticy.dto.admin.UpdateGroupDTO;
+import io.github.talelin.latticy.dto.admin.UpdateUserInfoDTO;
+import io.github.talelin.latticy.mapper.GroupPermissionMapper;
+import io.github.talelin.latticy.model.GroupDO;
+import io.github.talelin.latticy.model.GroupPermissionDO;
+import io.github.talelin.latticy.model.PermissionDO;
+import io.github.talelin.latticy.model.UserDO;
+import io.github.talelin.latticy.model.UserIdentityDO;
+import io.github.talelin.latticy.service.AdminService;
+import io.github.talelin.latticy.service.GroupService;
+import io.github.talelin.latticy.service.PermissionService;
+import io.github.talelin.latticy.service.UserIdentityService;
+import io.github.talelin.latticy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
  * @author pedro@TaleLin
  * @author colorful@TaleLin
+ * @author Juzi@TaleLin
  */
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -42,13 +59,13 @@ public class AdminServiceImpl implements AdminService {
     private GroupPermissionMapper groupPermissionMapper;
 
     @Override
-    public IPage<UserDO> getUserPageByGroupId(Long groupId, Long count, Long page) {
+    public IPage<UserDO> getUserPageByGroupId(Integer groupId, Integer count, Integer page) {
         Page<UserDO> pager = new Page<>(page, count);
         IPage<UserDO> iPage;
         // 如果group_id为空，则以分页的形式返回所有用户
         if (groupId == null) {
             QueryWrapper<UserDO> wrapper = new QueryWrapper<>();
-            Long rootUserId = userService.getRootUserId();
+            Integer rootUserId = userService.getRootUserId();
             wrapper.lambda().ne(UserDO::getId, rootUserId);
             iPage = userService.page(pager, wrapper);
         } else {
@@ -58,14 +75,14 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean changeUserPassword(Long id, ResetPasswordDTO dto) {
+    public boolean changeUserPassword(Integer id, ResetPasswordDTO dto) {
         throwUserNotExistById(id);
         return userIdentityService.changePassword(id, dto.getNewPassword());
     }
 
     @Transactional
     @Override
-    public boolean deleteUser(Long id) {
+    public boolean deleteUser(Integer id) {
         throwUserNotExistById(id);
         boolean userRemoved = userService.removeById(id);
         QueryWrapper<UserIdentityDO> wrapper = new QueryWrapper<>();
@@ -74,32 +91,32 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean updateUserInfo(Long id, UpdateUserInfoDTO validator) {
-        List<Long> newGroupIds = validator.getGroupIds();
+    public boolean updateUserInfo(Integer id, UpdateUserInfoDTO validator) {
+        List<Integer> newGroupIds = validator.getGroupIds();
         if (newGroupIds == null || newGroupIds.isEmpty()) {
             return false;
         }
-        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
+        Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         boolean anyMatch = newGroupIds.stream().anyMatch(it -> it.equals(rootGroupId));
         if (anyMatch) {
             throw new ForbiddenException("you can't add user to root group", 10073);
         }
-        List<Long> existGroupIds = groupService.getUserGroupIdsByUserId(id);
+        List<Integer> existGroupIds = groupService.getUserGroupIdsByUserId(id);
         // 删除existGroupIds有，而newGroupIds没有的
-        List<Long> deleteIds = existGroupIds.stream().filter(it -> !newGroupIds.contains(it)).collect(Collectors.toList());
+        List<Integer> deleteIds = existGroupIds.stream().filter(it -> !newGroupIds.contains(it)).collect(Collectors.toList());
         // 添加newGroupIds有，而existGroupIds没有的
-        List<Long> addIds = newGroupIds.stream().filter(it -> !existGroupIds.contains(it)).collect(Collectors.toList());
+        List<Integer> addIds = newGroupIds.stream().filter(it -> !existGroupIds.contains(it)).collect(Collectors.toList());
         return groupService.deleteUserGroupRelations(id, deleteIds) && groupService.addUserGroupRelations(id, addIds);
     }
 
     @Override
-    public IPage<GroupDO> getGroupPage(Long page, Long count) {
+    public IPage<GroupDO> getGroupPage(Integer page, Integer count) {
         IPage<GroupDO> iPage = groupService.getGroupPage(page, count);
         return iPage;
     }
 
     @Override
-    public GroupPermissionBO getGroup(Long id) {
+    public GroupPermissionBO getGroup(Integer id) {
         throwGroupNotExistById(id);
         return groupService.getGroupAndPermissions(id);
     }
@@ -120,7 +137,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean updateGroup(Long id, UpdateGroupDTO dto) {
+    public boolean updateGroup(Integer id, UpdateGroupDTO dto) {
         // bug 如果只修改info，不修改name，则name已经存在，此时不应该报错
         GroupDO exist = groupService.getById(id);
         if (exist == null) {
@@ -135,9 +152,9 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public boolean deleteGroup(Long id) {
-        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
-        Long guestGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.GUEST);
+    public boolean deleteGroup(Integer id) {
+        Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
+        Integer guestGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.GUEST);
         if (id.equals(rootGroupId)) {
             throw new ForbiddenException("root group can't delete", 10074);
         }
@@ -170,7 +187,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<GroupDO> getAllGroups() {
         QueryWrapper<GroupDO> wrapper = new QueryWrapper<>();
-        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
+        Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         wrapper.lambda().ne(GroupDO::getId, rootGroupId);
         List<GroupDO> groups = groupService.list(wrapper);
         return groups;
@@ -201,14 +218,14 @@ public class AdminServiceImpl implements AdminService {
         return res;
     }
 
-    private void throwUserNotExistById(Long id) {
+    private void throwUserNotExistById(Integer id) {
         boolean exist = userService.checkUserExistById(id);
         if (!exist) {
             throw new NotFoundException("user not found", 10021);
         }
     }
 
-    private void throwGroupNotExistById(Long id) {
+    private void throwGroupNotExistById(Integer id) {
         boolean exist = groupService.checkGroupExistById(id);
         if (!exist) {
             throw new NotFoundException("group not found", 10024);

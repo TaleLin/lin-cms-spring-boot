@@ -11,13 +11,22 @@ import io.github.talelin.latticy.vo.DeletedVO;
 import io.github.talelin.latticy.vo.UpdatedVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Positive;
 import java.util.List;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @RestController
 @RequestMapping("/v1/book")
@@ -28,7 +37,7 @@ public class BookController {
     private BookService bookService;
 
     @GetMapping("/{id}")
-    public BookDO getBook(@PathVariable(value = "id") @Positive(message = "{id.positive}") Long id) {
+    public BookDO getBook(@PathVariable(value = "id") @Positive(message = "{id.positive}") Integer id) {
         BookDO book = bookService.getById(id);
         if (book == null) {
             throw new NotFoundException("book not found", 10022);
@@ -58,7 +67,7 @@ public class BookController {
 
 
     @PutMapping("/{id}")
-    public UpdatedVO updateBook(@PathVariable("id") @Positive(message = "{id.positive}") Long id, @RequestBody @Validated CreateOrUpdateBookDTO validator) {
+    public UpdatedVO updateBook(@PathVariable("id") @Positive(message = "{id.positive}") Integer id, @RequestBody @Validated CreateOrUpdateBookDTO validator) {
         BookDO book = bookService.getById(id);
         if (book == null) {
             throw new NotFoundException("book not found", 10022);
@@ -71,7 +80,7 @@ public class BookController {
     @DeleteMapping("/{id}")
     @GroupRequired
     @PermissionMeta(value = "删除图书", module = "图书")
-    public DeletedVO deleteBook(@PathVariable("id") @Positive(message = "{id.positive}") Long id) {
+    public DeletedVO deleteBook(@PathVariable("id") @Positive(message = "{id.positive}") Integer id) {
         BookDO book = bookService.getById(id);
         if (book == null) {
             throw new NotFoundException("book not found", 10022);

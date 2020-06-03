@@ -53,7 +53,7 @@ public class WsHandlerImpl implements WsHandler {
     }
 
     @Override
-    public void sendMessage(Long userId, TextMessage message) throws IOException {
+    public void sendMessage(Integer userId, TextMessage message) throws IOException {
         Optional<WebSocketSession> userSession = sessions.stream().filter(session -> {
             if (!session.isOpen()) {
                 return false;
@@ -71,7 +71,7 @@ public class WsHandlerImpl implements WsHandler {
     }
 
     @Override
-    public void sendMessage(Long userId, String message) throws IOException {
+    public void sendMessage(Integer userId, String message) throws IOException {
         sendMessage(userId, new TextMessage(message));
     }
 
@@ -101,13 +101,13 @@ public class WsHandlerImpl implements WsHandler {
     }
 
     @Override
-    public void broadCastToGroup(Long groupId, String message) throws IOException {
+    public void broadCastToGroup(Integer groupId, String message) throws IOException {
         this.broadCastToGroup(groupId, new TextMessage(message));
     }
 
     @Override
-    public void broadCastToGroup(Long groupId, TextMessage message) throws IOException {
-        List<Long> userIds = groupService.getGroupUserIds(groupId);
+    public void broadCastToGroup(Integer groupId, TextMessage message) throws IOException {
+        List<Integer> userIds = groupService.getGroupUserIds(groupId);
         for (WebSocketSession session : sessions) {
             if (!session.isOpen()) {
                 continue;

@@ -20,12 +20,12 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
 
     @Override
-    public List<PermissionDO> getPermissionByGroupId(Long groupId) {
+    public List<PermissionDO> getPermissionByGroupId(Integer groupId) {
         return this.baseMapper.selectPermissionsByGroupId(groupId);
     }
 
     @Override
-    public List<PermissionDO> getPermissionByGroupIds(List<Long> groupIds) {
+    public List<PermissionDO> getPermissionByGroupIds(List<Integer> groupIds) {
         return this.baseMapper.selectPermissionsByGroupIds(groupIds);
     }
 
@@ -37,7 +37,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
      * 4. 用户的分组一般都比较少，一般情况下都在2个一下
      */
     @Override
-    public Map<Long, List<PermissionDO>> getPermissionMapByGroupIds(List<Long> groupIds) {
+    public Map<Long, List<PermissionDO>> getPermissionMapByGroupIds(List<Integer> groupIds) {
         HashMap map = new HashMap(groupIds.size());
         groupIds.stream().forEach(groupId -> {
             List<PermissionDO> permissions = this.baseMapper.selectPermissionsByGroupId(groupId);
@@ -91,7 +91,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     }
 
     @Override
-    public List<PermissionDO> getPermissionByGroupIdsAndModule(List<Long> groupIds, String module) {
+    public List<PermissionDO> getPermissionByGroupIdsAndModule(List<Integer> groupIds, String module) {
         return this.baseMapper.selectPermissionsByGroupIdsAndModule(groupIds, module);
     }
 }

@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 /**
  * @author pedro@TaleLin
  * @author colorful@TaleLin
+ * @author Juzi@TaleLin
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {
@@ -83,7 +84,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
             userGroupMapper.insertBatch(relations);
         } else {
             // id为2的分组为游客分组
-            Long guestGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.GUEST);
+            Integer guestGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.GUEST);
             UserGroupDO relation = new UserGroupDO(user.getId(), guestGroupId);
             userGroupMapper.insert(relation);
         }
@@ -123,20 +124,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     }
 
     @Override
-    public List<GroupDO> getUserGroups(Long userId) {
+    public List<GroupDO> getUserGroups(Integer userId) {
         return groupService.getUserGroupsByUserId(userId);
     }
 
     @Override
-    public List<Map<String, List<Map<String, String>>>> getStructualUserPermissions(Long userId) {
+    public List<Map<String, List<Map<String, String>>>> getStructualUserPermissions(Integer userId) {
         List<PermissionDO> permissions = getUserPermissions(userId);
         return permissionService.structuringPermissions(permissions);
     }
 
     @Override
-    public List<PermissionDO> getUserPermissions(Long userId) {
+    public List<PermissionDO> getUserPermissions(Integer userId) {
         // 查找用户搜索分组，查找分组下的所有权限
-        List<Long> groupIds = groupService.getUserGroupIdsByUserId(userId);
+        List<Integer> groupIds = groupService.getUserGroupIdsByUserId(userId);
         if (groupIds == null || groupIds.size() == 0) {
             return new ArrayList<>();
         }
@@ -144,8 +145,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     }
 
     @Override
-    public List<PermissionDO> getUserPermissionsByModule(Long userId, String module) {
-        List<Long> groupIds = groupService.getUserGroupIdsByUserId(userId);
+    public List<PermissionDO> getUserPermissionsByModule(Integer userId, String module) {
+        List<Integer> groupIds = groupService.getUserGroupIdsByUserId(userId);
         if (groupIds == null || groupIds.size() == 0) {
             return new ArrayList<>();
         }
@@ -174,36 +175,36 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     }
 
     @Override
-    public boolean checkUserExistById(Long id) {
+    public boolean checkUserExistById(Integer id) {
         int rows = this.baseMapper.selectCountById(id);
         return rows > 0;
     }
 
     @Override
-    public IPage<UserDO> getUserPageByGroupId(Page<UserDO> pager, Long groupId) {
-        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
+    public IPage<UserDO> getUserPageByGroupId(Page<UserDO> pager, Integer groupId) {
+        Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         return this.baseMapper.selectPageByGroupId(pager, groupId, rootGroupId);
     }
 
     @Override
-    public Long getRootUserId() {
-        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
+    public Integer getRootUserId() {
+        Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         QueryWrapper<UserGroupDO> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UserGroupDO::getGroupId, rootGroupId);
         UserGroupDO userGroupDO = userGroupMapper.selectOne(wrapper);
         return userGroupDO == null ? 0 : userGroupDO.getUserId();
     }
 
-    private void checkGroupsExist(List<Long> ids) {
-        for (long id : ids) {
+    private void checkGroupsExist(List<Integer> ids) {
+        for (Integer id : ids) {
             if (!groupService.checkGroupExistById(id)) {
                 throw new NotFoundException("group not found，can't create user", 10023);
             }
         }
     }
 
-    private void checkGroupsValid(List<Long> ids) {
-        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
+    private void checkGroupsValid(List<Integer> ids) {
+        Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         boolean anyMatch = ids.stream().anyMatch(it -> it.equals(rootGroupId));
         if (anyMatch) {
             throw new ForbiddenException("you can't add user to root group", 10073);

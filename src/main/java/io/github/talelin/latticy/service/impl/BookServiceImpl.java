@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Service
 public class BookServiceImpl implements BookService {
@@ -44,7 +45,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDO getById(Long id) {
+    public BookDO getById(Integer id) {
         BookDO book = bookMapper.selectById(id);
         return book;
     }
@@ -56,7 +57,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean deleteById(Long id) {
+    public boolean deleteById(Integer id) {
         return bookMapper.deleteById(id) > 0;
     }
 }

@@ -22,6 +22,7 @@ import java.util.Date;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @RestController
 @RequestMapping("/cms/log")
@@ -41,9 +42,9 @@ public class LogController {
             @RequestParam(name = "name", required = false) String name,
             @RequestParam(name = "count", required = false, defaultValue = "15")
             @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Long count,
+            @Max(value = 30, message = "{page.count.max}") Integer count,
             @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Long page) {
+            @Min(value = 0, message = "{page.number.min}") Integer page) {
         IPage<LogDO> iPage = logService.getLogPage(page, count, name, start, end);
         return PageUtil.build(iPage);
     }
@@ -58,9 +59,9 @@ public class LogController {
             @RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
             @RequestParam(name = "count", required = false, defaultValue = "15")
             @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Long count,
+            @Max(value = 30, message = "{page.count.max}") Integer count,
             @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Long page) {
+            @Min(value = 0, message = "{page.number.min}") Integer page) {
         IPage<LogDO> iPage = logService.searchLogPage(page, count, name, keyword, start, end);
         return PageUtil.build(iPage);
     }
@@ -71,9 +72,9 @@ public class LogController {
     public PageResponseVO getUsers(
             @RequestParam(name = "count", required = false, defaultValue = "15")
             @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Long count,
+            @Max(value = 30, message = "{page.count.max}") Integer count,
             @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Long page) {
+            @Min(value = 0, message = "{page.number.min}") Integer page) {
         IPage<String> iPage = logService.getUserNamePage(page, count);
         return PageUtil.build(iPage);
     }

@@ -1,23 +1,24 @@
 package io.github.talelin.latticy.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import io.github.talelin.latticy.common.constant.IdentityConstant;
-import io.github.talelin.core.util.EncryptUtil;
-import io.github.talelin.latticy.model.UserIdentityDO;
-import io.github.talelin.latticy.mapper.UserIdentityMapper;
-import io.github.talelin.latticy.service.UserIdentityService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.github.talelin.core.util.EncryptUtil;
+import io.github.talelin.latticy.common.constant.IdentityConstant;
+import io.github.talelin.latticy.mapper.UserIdentityMapper;
+import io.github.talelin.latticy.model.UserIdentityDO;
+import io.github.talelin.latticy.service.UserIdentityService;
 import org.springframework.stereotype.Service;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Service
 public class UserIdentityServiceImpl extends ServiceImpl<UserIdentityMapper, UserIdentityDO> implements UserIdentityService {
 
 
     @Override
-    public UserIdentityDO createIdentity(Long userId, String identityType, String identifier, String credential) {
+    public UserIdentityDO createIdentity(Integer userId, String identityType, String identifier, String credential) {
         UserIdentityDO userIdentity = new UserIdentityDO();
         userIdentity.setUserId(userId);
         userIdentity.setIdentityType(identityType);
@@ -33,14 +34,14 @@ public class UserIdentityServiceImpl extends ServiceImpl<UserIdentityMapper, Use
     }
 
     @Override
-    public UserIdentityDO createUsernamePasswordIdentity(Long userId, String identifier, String credential) {
+    public UserIdentityDO createUsernamePasswordIdentity(Integer userId, String identifier, String credential) {
         // 密码加密
         credential = EncryptUtil.encrypt(credential);
         return this.createIdentity(userId, IdentityConstant.USERNAME_PASSWORD_IDENTITY, identifier, credential);
     }
 
     @Override
-    public boolean verifyUsernamePassword(Long userId, String username, String password) {
+    public boolean verifyUsernamePassword(Integer userId, String username, String password) {
         QueryWrapper<UserIdentityDO> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UserIdentityDO::getUserId, userId)
                 .eq(UserIdentityDO::getIdentityType, IdentityConstant.USERNAME_PASSWORD_IDENTITY)
@@ -50,7 +51,7 @@ public class UserIdentityServiceImpl extends ServiceImpl<UserIdentityMapper, Use
     }
 
     @Override
-    public boolean changePassword(Long userId, String password) {
+    public boolean changePassword(Integer userId, String password) {
         String encrypted = EncryptUtil.encrypt(password);
         UserIdentityDO userIdentity = UserIdentityDO.builder().credential(encrypted).build();
         QueryWrapper<UserIdentityDO> wrapper = new QueryWrapper<>();
@@ -59,7 +60,7 @@ public class UserIdentityServiceImpl extends ServiceImpl<UserIdentityMapper, Use
     }
 
     @Override
-    public boolean changeUsername(Long userId, String username) {
+    public boolean changeUsername(Integer userId, String username) {
         UserIdentityDO userIdentity = UserIdentityDO.builder().identifier(username).build();
         QueryWrapper<UserIdentityDO> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UserIdentityDO::getUserId, userId);

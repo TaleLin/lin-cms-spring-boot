@@ -4,7 +4,6 @@ import cn.hutool.core.date.DateUtil;
 import io.github.talelin.latticy.mapper.LogMapper;
 import io.github.talelin.latticy.model.LogDO;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +47,7 @@ public class LogControllerTest {
         String method = "GET";
         String path = "/";
         Integer statusCode = 200;
-        long userId = 1;
+        Integer userId = 1;
         String username = "pedro大大";
 
         LogDO logDO = LogDO
@@ -62,10 +61,6 @@ public class LogControllerTest {
                 .username(username)
                 .build();
         logMapper.insert(logDO);
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test

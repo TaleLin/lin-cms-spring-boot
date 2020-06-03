@@ -1,7 +1,7 @@
 package io.github.talelin.latticy.service.impl;
 
-import io.github.talelin.latticy.common.constant.IdentityConstant;
 import io.github.talelin.core.util.EncryptUtil;
+import io.github.talelin.latticy.common.constant.IdentityConstant;
 import io.github.talelin.latticy.model.UserIdentityDO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -13,7 +13,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 @RunWith(SpringRunner.class)
@@ -29,14 +30,14 @@ public class UserIdentityServiceImplTest {
 
     public UserIdentityDO setUp1() {
         UserIdentityDO userIdentity = new UserIdentityDO();
-        userIdentity.setUserId(1L);
+        userIdentity.setUserId(1);
         userIdentity.setIdentityType(IdentityConstant.USERNAME_PASSWORD_IDENTITY);
         userIdentity.setIdentifier("pedro");
         userIdentity.setCredential(EncryptUtil.encrypt("123456"));
         return userIdentity;
     }
 
-    public UserIdentityDO setUp2(Long userId, String identityType, String identifier, String credential) {
+    public UserIdentityDO setUp2(Integer userId, String identityType, String identifier, String credential) {
         UserIdentityDO userIdentity = new UserIdentityDO();
         userIdentity.setUserId(userId);
         userIdentity.setIdentityType(identityType);
@@ -48,7 +49,7 @@ public class UserIdentityServiceImplTest {
     @Test
     public void createIdentity() {
         UserIdentityDO userIdentity = userIdentityService.createIdentity(
-                1L,
+                1,
                 IdentityConstant.USERNAME_PASSWORD_IDENTITY,
                 "pedro",
                 EncryptUtil.encrypt("123456")
@@ -68,7 +69,7 @@ public class UserIdentityServiceImplTest {
     @Test
     public void createUsernamePasswordIdentity() {
         UserIdentityDO userIdentity = userIdentityService.createUsernamePasswordIdentity(
-                1L,
+                1,
                 "pedro",
                 "123456");
         assertNotNull(userIdentity.getId());

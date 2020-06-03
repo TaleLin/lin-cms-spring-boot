@@ -1,7 +1,7 @@
 package io.github.talelin.latticy.mapper;
 
-import io.github.talelin.latticy.model.GroupDO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import io.github.talelin.latticy.model.GroupDO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +9,7 @@ import java.util.List;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Repository
 public interface GroupMapper extends BaseMapper<GroupDO> {
@@ -19,7 +20,7 @@ public interface GroupMapper extends BaseMapper<GroupDO> {
      * @param userId 用户id
      * @return 所有分组
      */
-    List<GroupDO> selectUserGroups(@Param("userId") Long userId);
+    List<GroupDO> selectUserGroups(@Param("userId") Integer userId);
 
     /**
      * 获得用户的所有分组id
@@ -27,7 +28,7 @@ public interface GroupMapper extends BaseMapper<GroupDO> {
      * @param userId 用户id
      * @return 所有分组id
      */
-    List<Long> selectUserGroupIds(@Param("userId") Long userId);
+    List<Integer> selectUserGroupIds(@Param("userId") Integer userId);
 
     /**
      * 通过id获得分组个数
@@ -35,7 +36,7 @@ public interface GroupMapper extends BaseMapper<GroupDO> {
      * @param id id
      * @return 个数
      */
-    int selectCountById(@Param("id") Long id);
+    int selectCountById(@Param("id") Integer id);
 
     /**
      * 检查用户是否在该名称的分组里
@@ -43,5 +44,5 @@ public interface GroupMapper extends BaseMapper<GroupDO> {
      * @param userId    用户id
      * @param groupName 分组名
      */
-    int selectCountUserByUserIdAndGroupName(@Param("userId") Long userId, @Param("groupName") String groupName);
+    int selectCountUserByUserIdAndGroupName(@Param("userId") Integer userId, @Param("groupName") String groupName);
 }
