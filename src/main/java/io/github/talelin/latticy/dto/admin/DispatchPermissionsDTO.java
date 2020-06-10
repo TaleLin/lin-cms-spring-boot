@@ -1,6 +1,5 @@
 package io.github.talelin.latticy.dto.admin;
 
-import io.github.talelin.autoconfigure.validator.LongList;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -18,6 +17,5 @@ public class DispatchPermissionsDTO {
     @NotNull(message = "{group.id.not-null}")
     private Integer groupId;
 
-    @LongList(message = "{permission.ids.long-list}")
     private List<Integer> permissionIds;
 }
