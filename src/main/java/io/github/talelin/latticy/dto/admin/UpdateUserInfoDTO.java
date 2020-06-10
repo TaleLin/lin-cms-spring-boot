@@ -1,8 +1,8 @@
 package io.github.talelin.latticy.dto.admin;
 
-import io.github.talelin.autoconfigure.validator.LongList;
 import lombok.Data;
 
+import javax.validation.constraints.Min;
 import java.util.List;
 
 /**
@@ -12,6 +12,5 @@ import java.util.List;
 @Data
 public class UpdateUserInfoDTO {
 
-    @LongList(min = 1, message = "{group.ids.long-list}")
-    private List<Integer> groupIds;
+    private List<@Min(1) Integer> groupIds;
 }
