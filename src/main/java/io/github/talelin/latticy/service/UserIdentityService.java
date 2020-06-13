@@ -80,5 +80,5 @@ public interface UserIdentityService extends IService<UserIdentityDO> {
      * @param password 新密码
      * @return 是否成功
      */
-    boolean changeUsernamePassword(Long userId, String username, String password);
+    boolean changeUsernamePassword(Integer userId, String username, String password);
 }

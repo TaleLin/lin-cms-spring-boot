@@ -68,8 +68,9 @@ public class UserIdentityServiceImpl extends ServiceImpl<UserIdentityMapper, Use
     }
 
     @Override
-    public boolean changeUsernamePassword(Long userId, String username, String password) {
-        UserIdentityDO userIdentity = UserIdentityDO.builder().identifier(username).credential(password).build();
+    public boolean changeUsernamePassword(Integer userId, String username, String password) {
+        UserIdentityDO userIdentity =
+                UserIdentityDO.builder().identifier(username).credential(password).build();
         QueryWrapper<UserIdentityDO> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UserIdentityDO::getUserId, userId);
         return this.baseMapper.update(userIdentity, wrapper) > 0;
