@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 public class UserInfoVO {
 
-    private Long id;
+    private Integer id;
 
     /**
      * 用户名，唯一
