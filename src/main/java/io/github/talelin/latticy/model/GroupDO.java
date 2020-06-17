@@ -1,7 +1,10 @@
 package io.github.talelin.latticy.model;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler;
+import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
 import lombok.*;
 
 import java.io.Serializable;
@@ -9,12 +12,13 @@ import java.io.Serializable;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * @author Jokky@TaleLin
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("lin_group")
+@TableName(value = "lin_group",autoResultMap = true)
 @EqualsAndHashCode(callSuper = true)
 public class GroupDO extends BaseModel implements Serializable {
 
@@ -33,7 +37,8 @@ public class GroupDO extends BaseModel implements Serializable {
     /**
      * 分组级别（root、guest、user，其中 root、guest 分组只能存在一个）
      */
-    @TableField(value = "`level`")
-    private String level;
+    @TableField(value = "`level`", typeHandler = MybatisEnumTypeHandler.class)
+    @EnumValue
+    private GroupLevelEnum level;
 
 }
