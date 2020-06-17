@@ -3,7 +3,7 @@
 spring:
   # 激活环境配置
   profiles:
-    active: dev
+    active: test
   # 文件编码 UTF8
   mandatory-file-encoding: UTF-8
   mvc:
