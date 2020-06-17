@@ -123,6 +123,7 @@ public class AdminController {
     }
 
     @GetMapping("/group/all")
+    @AdminRequired
     @PermissionMeta(value = "查询所有权限组", mount = false)
     public List<GroupDO> getAllGroup() {
         List<GroupDO> groups = adminService.getAllGroups();
