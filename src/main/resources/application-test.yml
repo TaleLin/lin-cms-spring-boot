@@ -13,8 +13,8 @@ spring:
   # h2 内存数据库配置，供测试使用，其它环境勿用
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: '17605259250'
-    url: jdbc:mysql://jokky.fun:3306/lin-cms?useSSL=false&serverTimezone=UTC&characterEncoding=UTF8
+    password: '123456'
+    url: jdbc:mysql://localhost:3306/lin-cms?useSSL=false&serverTimezone=UTC&characterEncoding=UTF8
     username: root
 
 # 开启权限拦截
