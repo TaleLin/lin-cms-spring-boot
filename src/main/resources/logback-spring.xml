@@ -3,7 +3,8 @@
 <configuration scan="true" scanPeriod="10 seconds">
     <contextName>logback</contextName>
 
-    <property name="log.path" value="logs/"/>
+    <property name="log.access.path" value="logs/access/"/>
+    <property name="log.error.path" value="logs/error/"/>
 
     <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
 
@@ -18,7 +19,7 @@
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>debug</level>
+            <level>DEBUG</level>
         </filter>
         <encoder>
             <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
@@ -28,8 +29,24 @@
 
     <timestamp key="namedByDay" datePattern="yyyy-MM-dd"/>
 
-    <appender name="FILE" class="io.github.talelin.core.logger.AdvanceRollingFileAppender">
-        <dir>${log.path}</dir>
+    <appender name="INFO_FILE" class="io.github.talelin.core.logger.AdvanceRollingFileAppender">
+        <dir>${log.access.path}</dir>
+        <maxFileSize>5MB</maxFileSize>
+
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="ERROR_FILE" class="io.github.talelin.core.logger.AdvanceRollingFileAppender">
+        <dir>${log.error.path}</dir>
         <maxFileSize>5MB</maxFileSize>
 
         <encoder>
@@ -38,21 +55,22 @@
         </encoder>
 
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>debug</level>
+            <level>ERROR</level>
         </filter>
     </appender>
 
     <springProfile name="dev">
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
-            <appender-ref ref="FILE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
         </root>
     </springProfile>
 
     <springProfile name="prod">
         <root level="INFO">
-            <!--<appender-ref ref="CONSOLE"/>-->
-            <appender-ref ref="FILE"/>
+            <appender-ref ref="INFO_FILE"/>
+            <appender-ref ref="ERROR_FILE"/>
         </root>
     </springProfile>
 
