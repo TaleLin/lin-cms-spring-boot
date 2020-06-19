@@ -117,11 +117,11 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
 
     @Override
     public GroupDO getParticularGroupByLevel(GroupLevelEnum level) {
-        if (GroupLevelEnum.USER.getCode().equals(level.getCode())) {
+        if (GroupLevelEnum.USER == level) {
             return null;
         } else {
             QueryWrapper<GroupDO> wrapper = new QueryWrapper<>();
-            wrapper.lambda().eq(GroupDO::getLevel, level);
+            wrapper.lambda().eq(GroupDO::getLevel, level.getValue());
             GroupDO groupDO = this.baseMapper.selectOne(wrapper);
             return groupDO;
         }
