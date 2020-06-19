@@ -21,20 +21,20 @@ public enum GroupLevelEnum {
     ;
 
     @EnumValue
-    private Integer code;
+    private Integer value;
 
-    private String value;
+    private String description;
 
-    GroupLevelEnum(Integer code , String value) {
-        this.code = code;
+    GroupLevelEnum(Integer value , String description) {
         this.value = value;
+        this.description = description;
     }
 
-    public Integer getCode() {
-        return code;
+    public Integer getValue() {
+        return value;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public String getDescription() {
+        return description;
     }
 }
