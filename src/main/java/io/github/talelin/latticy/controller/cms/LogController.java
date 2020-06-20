@@ -29,14 +29,13 @@ import java.util.Date;
 @PermissionModule(value = "日志")
 @Validated
 public class LogController {
-
     @Autowired
     private LogService logService;
 
     @GetMapping("")
     @GroupRequired
     @PermissionMeta(value = "查询所有日志")
-    public PageResponseVO getLogs(
+    public PageResponseVO<LogDO> getLogs(
             @RequestParam(name = "start", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date start,
             @RequestParam(name = "end", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date end,
             @RequestParam(name = "name", required = false) String name,
@@ -52,7 +51,7 @@ public class LogController {
     @GetMapping("/search")
     @GroupRequired
     @PermissionMeta(value = "搜索日志")
-    public PageResponseVO searchLogs(
+    public PageResponseVO<LogDO> searchLogs(
             @RequestParam(name = "start", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date start,
             @RequestParam(name = "end", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date end,
             @RequestParam(name = "name", required = false) String name,
@@ -69,7 +68,7 @@ public class LogController {
     @GetMapping("/users")
     @GroupRequired
     @PermissionMeta(value = "查询日志记录的用户")
-    public PageResponseVO getUsers(
+    public PageResponseVO<String> getUsers(
             @RequestParam(name = "count", required = false, defaultValue = "15")
             @Min(value = 1, message = "{page.count.min}")
             @Max(value = 30, message = "{page.count.max}") Integer count,
