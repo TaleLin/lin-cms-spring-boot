@@ -71,11 +71,11 @@ CREATE TABLE lin_group
 (
     id          int(10) unsigned NOT NULL AUTO_INCREMENT,
     name        varchar(60)      NOT NULL COMMENT '分组名称，例如：搬砖者',
-    info        varchar(255)              DEFAULT NULL COMMENT '分组信息：例如：搬砖的人',
-    level       smallint(1) NOT NULL DEFAULT 3 COMMENT '分组级别 1：root 2：guest 3：user  root（root、guest分组只能存在一个)',
+    info        varchar(255)     DEFAULT NULL COMMENT '分组信息：例如：搬砖的人',
+    level       tinyint(2)       NOT NULL DEFAULT 3 COMMENT '分组级别 1：root 2：guest 3：user  root（root、guest分组只能存在一个)',
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)               DEFAULT NULL,
+    delete_time datetime(3)      DEFAULT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY name_del (name, delete_time)
 ) ENGINE = InnoDB

@@ -18,6 +18,8 @@ mybatis-plus:
   configuration:
     # 开启下划线转驼峰
     map-underscore-to-camel-case: true
+    # 指定默认枚举类型的类型转换器
+    default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
   global-config:
     # 开启/关闭 banner 打印
     banner: false

@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "lin_group", autoResultMap = true)
+@TableName(value = "lin_group")
 @EqualsAndHashCode(callSuper = true)
 public class GroupDO extends BaseModel implements Serializable {
 
@@ -37,8 +37,7 @@ public class GroupDO extends BaseModel implements Serializable {
     /**
      * 分组级别（root、guest、user，其中 root、guest 分组只能存在一个）
      */
-    @TableField(value = "`level`", typeHandler = MybatisEnumTypeHandler.class)
-    @EnumValue
+    @TableField(value = "`level`")
     private GroupLevelEnum level;
 
 }
