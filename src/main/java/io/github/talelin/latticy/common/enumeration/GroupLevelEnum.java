@@ -1,40 +1,34 @@
 package io.github.talelin.latticy.common.enumeration;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.baomidou.mybatisplus.core.enums.IEnum;
 
 /**
  * @author colorful@TaleLin
  */
-public enum GroupLevelEnum {
+public enum GroupLevelEnum implements IEnum<Integer> {
     /**
      * 超级管理员
      */
-    ROOT(1,"root"),
+    ROOT(1),
     /**
      * 游客
      */
-    GUEST(2,"guest"),
+    GUEST(2),
     /**
      * 普通用户
      */
-    USER(3,"user")
+    USER(3)
     ;
 
-    @EnumValue
     private Integer value;
 
-    private String description;
-
-    GroupLevelEnum(Integer value , String description) {
+    GroupLevelEnum(Integer value) {
         this.value = value;
-        this.description = description;
     }
 
+    @Override
     public Integer getValue() {
         return value;
     }
 
-    public String getDescription() {
-        return description;
-    }
 }
