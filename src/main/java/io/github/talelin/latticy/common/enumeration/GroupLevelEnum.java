@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.enums.IEnum;
 
 /**
  * @author colorful@TaleLin
+ * @author Juzi@TaleLin
  */
 public enum GroupLevelEnum implements IEnum<Integer> {
     /**
@@ -17,18 +18,23 @@ public enum GroupLevelEnum implements IEnum<Integer> {
     /**
      * 普通用户
      */
-    USER(3)
-    ;
+    USER(3);
 
-    private Integer value;
+    private final Integer value;
 
     GroupLevelEnum(Integer value) {
         this.value = value;
     }
 
+    /**
+     * MybatisEnumTypeHandler 转换时调用此方法
+     *
+     * @return 枚举对应的 code 值
+     * @see com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
+     */
     @Override
     public Integer getValue() {
-        return value;
+        return this.value;
     }
 
 }
