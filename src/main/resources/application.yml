@@ -31,11 +31,6 @@ mybatis-plus:
   mapper-locations: classpath:mapper/*.xml
 
 
-logging:
-  # 日志配置文件（logback配置文件）
-  config: classpath:logback-spring.xml
-
-
 lin:
   cms:
     # 开启行为日志记录（logger）
@@ -46,3 +41,7 @@ lin:
     token-refresh-expire: 2592000
     # 令牌 secret
     token-secret: x88Wf0991079889x8796a0Ac68f9ecJJU17c5Vbe8beod7d8d3e695*4
+logging:
+  file:
+    max-history:
+  config:
