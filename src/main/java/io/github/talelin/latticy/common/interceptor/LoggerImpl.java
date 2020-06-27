@@ -30,7 +30,6 @@ public class LoggerImpl implements LoggerResolver {
 
     private static final Pattern pattern = Pattern.compile("(?<=\\{)[^}]*(?=})");
 
-
     @Override
     public void handle(PermissionMeta meta, Logger logger, HttpServletRequest request, HttpServletResponse response) {
         String template = logger.template();
@@ -38,7 +37,7 @@ public class LoggerImpl implements LoggerResolver {
         template = this.parseTemplate(template, user, request, response);
         String permission = "";
         if (meta != null) {
-            permission = StringUtils.isEmpty(meta.permission()) ? meta.value() : meta.permission();
+            permission = StringUtils.isEmpty(meta.value()) ? meta.value() : meta.value();
         }
         Integer userId = user.getId();
         String username = user.getUsername();
