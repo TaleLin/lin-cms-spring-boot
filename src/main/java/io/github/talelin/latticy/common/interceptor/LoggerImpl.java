@@ -28,9 +28,7 @@ public class LoggerImpl implements LoggerResolver {
     @Autowired
     private LogService logService;
 
-    public static String REG_XP = "(?<=\\{)[^}]*(?=\\})";
-
-    private Pattern pattern = Pattern.compile(REG_XP);
+    private static final Pattern pattern = Pattern.compile("(?<=\\{)[^}]*(?=})");
 
 
     @Override
