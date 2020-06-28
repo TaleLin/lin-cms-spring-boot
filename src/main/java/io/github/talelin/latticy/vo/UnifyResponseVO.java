@@ -43,24 +43,10 @@ public class UnifyResponseVO<T> {
         this.request = RequestUtil.getSimpleRequest();
     }
 
-    public UnifyResponseVO(HttpStatus httpStatus) {
-        this.code = Code.SUCCESS.getCode();
-        this.message = (T) Code.SUCCESS.getDescription();
-        this.request = RequestUtil.getSimpleRequest();
-        ResponseUtil.setCurrentResponseHttpStatus(httpStatus.value());
-    }
-
     public UnifyResponseVO(int code, T message) {
         this.code = code;
         this.message =  message;
         this.request = RequestUtil.getSimpleRequest();
-    }
-
-    public UnifyResponseVO(int code, HttpStatus httpStatus) {
-        this.code = code;
-        this.message = (T) Code.SUCCESS.getDescription();
-        this.request = RequestUtil.getSimpleRequest();
-        ResponseUtil.setCurrentResponseHttpStatus(httpStatus.value());
     }
 
     public UnifyResponseVO(T message, HttpStatus httpStatus) {
