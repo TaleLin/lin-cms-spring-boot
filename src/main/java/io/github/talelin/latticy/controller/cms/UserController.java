@@ -24,7 +24,12 @@ import io.github.talelin.latticy.vo.UserInfoVO;
 import io.github.talelin.latticy.vo.UserPermissionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -56,7 +61,7 @@ public class UserController {
      */
     @PostMapping("/register")
     @AdminRequired
-    public CreatedVO<String> register(@RequestBody @Validated RegisterDTO validator) {
+    public CreatedVO register(@RequestBody @Validated RegisterDTO validator) {
         userService.createUser(validator);
         return new CreatedVO(11);
     }
