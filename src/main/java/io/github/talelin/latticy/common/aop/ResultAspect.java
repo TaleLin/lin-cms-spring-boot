@@ -27,7 +27,7 @@ public class ResultAspect {
 
         // 如果 code-message.properties 中指定了相应的 message 并且 UnifyResponseVO 的 message 为null
         // 则使用 newMessage 替换 oldMessage
-        if (StrUtil.isNotBlank(newMessage) && StrUtil.isBlank(result.getMessage())) {
+        if (StrUtil.isNotBlank(newMessage) && StrUtil.isBlank(oldMessage)) {
             result.setMessage(newMessage);
         }
     }
