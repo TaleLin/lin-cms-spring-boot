@@ -132,7 +132,7 @@
         </filter>
     </appender>
     
-    <logger name="io.github.talelin.latticy.module.log.MDCAccessServletFilter" level="INFO" additivit="false">
+    <logger name="io.github.talelin.latticy.module.log.MDCAccessServletFilter" level="INFO" additivity="false">
         <appender-ref ref="FILE_ACCESS"/>
     </logger>
     
