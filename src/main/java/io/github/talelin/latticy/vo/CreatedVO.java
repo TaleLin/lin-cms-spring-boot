@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 /**
  * @author colorful@TaleLin
  */
-public class CreatedVO<T> extends UnifyResponseVO {
+public class CreatedVO extends UnifyResponseVO<String> {
 
     public CreatedVO() {
         super(Code.CREATED.getCode());
@@ -19,14 +19,18 @@ public class CreatedVO<T> extends UnifyResponseVO {
         ResponseUtil.setCurrentResponseHttpStatus(HttpStatus.CREATED.value());
     }
 
-    public CreatedVO(T message) {
+    public CreatedVO(String message) {
         super(message);
         ResponseUtil.setCurrentResponseHttpStatus(HttpStatus.CREATED.value());
     }
 
-    public CreatedVO(int code, T message) {
+    public CreatedVO(int code, String message) {
         super(code, message);
         ResponseUtil.setCurrentResponseHttpStatus(HttpStatus.CREATED.value());
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

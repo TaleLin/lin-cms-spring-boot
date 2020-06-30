@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 /**
  * @author colorful@TaleLin
  */
-public class DeletedVO<T> extends UnifyResponseVO {
+public class DeletedVO extends UnifyResponseVO<String> {
 
     public DeletedVO() {
         super(Code.DELETED.getCode());
@@ -19,14 +19,18 @@ public class DeletedVO<T> extends UnifyResponseVO {
         ResponseUtil.setCurrentResponseHttpStatus(HttpStatus.CREATED.value());
     }
 
-    public DeletedVO(T message) {
+    public DeletedVO(String message) {
         super(message);
         ResponseUtil.setCurrentResponseHttpStatus(HttpStatus.CREATED.value());
     }
 
-    public DeletedVO(int code, T message) {
+    public DeletedVO(int code, String message) {
         super(code, message);
         ResponseUtil.setCurrentResponseHttpStatus(HttpStatus.CREATED.value());
     }
 
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }
