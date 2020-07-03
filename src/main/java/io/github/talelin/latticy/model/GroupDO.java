@@ -1,9 +1,7 @@
 package io.github.talelin.latticy.model;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler;
 import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
 import lombok.*;
 
