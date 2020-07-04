@@ -129,7 +129,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     }
 
     @Override
-    public List<Map<String, List<Map<String, String>>>> getStructualUserPermissions(Integer userId) {
+    public List<Map<String, List<Map<String, String>>>> getStructuralUserPermissions(Integer userId) {
         List<PermissionDO> permissions = getUserPermissions(userId);
         return permissionService.structuringPermissions(permissions);
     }

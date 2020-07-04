@@ -59,7 +59,7 @@ public interface UserService extends IService<UserDO> {
      * @param userId 用户id
      * @return 权限
      */
-    List<Map<String, List<Map<String, String>>>> getStructualUserPermissions(Integer userId);
+    List<Map<String, List<Map<String, String>>>> getStructuralUserPermissions(Integer userId);
 
     /**
      * 获得用户所有权限
