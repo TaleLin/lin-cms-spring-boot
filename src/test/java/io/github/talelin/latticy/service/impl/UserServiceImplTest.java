@@ -157,7 +157,7 @@ public class UserServiceImplTest {
     @Test
     public void getUserPermissions() {
         Integer id = mockData();
-        List<Map<String, List<Map<String, String>>>> structuringPermissions = userService.getStructualUserPermissions(id);
+        List<Map<String, List<Map<String, String>>>> structuringPermissions = userService.getStructuralUserPermissions(id);
         assertTrue(structuringPermissions.size() > 0);
         log.info("structuringPermissions: {}", structuringPermissions);
         boolean anyMatch = structuringPermissions.stream().anyMatch(it -> it.containsKey("炉石传说"));

@@ -123,7 +123,7 @@ public class UserController {
     public UserPermissionVO getPermissions() {
         UserDO user = LocalUser.getLocalUser();
         boolean admin = groupService.checkIsRootByUserId(user.getId());
-        List<Map<String, List<Map<String, String>>>> permissions = userService.getStructualUserPermissions(user.getId());
+        List<Map<String, List<Map<String, String>>>> permissions = userService.getStructuralUserPermissions(user.getId());
         UserPermissionVO userPermissions = new UserPermissionVO(user, permissions);
         userPermissions.setAdmin(admin);
         return userPermissions;
