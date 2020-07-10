@@ -210,7 +210,7 @@ public class AdminServiceImpl implements AdminService {
             if (res.containsKey(permission.getModule())) {
                 res.get(permission.getModule()).add(permission);
             } else {
-                ArrayList t = new ArrayList();
+                ArrayList<PermissionDO> t = new ArrayList<>();
                 t.add(permission);
                 res.put(permission.getModule(), t);
             }
