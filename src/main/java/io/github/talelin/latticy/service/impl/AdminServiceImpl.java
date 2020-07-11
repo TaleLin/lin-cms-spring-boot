@@ -201,7 +201,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Map<String, List<PermissionDO>> getAllStructualPermissions() {
+    public Map<String, List<PermissionDO>> getAllStructuralPermissions() {
         QueryWrapper<PermissionDO> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(PermissionDO::getMount, true);
         List<PermissionDO> permissions = getAllPermissions();
