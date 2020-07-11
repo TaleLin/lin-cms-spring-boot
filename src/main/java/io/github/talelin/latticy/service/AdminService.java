@@ -137,5 +137,5 @@ public interface AdminService {
     /**
      * 获得结构化的权限信息
      */
-    Map<String, List<PermissionDO>> getAllStructualPermissions();
+    Map<String, List<PermissionDO>> getAllStructuralPermissions();
 }

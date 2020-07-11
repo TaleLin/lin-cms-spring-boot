@@ -62,7 +62,7 @@ public class AdminController {
     @AdminRequired
     @PermissionMeta(value = "查询所有可分配的权限", mount = false)
     public Map<String, List<PermissionDO>> getAllPermissions() {
-        return adminService.getAllStructualPermissions();
+        return adminService.getAllStructuralPermissions();
     }
 
 
