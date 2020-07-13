@@ -40,7 +40,7 @@ public class BookController {
     public BookDO getBook(@PathVariable(value = "id") @Positive(message = "{id.positive}") Integer id) {
         BookDO book = bookService.getById(id);
         if (book == null) {
-            throw new NotFoundException("book not found", 10022);
+            throw new NotFoundException(10022);
         }
         return book;
     }
@@ -70,7 +70,7 @@ public class BookController {
     public UpdatedVO updateBook(@PathVariable("id") @Positive(message = "{id.positive}") Integer id, @RequestBody @Validated CreateOrUpdateBookDTO validator) {
         BookDO book = bookService.getById(id);
         if (book == null) {
-            throw new NotFoundException("book not found", 10022);
+            throw new NotFoundException(10022);
         }
         bookService.updateBook(book, validator);
         return new UpdatedVO(13);
@@ -83,7 +83,7 @@ public class BookController {
     public DeletedVO deleteBook(@PathVariable("id") @Positive(message = "{id.positive}") Integer id) {
         BookDO book = bookService.getById(id);
         if (book == null) {
-            throw new NotFoundException("book not found", 10022);
+            throw new NotFoundException(10022);
         }
         bookService.deleteById(book.getId());
         return new DeletedVO(14);
