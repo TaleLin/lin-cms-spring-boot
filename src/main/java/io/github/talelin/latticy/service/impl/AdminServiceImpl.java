@@ -99,7 +99,7 @@ public class AdminServiceImpl implements AdminService {
         Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         boolean anyMatch = newGroupIds.stream().anyMatch(it -> it.equals(rootGroupId));
         if (anyMatch) {
-            throw new ForbiddenException("you can't add user to root group", 10073);
+            throw new ForbiddenException(10073);
         }
         List<Integer> existGroupIds = groupService.getUserGroupIdsByUserId(id);
         // 删除existGroupIds有，而newGroupIds没有的
@@ -141,7 +141,7 @@ public class AdminServiceImpl implements AdminService {
         // bug 如果只修改info，不修改name，则name已经存在，此时不应该报错
         GroupDO exist = groupService.getById(id);
         if (exist == null) {
-            throw new NotFoundException("group not found", 10024);
+            throw new NotFoundException(10024);
         }
         if (!exist.getName().equals(dto.getName())) {
             throwGroupNameExist(dto.getName());
@@ -156,10 +156,10 @@ public class AdminServiceImpl implements AdminService {
         Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         Integer guestGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.GUEST);
         if (id.equals(rootGroupId)) {
-            throw new ForbiddenException("root group can't delete", 10074);
+            throw new ForbiddenException(10074);
         }
         if (id.equals(guestGroupId)) {
-            throw new ForbiddenException("guest group can't delete", 10075);
+            throw new ForbiddenException(10075);
         }
         throwGroupNotExistById(id);
         return groupService.removeById(id);
@@ -221,21 +221,21 @@ public class AdminServiceImpl implements AdminService {
     private void throwUserNotExistById(Integer id) {
         boolean exist = userService.checkUserExistById(id);
         if (!exist) {
-            throw new NotFoundException("user not found", 10021);
+            throw new NotFoundException(10021);
         }
     }
 
     private void throwGroupNotExistById(Integer id) {
         boolean exist = groupService.checkGroupExistById(id);
         if (!exist) {
-            throw new NotFoundException("group not found", 10024);
+            throw new NotFoundException(10024);
         }
     }
 
     private void throwGroupNameExist(String name) {
         boolean exist = groupService.checkGroupExistByName(name);
         if (exist) {
-            throw new ForbiddenException("group name already exist, please enter a new one", 10072);
+            throw new ForbiddenException(10072);
         }
     }
 }

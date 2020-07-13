@@ -59,12 +59,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     public UserDO createUser(RegisterDTO dto) {
         boolean exist = this.checkUserExistByUsername(dto.getUsername());
         if (exist) {
-            throw new ForbiddenException("username already exist, please choose a new one", 10071);
+            throw new ForbiddenException(10071);
         }
         if (StrUtil.isNotBlank(dto.getEmail())) {
             exist = this.checkUserExistByEmail(dto.getEmail());
             if (exist) {
-                throw new ForbiddenException("email already exist, please choose a new one", 10076);
+                throw new ForbiddenException(10076);
             }
         } else {
             // bug 前端如果传入的email为 "" 时，由于数据库中存在""的email，会报duplication错误
@@ -99,7 +99,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         if (StrUtil.isNotBlank(dto.getUsername())) {
             boolean exist = this.checkUserExistByUsername(dto.getUsername());
             if (exist) {
-                throw new ForbiddenException("username already exist, please choose a new one", 10071);
+                throw new ForbiddenException(10071);
             }
             user.setUsername(dto.getUsername());
             userIdentityService.changeUsername(user.getId(), dto.getUsername());
@@ -114,11 +114,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         UserDO user = LocalUser.getLocalUser();
         boolean valid = userIdentityService.verifyUsernamePassword(user.getId(), user.getUsername(), dto.getOldPassword());
         if (!valid) {
-            throw new ParameterException("password invalid, please enter correct password", 10032);
+            throw new ParameterException(10032);
         }
         valid = userIdentityService.changePassword(user.getId(), dto.getNewPassword());
         if (!valid) {
-            throw new FailedException("password change failed", 10011);
+            throw new FailedException(10011);
         }
         return user;
     }
@@ -198,7 +198,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     private void checkGroupsExist(List<Integer> ids) {
         for (Integer id : ids) {
             if (!groupService.checkGroupExistById(id)) {
-                throw new NotFoundException("group not found，can't create user", 10023);
+                throw new NotFoundException(10023);
             }
         }
     }
@@ -207,7 +207,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         boolean anyMatch = ids.stream().anyMatch(it -> it.equals(rootGroupId));
         if (anyMatch) {
-            throw new ForbiddenException("you can't add user to root group", 10073);
+            throw new ForbiddenException(10073);
         }
     }
 }

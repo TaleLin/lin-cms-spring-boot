@@ -73,14 +73,14 @@ public class UserController {
     public Tokens login(@RequestBody @Validated LoginDTO validator) {
         UserDO user = userService.getUserByUsername(validator.getUsername());
         if (user == null) {
-            throw new NotFoundException("user not found", 10021);
+            throw new NotFoundException(10021);
         }
         boolean valid = userIdentityService.verifyUsernamePassword(
                 user.getId(),
                 user.getUsername(),
                 validator.getPassword());
         if (!valid) {
-            throw new ParameterException("username or password is fault", 10031);
+            throw new ParameterException(10031);
         }
         return jwt.generateTokens(user.getId());
     }

@@ -85,7 +85,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
             return true;
         }
         if (checkIsRootByUserId(userId)) {
-            throw new ForbiddenException("can't modify the root user's group", 10078);
+            throw new ForbiddenException(10078);
         }
         QueryWrapper<UserGroupDO> wrapper = new QueryWrapper<>();
         wrapper.lambda()
@@ -101,7 +101,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         }
         boolean ok = checkGroupExistByIds(addIds);
         if (!ok) {
-            throw new ForbiddenException("cant't add user to non-existent group", 10077);
+            throw new ForbiddenException(10077);
         }
         List<UserGroupDO> relations = addIds.stream().map(it -> new UserGroupDO(userId, it)).collect(Collectors.toList());
         return userGroupMapper.insertBatch(relations) > 0;
