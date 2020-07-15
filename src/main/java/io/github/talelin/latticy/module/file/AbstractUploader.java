@@ -14,6 +14,7 @@ import java.util.UUID;
  *
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * @author colorful@TaleLin
  */
 public abstract class AbstractUploader implements Uploader {
 
@@ -124,7 +125,7 @@ public abstract class AbstractUploader implements Uploader {
         }
         int nums = getFileProperties().getNums();
         if (fileMap.size() > nums) {
-            throw new FileTooManyException(10180, "too many files, amount of files must less than" + nums);
+            throw new FileTooManyException(10121);
         }
     }
 
