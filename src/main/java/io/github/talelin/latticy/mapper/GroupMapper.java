@@ -20,7 +20,7 @@ public interface GroupMapper extends BaseMapper<GroupDO> {
      * @param userId 用户id
      * @return 所有分组
      */
-    List<GroupDO> selectUserGroups(@Param("userId") Integer userId);
+    List<GroupDO> selectGroupsByUserId(@Param("userId") Integer userId);
 
     /**
      * 获得用户的所有分组id

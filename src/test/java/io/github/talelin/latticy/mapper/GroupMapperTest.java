@@ -33,7 +33,7 @@ public class GroupMapperTest {
     private UserGroupMapper userGroupMapper;
 
     @Test
-    public void selectUserGroups() {
+    public void selectGroupsByUserId() {
         String email = "13129982604@qq.com";
         String username = "pedro-test";
         UserDO user = new UserDO();
@@ -46,7 +46,7 @@ public class GroupMapperTest {
 
         userGroupMapper.insert(new UserGroupDO(user.getId(), group.getId()));
 
-        List<GroupDO> groups = groupMapper.selectUserGroups(user.getId());
+        List<GroupDO> groups = groupMapper.selectGroupsByUserId(user.getId());
         boolean anyMatch = groups.stream().anyMatch(it -> it.getName().equals("group"));
         assertTrue(anyMatch);
     }
