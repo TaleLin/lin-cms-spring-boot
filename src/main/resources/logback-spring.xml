@@ -25,9 +25,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{req.remoteAddr}:%X{req.remotePort}] "%X{req.method}
-                %X{req.requestURI} %X{req.protocol}" %X{res.status} %X{req.bodyBytesSent} "%X{req.referer}"
-                "%X{req.userAgent}"%n
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{req.remoteAddr}:%X{req.remotePort}] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %X{res.status} %X{req.bodyBytesSent} "%X{req.referer}" "%X{req.userAgent}"%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -45,8 +43,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %-5level
-                %logger{50} - %msg%n
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %-5level %logger{50} - %msg%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -64,8 +61,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %-5level
-                %logger{50} - %msg%n
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %-5level %logger{50} - %msg%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -83,8 +79,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %-5level
-                %logger{50} - %msg%n
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %-5level %logger{50} - %msg%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -102,8 +97,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %-5level
-                %logger{50} - %msg%n
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %-5level %logger{50} - %msg%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -121,8 +115,7 @@
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %-5level
-                %logger{50} - %msg%n
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] "%X{req.method} %X{req.requestURI} %X{req.protocol}" %-5level %logger{50} - %msg%n
             </pattern>
         </encoder>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
