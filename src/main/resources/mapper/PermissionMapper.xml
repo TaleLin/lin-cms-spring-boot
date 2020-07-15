@@ -7,6 +7,7 @@
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="module" property="module"/>
+        <result column="mount" property="mount"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="delete_time" property="deleteTime"/>
@@ -14,10 +15,11 @@
 
     <select id="selectPermissionsByGroupIds" parameterType="java.util.List"
             resultMap="BaseResultMap">
-        SELECT p.id, p.name, p.module,
+        SELECT p.id, p.name, p.module, p.mount,
         p.create_time, p.update_time, p.delete_time
         FROM lin_permission AS p
         WHERE p.delete_time IS NULL
+        AND p.mount = true
         AND p.id IN (
         SELECT gp.permission_id
         FROM lin_group_permission AS gp
@@ -31,11 +33,12 @@
 
     <select id="selectPermissionsByGroupIdsAndModule" parameterType="java.util.List"
             resultMap="BaseResultMap">
-        SELECT p.id, p.name, p.module,
+        SELECT p.id, p.name, p.module, p.mount,
         p.create_time, p.update_time, p.delete_time
         FROM lin_permission AS p
         WHERE p.delete_time IS NULL
         AND p.module = #{module}
+        AND p.mount = true
         AND p.id IN (
         SELECT gp.permission_id
         FROM lin_group_permission AS gp
@@ -47,12 +50,13 @@
         )
     </select>
 
-    <select id="selectPermissionsByGroupId" parameterType="java.lang.Long"
+    <select id="selectPermissionsByGroupId" parameterType="java.lang.Integer"
             resultMap="BaseResultMap">
-        SELECT p.id, p.name, p.module,
+        SELECT p.id, p.name, p.module, p.mount,
         p.create_time, p.update_time, p.delete_time
         FROM lin_permission AS p
         WHERE p.delete_time IS NULL
+        AND p.mount = true
         AND p.id IN (
         SELECT gp.permission_id
         FROM lin_group_permission AS gp

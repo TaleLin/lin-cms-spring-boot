@@ -2,19 +2,34 @@ package io.github.talelin.latticy.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.github.talelin.latticy.mapper.*;
-import io.github.talelin.latticy.model.*;
-import io.github.talelin.latticy.bo.GroupPermissionBO;
-import io.github.talelin.latticy.dto.admin.*;
-import io.github.talelin.latticy.dto.user.RegisterDTO;
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
+import io.github.talelin.latticy.bo.GroupPermissionBO;
+import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
+import io.github.talelin.latticy.dto.admin.DispatchPermissionDTO;
+import io.github.talelin.latticy.dto.admin.DispatchPermissionsDTO;
+import io.github.talelin.latticy.dto.admin.NewGroupDTO;
+import io.github.talelin.latticy.dto.admin.RemovePermissionsDTO;
+import io.github.talelin.latticy.dto.admin.ResetPasswordDTO;
+import io.github.talelin.latticy.dto.admin.UpdateGroupDTO;
+import io.github.talelin.latticy.dto.admin.UpdateUserInfoDTO;
+import io.github.talelin.latticy.dto.user.RegisterDTO;
+import io.github.talelin.latticy.mapper.GroupMapper;
+import io.github.talelin.latticy.mapper.GroupPermissionMapper;
+import io.github.talelin.latticy.mapper.PermissionMapper;
+import io.github.talelin.latticy.mapper.UserGroupMapper;
+import io.github.talelin.latticy.mapper.UserMapper;
+import io.github.talelin.latticy.model.GroupDO;
+import io.github.talelin.latticy.model.GroupPermissionDO;
+import io.github.talelin.latticy.model.PermissionDO;
+import io.github.talelin.latticy.model.UserDO;
+import io.github.talelin.latticy.model.UserGroupDO;
+import io.github.talelin.latticy.service.GroupService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
@@ -26,7 +41,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -60,9 +79,8 @@ public class AdminServiceImplTest {
     @Autowired
     private UserIdentityServiceImpl userIdentityService;
 
-    @Value("${group.root.id}")
-    private Long rootGroupId;
-
+    @Autowired
+    private GroupService groupService;
 
     public UserDO mockData() {
         UserDO user = UserDO.builder().nickname("pedro大大").username("pedro大大").build();
@@ -103,20 +121,22 @@ public class AdminServiceImplTest {
     @Test
     public void getUserPageByGroupId() {
         GroupDO group = mockData1();
-        IPage<UserDO> iPage = adminService.getUserPageByGroupId(null, 10L, 0L);
+        IPage<UserDO> iPage = adminService.getUserPageByGroupId(null, 10, 0);
         assertTrue(iPage.getTotal() > 0);
         assertTrue(iPage.getSize() == 10);
         assertTrue(iPage.getCurrent() == 0);
-        boolean anyMatch = iPage.getRecords().stream().anyMatch(it -> it.getUsername().equals("pedro大大"));
+        boolean anyMatch = iPage.getRecords().stream().anyMatch(it -> it.getUsername().equals(
+                "pedro大大"));
         assertTrue(anyMatch);
     }
 
     @Test
     public void getUserPageByGroupId1() {
         GroupDO group = mockData1();
-        IPage<UserDO> iPage = adminService.getUserPageByGroupId(group.getId(), 10L, 0L);
+        IPage<UserDO> iPage = adminService.getUserPageByGroupId(group.getId(), 10, 0);
         assertTrue(iPage.getTotal() > 0);
-        boolean anyMatch = iPage.getRecords().stream().anyMatch(it -> it.getUsername().equals("pedro大大"));
+        boolean anyMatch = iPage.getRecords().stream().anyMatch(it -> it.getUsername().equals(
+                "pedro大大"));
         assertTrue(anyMatch);
         anyMatch = iPage.getRecords().stream().anyMatch(it -> it.getNickname().equals("pedro小小"));
         assertTrue(anyMatch);
@@ -130,7 +150,8 @@ public class AdminServiceImplTest {
         dto.setConfirmPassword("123456");
         UserDO user = userService.createUser(dto);
         assertEquals("pedro&佩德罗", user.getUsername());
-        boolean valid = userIdentityService.verifyUsernamePassword(user.getId(), "pedro&佩德罗", "123456");
+        boolean valid = userIdentityService.verifyUsernamePassword(user.getId(), "pedro&佩德罗",
+                "123456");
         assertTrue(valid);
 
         ResetPasswordDTO dto1 = new ResetPasswordDTO();
@@ -149,7 +170,7 @@ public class AdminServiceImplTest {
         ResetPasswordDTO dto1 = new ResetPasswordDTO();
         dto1.setNewPassword("147258");
         dto1.setConfirmPassword("147258");
-        boolean b = adminService.changeUserPassword(random.nextLong(), dto1);
+        boolean b = adminService.changeUserPassword(random.nextInt(), dto1);
         assertFalse(b);
     }
 
@@ -172,7 +193,7 @@ public class AdminServiceImplTest {
     @Test(expected = NotFoundException.class)
     public void deleteUser1() {
         Random random = new Random();
-        boolean b = adminService.deleteUser(random.nextLong());
+        boolean b = adminService.deleteUser(random.nextInt());
         assertFalse(b);
     }
 
@@ -182,7 +203,8 @@ public class AdminServiceImplTest {
         userMapper.insert(user1);
         Random random = new Random();
         UpdateUserInfoDTO dto = new UpdateUserInfoDTO();
-        dto.setGroupIds(Arrays.asList(rootGroupId, (long) random.nextInt(100)));
+        Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
+        dto.setGroupIds(Arrays.asList(rootGroupId, random.nextInt(100)));
         boolean b = adminService.updateUserInfo(user1.getId(), dto);
         assertFalse(b);
     }
@@ -193,7 +215,7 @@ public class AdminServiceImplTest {
         userMapper.insert(user1);
         Random random = new Random();
         UpdateUserInfoDTO dto = new UpdateUserInfoDTO();
-        dto.setGroupIds(Arrays.asList((long) random.nextInt(100), (long) random.nextInt(100)));
+        dto.setGroupIds(Arrays.asList(random.nextInt(100), random.nextInt(100)));
         boolean b = adminService.updateUserInfo(user1.getId(), dto);
         assertFalse(b);
     }
@@ -235,11 +257,12 @@ public class AdminServiceImplTest {
         GroupDO group2 = GroupDO.builder().name("测试分组11").info("just for test").build();
         groupMapper.insert(group1);
         groupMapper.insert(group2);
-        IPage<GroupDO> iPage = adminService.getGroupPage(0L, 10L);
+        IPage<GroupDO> iPage = adminService.getGroupPage(0, 10);
         assertTrue(iPage.getTotal() > 0);
         assertTrue(iPage.getCurrent() == 0);
         assertTrue(iPage.getSize() == 10);
-        boolean anyMatch = iPage.getRecords().stream().anyMatch(it -> it.getName().equals("测试分组12"));
+        boolean anyMatch = iPage.getRecords().stream().anyMatch(it -> it.getName().equals("测试分组12"
+        ));
         assertTrue(anyMatch);
     }
 
@@ -271,7 +294,7 @@ public class AdminServiceImplTest {
     @Test(expected = NotFoundException.class)
     public void getGroup1() {
         Random random = new Random();
-        GroupPermissionBO group1 = adminService.getGroup((long) random.nextInt(100));
+        GroupPermissionBO group1 = adminService.getGroup( random.nextInt(100));
         assertNull(group1);
     }
 
@@ -360,7 +383,7 @@ public class AdminServiceImplTest {
         dto.setName("测试分组2");
         dto.setInfo("测试分组2info");
         Random random = new Random();
-        boolean ok = adminService.updateGroup((long) random.nextInt(100), dto);
+        boolean ok = adminService.updateGroup( random.nextInt(100), dto);
         assertFalse(ok);
     }
 
@@ -378,7 +401,7 @@ public class AdminServiceImplTest {
     @Test(expected = NotFoundException.class)
     public void deleteGroup1() {
         Random random = new Random();
-        boolean ok = adminService.deleteGroup((long) random.nextInt(1000));
+        boolean ok = adminService.deleteGroup( random.nextInt(1000));
         assertFalse(ok);
     }
 
@@ -564,7 +587,6 @@ public class AdminServiceImplTest {
         } catch (ForbiddenException e) {
             assertTrue(group.getId() <= 2);
         }
-
 
         try {
             boolean ok = adminService.createGroup(dto);

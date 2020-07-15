@@ -21,10 +21,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,7 +42,7 @@ public class BookControllerTest {
     @Autowired
     private BookMapper bookMapper;
 
-    private Long id;
+    private Integer id;
     private String title = "千里之外";
     private String author = "pedro";
     private String image = "千里之外.png";
@@ -145,7 +145,7 @@ public class BookControllerTest {
         mvc.perform(put("/v1/book/" + this.id)
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("更新图书成功"));
     }
@@ -162,7 +162,7 @@ public class BookControllerTest {
 
         mvc.perform(delete("/v1/book/" + this.id))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("删除图书成功"));
     }

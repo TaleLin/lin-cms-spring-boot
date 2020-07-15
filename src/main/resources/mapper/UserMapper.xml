@@ -18,11 +18,11 @@
         SELECT COUNT(*) FROM lin_user as u WHERE u.username = #{username} AND u.delete_time IS NULL
     </select>
 
-    <select id="selectCountById" parameterType="java.lang.Long" resultType="java.lang.Integer">
+    <select id="selectCountById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM lin_user as u WHERE u.id = #{id} AND u.delete_time IS NULL
     </select>
 
-    <select id="selectPageByGroupId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <select id="selectPageByGroupId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT u.username, u.nickname,
         u.avatar, u.email, u.create_time,
         u.update_time, u.delete_time

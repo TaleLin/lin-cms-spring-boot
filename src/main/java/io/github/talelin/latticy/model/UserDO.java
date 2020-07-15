@@ -1,29 +1,27 @@
 package io.github.talelin.latticy.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("lin_user")
-public class UserDO implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class UserDO extends BaseModel implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private static final long serialVersionUID = -1463999384554707735L;
 
     /**
      * 用户名，唯一
@@ -45,13 +43,4 @@ public class UserDO implements Serializable {
      */
     private String email;
 
-    @JsonIgnore
-    private Date createTime;
-
-    @JsonIgnore
-    private Date updateTime;
-
-    @JsonIgnore
-    @TableLogic
-    private Date deleteTime;
 }

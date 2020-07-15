@@ -17,15 +17,15 @@ public class Page<T> extends com.baomidou.mybatisplus.extension.plugins.paginati
         super.setCurrent(0);
     }
 
-    public Page(long current, long size) {
+    public Page(int current, int size) {
         this(current, size, 0);
     }
 
-    public Page(long current, long size, long total) {
+    public Page(int current, int size, int total) {
         this(current, size, total, true);
     }
 
-    public Page(long current, long size, boolean isSearchCount) {
+    public Page(int current, int size, boolean isSearchCount) {
         this(current, size, 0, isSearchCount);
     }
 
@@ -37,7 +37,7 @@ public class Page<T> extends com.baomidou.mybatisplus.extension.plugins.paginati
      * @param total         总数
      * @param isSearchCount 是否进行 count 查询
      */
-    public Page(long current, long size, long total, boolean isSearchCount) {
+    public Page(int current, int size, int total, boolean isSearchCount) {
         super(current, size, total, isSearchCount);
 
         if (current < 0) {

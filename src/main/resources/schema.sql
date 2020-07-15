@@ -54,6 +54,7 @@ CREATE TABLE lin_permission
     id          int(10) unsigned NOT NULL AUTO_INCREMENT,
     name        varchar(60)      NOT NULL COMMENT '权限名称，例如：访问首页',
     module      varchar(50)      NOT NULL COMMENT '权限所属模块，例如：人员管理',
+    mount       tinyint(1)       NOT NULL DEFAULT 1 COMMENT '0：关闭 1：开启',
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)               DEFAULT NULL,
@@ -70,10 +71,11 @@ CREATE TABLE lin_group
 (
     id          int(10) unsigned NOT NULL AUTO_INCREMENT,
     name        varchar(60)      NOT NULL COMMENT '分组名称，例如：搬砖者',
-    info        varchar(255)              DEFAULT NULL COMMENT '分组信息：例如：搬砖的人',
+    info        varchar(255)     DEFAULT NULL COMMENT '分组信息：例如：搬砖的人',
+    level       tinyint(2)       NOT NULL DEFAULT 3 COMMENT '分组级别 1：root 2：guest 3：user  root（root、guest分组只能存在一个)',
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)               DEFAULT NULL,
+    delete_time datetime(3)      DEFAULT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY name_del (name, delete_time)
 ) ENGINE = InnoDB
@@ -169,11 +171,11 @@ INSERT INTO lin_user_identity (id, user_id, identity_type, identifier, credentia
 VALUES (1, 1, 'USERNAME_PASSWORD', 'root',
         'pbkdf2sha256:64000:18:24:n:yUnDokcNRbwILZllmUOItIyo9MnI00QW:6ZcPf+sfzyoygOU8h/GSoirF');
 
-INSERT INTO lin_group(id, name, info)
-VALUES (1, 'root', '超级用户组');
+INSERT INTO lin_group(id, name, info, level)
+VALUES (1, 'root', '超级用户组', 1);
 
-INSERT INTO lin_group(id, name, info)
-VALUES (2, 'guest', '游客组');
+INSERT INTO lin_group(id, name, info, level)
+VALUES (2, 'guest', '游客组', 2);
 
 INSERT INTO lin_user_group(id, user_id, group_id)
 VALUES (1, 1, 1);

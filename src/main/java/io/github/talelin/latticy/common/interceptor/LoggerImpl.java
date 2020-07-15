@@ -1,15 +1,16 @@
 package io.github.talelin.latticy.common.interceptor;
 
-import io.github.talelin.latticy.common.LocalUser;
-import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.autoconfigure.interfaces.LoggerResolver;
 import io.github.talelin.core.annotation.Logger;
-import io.github.talelin.core.annotation.RouteMeta;
+import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.util.BeanUtil;
+import io.github.talelin.latticy.common.LocalUser;
+import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.latticy.service.LogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import java.util.regex.Pattern;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Slf4j
 @Component
@@ -26,19 +28,18 @@ public class LoggerImpl implements LoggerResolver {
     @Autowired
     private LogService logService;
 
-    public static String REG_XP = "(?<=\\{)[^}]*(?=\\})";
-
-    private Pattern pattern = Pattern.compile(REG_XP);
-
+    private static final Pattern pattern = Pattern.compile("(?<=\\{)[^}]*(?=})");
 
     @Override
-    public void handle(RouteMeta meta, Logger logger, HttpServletRequest request, HttpServletResponse response) {
-        // parse template and extract properties from request,response and modelAndView
+    public void handle(PermissionMeta meta, Logger logger, HttpServletRequest request, HttpServletResponse response) {
         String template = logger.template();
         UserDO user = LocalUser.getLocalUser();
         template = this.parseTemplate(template, user, request, response);
-        String permission = meta.permission();
-        Long userId = user.getId();
+        String permission = "";
+        if (meta != null) {
+            permission = StringUtils.isEmpty(meta.value()) ? meta.value() : meta.value();
+        }
+        Integer userId = user.getId();
         String username = user.getUsername();
         String method = request.getMethod();
         String path = request.getServletPath();

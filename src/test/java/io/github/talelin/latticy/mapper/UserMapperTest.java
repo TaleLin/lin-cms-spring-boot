@@ -14,8 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -73,7 +72,7 @@ public class UserMapperTest {
         userGroupMapper.insert(new UserGroupDO(userDO.getId(), group.getId()));
 
         Page page = new Page(0, 10);
-        IPage<UserDO> iPage = userMapper.selectPageByGroupId(page, group.getId(), 99999L);
+        IPage<UserDO> iPage = userMapper.selectPageByGroupId(page, group.getId(), 99999);
         assertTrue(iPage.getTotal() > 0);
         boolean anyMatch = iPage.getRecords().stream().anyMatch(it -> it.getUsername().equals(username));
         assertTrue(anyMatch);

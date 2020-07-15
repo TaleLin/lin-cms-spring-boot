@@ -3,8 +3,8 @@ package io.github.talelin.latticy.controller.cms;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.ParameterException;
 import io.github.talelin.core.annotation.AdminRequired;
-import io.github.talelin.core.annotation.LoginMeta;
 import io.github.talelin.core.annotation.LoginRequired;
+import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.core.annotation.RefreshRequired;
 import io.github.talelin.core.token.DoubleJWT;
 import io.github.talelin.core.token.Tokens;
@@ -24,7 +24,12 @@ import io.github.talelin.latticy.vo.UserInfoVO;
 import io.github.talelin.latticy.vo.UserPermissionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
@@ -35,6 +40,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/cms/user")
+@PermissionModule(value = "用户")
 @Validated
 public class UserController {
 
@@ -55,7 +61,7 @@ public class UserController {
      */
     @PostMapping("/register")
     @AdminRequired
-    public CreatedVO<String> register(@RequestBody @Validated RegisterDTO validator) {
+    public CreatedVO register(@RequestBody @Validated RegisterDTO validator) {
         userService.createUser(validator);
         return new CreatedVO(11);
     }
@@ -67,14 +73,14 @@ public class UserController {
     public Tokens login(@RequestBody @Validated LoginDTO validator) {
         UserDO user = userService.getUserByUsername(validator.getUsername());
         if (user == null) {
-            throw new NotFoundException("user not found", 10021);
+            throw new NotFoundException(10021);
         }
         boolean valid = userIdentityService.verifyUsernamePassword(
                 user.getId(),
                 user.getUsername(),
                 validator.getPassword());
         if (!valid) {
-            throw new ParameterException("username or password is fault", 10031);
+            throw new ParameterException(10031);
         }
         return jwt.generateTokens(user.getId());
     }
@@ -113,11 +119,11 @@ public class UserController {
      * 查询拥有权限
      */
     @GetMapping("/permissions")
-    @LoginMeta(permission = "查询自己拥有的权限", module = "用户", mount = true)
+    @LoginRequired
     public UserPermissionVO getPermissions() {
         UserDO user = LocalUser.getLocalUser();
         boolean admin = groupService.checkIsRootByUserId(user.getId());
-        List<Map<String, List<Map<String, String>>>> permissions = userService.getStructualUserPermissions(user.getId());
+        List<Map<String, List<Map<String, String>>>> permissions = userService.getStructuralUserPermissions(user.getId());
         UserPermissionVO userPermissions = new UserPermissionVO(user, permissions);
         userPermissions.setAdmin(admin);
         return userPermissions;
@@ -126,7 +132,7 @@ public class UserController {
     /**
      * 查询自己信息
      */
-    @LoginMeta(permission = "查询自己信息", module = "用户", mount = true)
+    @LoginRequired
     @GetMapping("/information")
     public UserInfoVO getInformation() {
         UserDO user = LocalUser.getLocalUser();

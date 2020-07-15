@@ -9,27 +9,28 @@ import java.io.Serializable;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
-@TableName("lin_group_permission")
 @Data
+@TableName("lin_group_permission")
 public class GroupPermissionDO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -358487811336536495L;
 
     @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    private Integer id;
 
     /**
      * 分组id
      */
-    private Long groupId;
+    private Integer groupId;
 
     /**
      * 权限id
      */
-    private Long permissionId;
+    private Integer permissionId;
 
-    public GroupPermissionDO(Long groupId, Long permissionId) {
+    public GroupPermissionDO(Integer groupId, Integer permissionId) {
         this.groupId = groupId;
         this.permissionId = permissionId;
     }

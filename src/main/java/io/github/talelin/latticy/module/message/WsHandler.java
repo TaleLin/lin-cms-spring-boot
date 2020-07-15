@@ -8,6 +8,7 @@ import java.util.Set;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 public interface WsHandler {
 
@@ -49,7 +50,7 @@ public interface WsHandler {
      * @param message 要发送的消息
      * @throws IOException 发送io异常
      */
-    void sendMessage(Long userId, TextMessage message) throws IOException;
+    void sendMessage(Integer userId, TextMessage message) throws IOException;
 
     /**
      * 发送消息
@@ -58,7 +59,7 @@ public interface WsHandler {
      * @param message 要发送的消息
      * @throws IOException 发送io异常
      */
-    void sendMessage(Long userId, String message) throws IOException;
+    void sendMessage(Integer userId, String message) throws IOException;
 
     /**
      * 发送消息
@@ -84,7 +85,7 @@ public interface WsHandler {
      * @param message 消息
      * @throws IOException 异常
      */
-    void broadCastToGroup(Long groupId, String message) throws IOException;
+    void broadCastToGroup(Integer groupId, String message) throws IOException;
 
     /**
      * 广播
@@ -101,7 +102,7 @@ public interface WsHandler {
      * @param message 文本消息
      * @throws IOException 异常
      */
-    void broadCastToGroup(Long groupId, TextMessage message) throws IOException;
+    void broadCastToGroup(Integer groupId, TextMessage message) throws IOException;
 
     /**
      * 处理会话异常

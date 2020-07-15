@@ -1,14 +1,14 @@
 package io.github.talelin.latticy.dto.admin;
 
-import io.github.talelin.autoconfigure.validator.Length;
-import io.github.talelin.autoconfigure.validator.LongList;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Data
 public class NewGroupDTO {
@@ -19,6 +19,5 @@ public class NewGroupDTO {
     @Length(min = 1, max = 255, message = "{group.info.length}")
     private String info;
 
-    @LongList(allowBlank = true, message = "{permission.ids.long-list}")
-    private List<Long> permissionIds;
+    private List<Integer> permissionIds;
 }

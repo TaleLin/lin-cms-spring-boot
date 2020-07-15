@@ -14,6 +14,7 @@ import java.util.UUID;
  *
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * @author colorful@TaleLin
  */
 public abstract class AbstractUploader implements Uploader {
 
@@ -120,11 +121,11 @@ public abstract class AbstractUploader implements Uploader {
      */
     protected void checkFileMap(MultiValueMap<String, MultipartFile> fileMap) {
         if (fileMap.isEmpty()) {
-            throw new NotFoundException("file not found", 10026);
+            throw new NotFoundException(10026);
         }
         int nums = getFileProperties().getNums();
         if (fileMap.size() > nums) {
-            throw new FileTooManyException("too many files, amount of files must less than" + nums, 10180);
+            throw new FileTooManyException(10121);
         }
     }
 

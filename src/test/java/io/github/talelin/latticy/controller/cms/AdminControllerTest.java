@@ -76,7 +76,7 @@ public class AdminControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.用户").isArray());
+                .andExpect(MockMvcResultMatchers.jsonPath("$.日志").isArray());
     }
 
     @Test
@@ -152,7 +152,7 @@ public class AdminControllerTest {
         mvc.perform(put(String.format("/cms/admin/user/%s/password", user.getId()))
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("密码修改成功"));
 
         boolean b = userIdentityService.verifyUsernamePassword(user.getId(), username, newPassword);
@@ -178,7 +178,7 @@ public class AdminControllerTest {
         mvc.perform(delete("/cms/admin/user/" + user.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("删除用户成功"));
 
         UserDO hit = userMapper.selectById(user.getId());
@@ -209,7 +209,7 @@ public class AdminControllerTest {
         mvc.perform(put("/cms/admin/user/" + user.getId())
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("更新用户成功"));
     }
 
@@ -330,7 +330,7 @@ public class AdminControllerTest {
         mvc.perform(put("/cms/admin/group/" + group.getId())
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("更新分组成功"));
 
         GroupDO hit = groupMapper.selectById(group.getId());
@@ -351,7 +351,7 @@ public class AdminControllerTest {
         mvc.perform(delete("/cms/admin/group/" + group.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("删除分组成功"));
         GroupDO hit = groupMapper.selectById(group.getId());
         assertNull(hit);
@@ -444,7 +444,7 @@ public class AdminControllerTest {
         mvc.perform(post("/cms/admin/permission/remove")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("删除权限成功"));
     }
 }

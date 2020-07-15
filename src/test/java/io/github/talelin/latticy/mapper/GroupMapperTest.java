@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -66,7 +66,7 @@ public class GroupMapperTest {
 
         userGroupMapper.insert(new UserGroupDO(user.getId(), group.getId()));
 
-        List<Long> groupIds = groupMapper.selectUserGroupIds(user.getId());
+        List<Integer> groupIds = groupMapper.selectUserGroupIds(user.getId());
         boolean anyMatch = groupIds.stream().anyMatch(it -> it.equals(group.getId()));
         assertTrue(anyMatch);
     }

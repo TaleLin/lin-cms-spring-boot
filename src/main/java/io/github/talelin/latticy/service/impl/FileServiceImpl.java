@@ -3,6 +3,7 @@ package io.github.talelin.latticy.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import io.github.talelin.latticy.bo.FileBO;
 import io.github.talelin.latticy.module.file.FileConstant;
+import io.github.talelin.latticy.module.file.FileProperties;
 import io.github.talelin.latticy.module.file.Uploader;
 import io.github.talelin.latticy.mapper.FileMapper;
 import io.github.talelin.latticy.model.FileDO;
@@ -19,6 +20,7 @@ import java.util.List;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 @Service
 public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements FileService {
@@ -26,11 +28,11 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
     @Autowired
     private Uploader uploader;
 
-    @Value("${lin.cms.file.domain}")
-    private String domain;
-
-    @Value("${lin.cms.file.serve-path:assets/**}")
-    private String servePath;
+    /**
+     * 文件上传配置信息
+     */
+    @Autowired
+    private FileProperties fileProperties;
 
     /**
      * 为什么不做批量插入
@@ -67,8 +69,14 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
         FileBO bo = new FileBO();
         BeanUtil.copyProperties(file, bo);
         if (file.getType().equals(FileConstant.LOCAL)) {
-            String s = servePath.split("/")[0];
-            bo.setUrl(domain + s + "/" + file.getPath());
+            String s = fileProperties.getServePath().split("/")[0];
+
+            // replaceAll 是将 windows 平台下的 \ 替换为 /
+            if(System.getProperties().getProperty("os.name").toUpperCase().contains("WINDOWS")){
+                bo.setUrl(fileProperties.getDomain() + s + "/" + file.getPath().replaceAll("\\\\","/"));
+            }else {
+                bo.setUrl(fileProperties.getDomain() + s + "/" + file.getPath());
+            }
         } else {
             bo.setUrl(file.getPath());
         }

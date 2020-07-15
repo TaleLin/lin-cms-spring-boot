@@ -3,7 +3,9 @@ package io.github.talelin.latticy.bo;
 import cn.hutool.core.bean.BeanUtil;
 import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.PermissionDO;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GroupPermissionBO {
-    private Long id;
+    private Integer id;
 
     private String name;
 

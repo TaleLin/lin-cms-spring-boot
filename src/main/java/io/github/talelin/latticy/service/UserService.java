@@ -1,11 +1,11 @@
 package io.github.talelin.latticy.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
 import io.github.talelin.latticy.dto.user.UpdateInfoDTO;
-import com.baomidou.mybatisplus.extension.service.IService;
 import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.PermissionDO;
 import io.github.talelin.latticy.model.UserDO;
@@ -17,6 +17,7 @@ import java.util.Map;
  * 用户业务
  *
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 public interface UserService extends IService<UserDO> {
 
@@ -50,7 +51,7 @@ public interface UserService extends IService<UserDO> {
      * @param userId 用户id
      * @return 所有分组
      */
-    List<GroupDO> getUserGroups(Long userId);
+    List<GroupDO> getUserGroups(Integer userId);
 
     /**
      * 获得用户所有权限
@@ -58,7 +59,7 @@ public interface UserService extends IService<UserDO> {
      * @param userId 用户id
      * @return 权限
      */
-    List<Map<String, List<Map<String, String>>>> getStructualUserPermissions(Long userId);
+    List<Map<String, List<Map<String, String>>>> getStructuralUserPermissions(Integer userId);
 
     /**
      * 获得用户所有权限
@@ -66,7 +67,7 @@ public interface UserService extends IService<UserDO> {
      * @param userId 用户id
      * @return 权限
      */
-    List<PermissionDO> getUserPermissions(Long userId);
+    List<PermissionDO> getUserPermissions(Integer userId);
 
 
     /**
@@ -76,7 +77,7 @@ public interface UserService extends IService<UserDO> {
      * @param module 权限模块
      * @return 权限
      */
-    List<PermissionDO> getUserPermissionsByModule(Long userId, String module);
+    List<PermissionDO> getUserPermissionsByModule(Integer userId, String module);
 
 
     /**
@@ -110,7 +111,7 @@ public interface UserService extends IService<UserDO> {
      * @param id 用户名
      * @return true代表存在
      */
-    boolean checkUserExistById(Long id);
+    boolean checkUserExistById(Integer id);
 
     /**
      * 根据分组id分页获取用户数据
@@ -119,5 +120,13 @@ public interface UserService extends IService<UserDO> {
      * @param groupId 分组id
      * @return 数据页
      */
-    IPage<UserDO> getUserPageByGroupId(Page<UserDO> pager, Long groupId);
+    IPage<UserDO> getUserPageByGroupId(Page<UserDO> pager, Integer groupId);
+
+
+    /**
+     * 获取超级管理员的id
+     *
+     * @return 超级管理员的id
+     */
+    Integer getRootUserId();
 }

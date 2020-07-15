@@ -1,0 +1,47 @@
+#主配置文件
+
+spring:
+  # 激活环境配置
+  profiles:
+    active: dev
+  # 文件编码 UTF8
+  mandatory-file-encoding: UTF-8
+  mvc:
+    # 404 交给异常处理器处理
+    throw-exception-if-no-handler-found: true
+  resources:
+    # 关闭静态资源的映射
+    add-mappings: false
+
+
+mybatis-plus:
+  configuration:
+    # 开启下划线转驼峰
+    map-underscore-to-camel-case: true
+    # 指定默认枚举类型的类型转换器
+    default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
+  global-config:
+    # 开启/关闭 banner 打印
+    banner: false
+    db-config:
+      # 逻辑删除（软删除）
+      logic-delete-value: NOW()
+      logic-not-delete-value: 'NULL'
+  # mapper路径位置
+  mapper-locations: classpath:mapper/*.xml
+
+
+lin:
+  cms:
+    # 开启行为日志记录（logger）
+    logger-enabled: true
+    # access token 过期时间，3600s 一个小时
+    token-access-expire: 3600
+    # refresh token 过期时间，2592000s 一个月
+    token-refresh-expire: 2592000
+    # 令牌 secret
+    token-secret: x88Wf0991079889x8796a0Ac68f9ecJJU17c5Vbe8beod7d8d3e695*4
+logging:
+  file:
+    max-history:
+  config:

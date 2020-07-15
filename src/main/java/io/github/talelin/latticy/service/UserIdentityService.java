@@ -1,10 +1,11 @@
 package io.github.talelin.latticy.service;
 
-import io.github.talelin.latticy.model.UserIdentityDO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.github.talelin.latticy.model.UserIdentityDO;
 
 /**
  * @author pedro@TaleLin
+ * @author Juzi@TaleLin
  */
 public interface UserIdentityService extends IService<UserIdentityDO> {
 
@@ -17,7 +18,7 @@ public interface UserIdentityService extends IService<UserIdentityDO> {
      * @param credential   凭证
      * @return 用户认证
      */
-    UserIdentityDO createIdentity(Long userId,
+    UserIdentityDO createIdentity(Integer userId,
                                   String identityType,
                                   String identifier,
                                   String credential);
@@ -38,7 +39,7 @@ public interface UserIdentityService extends IService<UserIdentityDO> {
      * @param password 密码
      * @return 用户认证
      */
-    UserIdentityDO createUsernamePasswordIdentity(Long userId,
+    UserIdentityDO createUsernamePasswordIdentity(Integer userId,
                                                   String username,
                                                   String password);
 
@@ -51,7 +52,7 @@ public interface UserIdentityService extends IService<UserIdentityDO> {
      * @param password 密码
      * @return 是否验证成功
      */
-    boolean verifyUsernamePassword(Long userId, String username, String password);
+    boolean verifyUsernamePassword(Integer userId, String username, String password);
 
     /**
      * 修改密码
@@ -60,7 +61,7 @@ public interface UserIdentityService extends IService<UserIdentityDO> {
      * @param password 新密码
      * @return 是否成功
      */
-    boolean changePassword(Long userId, String password);
+    boolean changePassword(Integer userId, String password);
 
     /**
      * 修改用户名
@@ -69,7 +70,7 @@ public interface UserIdentityService extends IService<UserIdentityDO> {
      * @param username 新用户名
      * @return 是否成功
      */
-    boolean changeUsername(Long userId, String username);
+    boolean changeUsername(Integer userId, String username);
 
     /**
      * 修改用户名密码
@@ -79,5 +80,5 @@ public interface UserIdentityService extends IService<UserIdentityDO> {
      * @param password 新密码
      * @return 是否成功
      */
-    boolean changeUsernamePassword(Long userId, String username, String password);
+    boolean changeUsernamePassword(Integer userId, String username, String password);
 }
