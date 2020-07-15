@@ -14,7 +14,7 @@
     </resultMap>
 
 
-    <select id="selectUserGroups" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectGroupsByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT g.id, g.name, g.info,g.level,
         g.create_time,g.update_time,g.delete_time
         from lin_group AS g
