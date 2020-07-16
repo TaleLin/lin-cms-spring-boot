@@ -93,9 +93,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean updateUserInfo(Integer id, UpdateUserInfoDTO validator) {
         List<Integer> newGroupIds = validator.getGroupIds();
-        if (newGroupIds == null || newGroupIds.isEmpty()) {
-            return false;
-        }
         Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         boolean anyMatch = newGroupIds.stream().anyMatch(it -> it.equals(rootGroupId));
         if (anyMatch) {
