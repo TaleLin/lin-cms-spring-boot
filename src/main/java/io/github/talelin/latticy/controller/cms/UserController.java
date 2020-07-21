@@ -16,6 +16,7 @@ import io.github.talelin.latticy.dto.user.UpdateInfoDTO;
 import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.latticy.service.GroupService;
+import io.github.talelin.latticy.service.LogService;
 import io.github.talelin.latticy.service.UserIdentityService;
 import io.github.talelin.latticy.service.UserService;
 import io.github.talelin.latticy.vo.CreatedVO;
@@ -56,6 +57,9 @@ public class UserController {
     @Autowired
     private DoubleJWT jwt;
 
+    @Autowired
+    private LogService logService;
+
     /**
      * 用户注册
      */
@@ -82,6 +86,13 @@ public class UserController {
         if (!valid) {
             throw new ParameterException(10031);
         }
+        logService.createLog(
+                user.getUsername() + "登陆成功获取了令牌",
+                "", user.getId(), user.getUsername(),
+                "post",
+                "/cms/user/login",
+                200
+        );
         return jwt.generateTokens(user.getId());
     }
 
