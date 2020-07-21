@@ -12,13 +12,13 @@ logging:
 spring:
   # h2 内存数据库配置，供测试使用，其它环境勿用
   datasource:
-    continue-on-error: false
-    driver-class-name: org.h2.Driver
+    username: "sa"
     password: ''
     platform: h2
+    continue-on-error: false
     schema: classpath:/h2-test.sql
+    driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdbsa;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
-    username: sa
   h2:
     console:
       enabled: true
