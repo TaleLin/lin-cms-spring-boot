@@ -12,6 +12,8 @@ spring:
   resources:
     # 关闭静态资源的映射
     add-mappings: false
+  application:
+    name: linCMSDemo
 
 
 mybatis-plus:
@@ -45,3 +47,13 @@ logging:
   file:
     max-history:
   config:
+
+# prometheus 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include:  '*'
+  metrics:
+    tags:
+      application: ${spring.application.name}
