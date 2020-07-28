@@ -3,7 +3,7 @@
 lin:
   file:
     # 文件服务域名
-    domain: http://localhost:5000/
+    domain: http://pedro.7yue.pro/
     # 排除文件类型
     exclude:
     # 包括文件类型
