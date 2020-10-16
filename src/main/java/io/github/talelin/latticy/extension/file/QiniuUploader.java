@@ -9,17 +9,17 @@ import com.qiniu.util.Auth;
 import io.github.talelin.latticy.module.file.AbstractUploader;
 import io.github.talelin.latticy.module.file.FileConstant;
 import io.github.talelin.latticy.module.file.FileProperties;
-import org.springframework.beans.factory.annotation.Autowired;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
-import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 
 /**
  * 文件上传服务实现，上传到七牛
  *
  * @author pedro@TaleLin
+ * @author colorful@TaleLin
  */
 @Slf4j
 public class QiniuUploader extends AbstractUploader {
