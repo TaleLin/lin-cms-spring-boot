@@ -3,7 +3,7 @@
 lin:
   file:
     # 文件服务域名
-    domain: http://pedro.7yue.pro/
+    domain: http://face.api.talelin.com/
     # 排除文件类型
     exclude:
     # 包括文件类型
