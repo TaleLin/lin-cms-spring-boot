@@ -23,7 +23,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
-        <hutool.version>5.4.7</hutool.version>
+        <hutool.version>5.5.0</hutool.version>
         <freemarker.version>2.3.30</freemarker.version>
     </properties>
 
