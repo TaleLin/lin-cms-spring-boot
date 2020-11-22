@@ -20,7 +20,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * 文件上传服务实现，上传到MinIO, MinIO服务建议用户自己搭建
  *
- * @author pedro@TaleLin
+ * @author lhsheild
  */
 @Slf4j
 public class MinIOUploader extends AbstractUploader {
