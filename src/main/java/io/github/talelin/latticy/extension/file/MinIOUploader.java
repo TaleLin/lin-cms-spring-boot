@@ -1,11 +1,5 @@
 package io.github.talelin.latticy.extension.file;
 
-import com.qiniu.common.QiniuException;
-import com.qiniu.http.Response;
-import com.qiniu.storage.Configuration;
-import com.qiniu.storage.Region;
-import com.qiniu.storage.UploadManager;
-import com.qiniu.util.Auth;
 import io.github.talelin.latticy.module.file.AbstractUploader;
 import io.github.talelin.latticy.module.file.FileConstant;
 import io.github.talelin.latticy.module.file.FileProperties;
@@ -24,7 +18,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * 文件上传服务实现，上传到七牛
+ * 文件上传服务实现，上传到MinIO, MinIO服务建议用户自己搭建
  *
  * @author pedro@TaleLin
  */
