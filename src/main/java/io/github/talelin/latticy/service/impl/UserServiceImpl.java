@@ -189,9 +189,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     @Override
     public Integer getRootUserId() {
         Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
-        QueryWrapper<UserGroupDO> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(UserGroupDO::getGroupId, rootGroupId);
-        UserGroupDO userGroupDO = userGroupMapper.selectOne(wrapper);
+        UserGroupDO userGroupDO = null;
+        if (rootGroupId != 0) {
+            QueryWrapper<UserGroupDO> wrapper = new QueryWrapper<>();
+            wrapper.lambda().eq(UserGroupDO::getGroupId, rootGroupId);
+            userGroupDO = userGroupMapper.selectOne(wrapper);
+        }
         return userGroupDO == null ? 0 : userGroupDO.getUserId();
     }
 
