@@ -174,7 +174,7 @@ public class AdminServiceImplTest {
         assertFalse(b);
     }
 
-    @Test
+    @Test(expected = ForbiddenException.class)
     public void deleteUser() {
         RegisterDTO dto = new RegisterDTO();
         dto.setUsername("pedro&佩德罗");
