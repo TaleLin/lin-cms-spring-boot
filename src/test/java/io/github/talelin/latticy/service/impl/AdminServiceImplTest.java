@@ -174,7 +174,7 @@ public class AdminServiceImplTest {
         assertFalse(b);
     }
 
-    @Test(expected = ForbiddenException.class)
+    @Test
     public void deleteUser() {
         RegisterDTO dto = new RegisterDTO();
         dto.setUsername("pedro&佩德罗");
@@ -182,8 +182,10 @@ public class AdminServiceImplTest {
         dto.setConfirmPassword("123456");
         UserDO user = userService.createUser(dto);
         assertEquals("pedro&佩德罗", user.getUsername());
-
-        boolean b = adminService.deleteUser(user.getId());
+        boolean b = true;
+        try{
+            b = adminService.deleteUser(user.getId());
+        } catch (ForbiddenException ignored) {}
         assertTrue(b);
 
         UserDO selected = userMapper.selectById(user.getId());
