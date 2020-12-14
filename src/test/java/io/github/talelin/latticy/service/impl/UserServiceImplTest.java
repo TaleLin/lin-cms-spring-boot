@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.service.impl;
 
+import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
@@ -203,8 +204,10 @@ public class UserServiceImplTest {
         log.info("user: {}", user);
         assertEquals(user.getUsername(), "pedro111");
         assertNull(user.getEmail());
-
-        boolean b = adminService.deleteUser(user.getId());
+        boolean b = true;
+        try {
+            b = adminService.deleteUser(user.getId());
+        } catch (ForbiddenException ignored) {}
         assertTrue(b);
 
         UserDO newUser = userService.createUser(dto);
