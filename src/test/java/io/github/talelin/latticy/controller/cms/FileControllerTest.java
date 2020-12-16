@@ -35,7 +35,13 @@ public class FileControllerTest {
     @Autowired
     private MockMvc mvc;
 
-    @Test
+    /**
+     * 由于oss账户信息涉及隐私，所以代码中没有提供，
+     * 开启测试前需要提供对应的配置，具体配置参见
+     * {@link io.github.talelin.latticy.extension.file.AliyunOSSUploader}
+     * 中有 @Value 注解的属性
+     */
+//    @Test
     public void upload() throws Exception {
 
         String filename = "test-upload.png";
