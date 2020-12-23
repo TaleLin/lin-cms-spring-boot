@@ -1,24 +1,23 @@
 package io.github.talelin.latticy.mapper;
 
 import io.github.talelin.latticy.model.FileDO;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
 @Transactional
 @Rollback
 @ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FileMapperTest {
 
     @Autowired
@@ -27,7 +26,7 @@ public class FileMapperTest {
     private String md5 = "iiiiilllllll";
     private String name = "千里之外";
 
-    @Before
+    @BeforeAll
     public void setUp() throws Exception {
         FileDO fileDO = new FileDO();
         fileDO.setName(name);
@@ -44,7 +43,4 @@ public class FileMapperTest {
         assertEquals(one.getName(), name);
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
 }

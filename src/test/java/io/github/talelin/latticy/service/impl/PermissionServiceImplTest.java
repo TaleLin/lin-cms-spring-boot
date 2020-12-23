@@ -7,14 +7,11 @@ import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.GroupPermissionDO;
 import io.github.talelin.latticy.model.PermissionDO;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -22,10 +19,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@RunWith(SpringRunner.class)
+
 @SpringBootTest
 @Transactional
 @Rollback
@@ -59,11 +56,6 @@ public class PermissionServiceImplTest {
         relations.add(relation2);
         groupPermissionMapper.insertBatch(relations);
         return group.getId();
-    }
-
-    @Before
-    public void setUp() throws Exception {
-
     }
 
     @Test
