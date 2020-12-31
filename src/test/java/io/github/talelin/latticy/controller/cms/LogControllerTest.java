@@ -1,6 +1,5 @@
 package io.github.talelin.latticy.controller.cms;
 
-import cn.hutool.core.date.DateUtil;
 import io.github.talelin.latticy.mapper.LogMapper;
 import io.github.talelin.latticy.model.LogDO;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -87,8 +88,9 @@ public class LogControllerTest {
 
     @Test
     public void getLogs2() throws Exception {
-        String yesterday = DateUtil.yesterday().toString("yyyy-MM-dd HH:mm:ss");
-        String tomorrow = DateUtil.tomorrow().toString("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String yesterday = LocalDateTime.now().plusDays(-1).format(dateTimeFormatter);
+        String tomorrow = LocalDateTime.now().plusDays(1).format(dateTimeFormatter);
         mvc.perform(get("/cms/log/")
                 .param("name", "pedro")
                 .param("start", yesterday)
@@ -104,8 +106,9 @@ public class LogControllerTest {
 
     @Test
     public void getLogs3() throws Exception {
-        String yesterday = DateUtil.yesterday().toString("yyyy-M-d HH:mm:ss");
-        String tomorrow = DateUtil.tomorrow().toString("yyyy-M-dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String yesterday = LocalDateTime.now().plusDays(-1).format(dateTimeFormatter);
+        String tomorrow = LocalDateTime.now().plusDays(1).format(dateTimeFormatter);
         mvc.perform(get("/cms/log/")
                 .param("name", "pedro")
                 .param("start", yesterday)
@@ -133,9 +136,9 @@ public class LogControllerTest {
 
     @Test
     public void searchLogs1() throws Exception {
-        // yyyy-MM-dd HH:mm:ss
-        String yesterday = DateUtil.yesterday().toString("yyyy-MM-dd HH:mm:ss");
-        String tomorrow = DateUtil.tomorrow().toString("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String yesterday = LocalDateTime.now().plusDays(-1).format(dateTimeFormatter);
+        String tomorrow = LocalDateTime.now().plusDays(1).format(dateTimeFormatter);
         log.info("{}, {}", yesterday, tomorrow);
         mvc.perform(get("/cms/log/search")
                 .param("start", yesterday)
