@@ -10,19 +10,17 @@ import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerIntercept
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import io.github.talelin.autoconfigure.bean.PermissionMetaCollector;
 import io.github.talelin.latticy.common.interceptor.RequestLogInterceptor;
-import io.github.talelin.latticy.module.file.FileProperties;
 import io.github.talelin.latticy.module.log.MDCAccessServletFilter;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * @author pedro@TaleLin
+ * @author colorful@TaleLin
  */
 @Configuration(proxyBeanMethods = false)
-@EnableConfigurationProperties(FileProperties.class)
 public class CommonConfiguration {
 
     @Bean
