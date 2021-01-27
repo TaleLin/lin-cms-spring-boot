@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author pedro@TaleLin
@@ -35,7 +38,7 @@ public class LogController {
     @GetMapping("")
     @GroupRequired
     @PermissionMeta(value = "查询所有日志")
-    public PageResponseVO<LogDO> getLogs(
+    public PageResponseVO<LogVO> getLogs(
             @RequestParam(name = "start", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date start,
             @RequestParam(name = "end", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date end,
             @RequestParam(name = "name", required = false) String name,
@@ -45,13 +48,14 @@ public class LogController {
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page.number.min}") Integer page) {
         IPage<LogDO> iPage = logService.getLogPage(page, count, name, start, end);
-        return PageUtil.build(iPage);
+        List<LogVO> logs = iPage.getRecords().stream().map(LogVO::new).collect(Collectors.toList());
+        return PageUtil.build(iPage, logs);
     }
 
     @GetMapping("/search")
     @GroupRequired
     @PermissionMeta(value = "搜索日志")
-    public PageResponseVO<LogDO> searchLogs(
+    public PageResponseVO<LogVO> searchLogs(
             @RequestParam(name = "start", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date start,
             @RequestParam(name = "end", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date end,
             @RequestParam(name = "name", required = false) String name,
@@ -62,7 +66,8 @@ public class LogController {
             @RequestParam(name = "page", required = false, defaultValue = "0")
             @Min(value = 0, message = "{page.number.min}") Integer page) {
         IPage<LogDO> iPage = logService.searchLogPage(page, count, name, keyword, start, end);
-        return PageUtil.build(iPage);
+        List<LogVO> logs = iPage.getRecords().stream().map(LogVO::new).collect(Collectors.toList());
+        return PageUtil.build(iPage, logs);
     }
 
     @GetMapping("/users")
