@@ -42,6 +42,7 @@ lin:
     # 令牌 secret
     token-secret: x88Wf0991079889x8796a0Ac68f9ecJJU17c5Vbe8beod7d8d3e695*4
 logging:
-  file:
-    max-history:
+  logback:
+    rollingpolicy:
+      max-history:
   config:
