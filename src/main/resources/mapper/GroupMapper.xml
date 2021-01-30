@@ -7,7 +7,7 @@
         <id column="id" property="id"/>
         <result column="name" property="name"/>
         <result column="info" property="info"/>
-        <result column="level" property="level" typeHandler="com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler"/>
+        <result column="level" property="level" typeHandler="com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="delete_time" property="deleteTime"/>

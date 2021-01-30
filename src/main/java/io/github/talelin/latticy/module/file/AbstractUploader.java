@@ -140,7 +140,7 @@ public abstract class AbstractUploader implements Uploader {
         try {
             bytes = file.getBytes();
         } catch (Exception e) {
-            throw new FailedException("read file date failed", 10190);
+            throw new FailedException(10190, "read file date failed");
         }
         return bytes;
     }

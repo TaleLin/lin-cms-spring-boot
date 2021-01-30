@@ -68,7 +68,7 @@ public class UserControllerTest {
         dto.setUsername(username);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/user/register")
@@ -93,7 +93,7 @@ public class UserControllerTest {
         dto.setUsername(username);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/user/register")
@@ -120,7 +120,7 @@ public class UserControllerTest {
         dto1.setPassword(password);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto1);
 
         mvc.perform(post("/cms/user/login")
@@ -153,7 +153,7 @@ public class UserControllerTest {
         dto1.setUsername("pedro小小");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto1);
 
 
@@ -189,7 +189,7 @@ public class UserControllerTest {
         dto1.setConfirmPassword("147258");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto1);
 
 
