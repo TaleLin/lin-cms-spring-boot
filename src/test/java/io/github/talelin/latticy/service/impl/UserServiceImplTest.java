@@ -134,16 +134,13 @@ public class UserServiceImplTest {
 
     @Test
     public void changeUserPassword() {
-        // TODO 待解决 单独执行不会抛出空指针异常，批量执行则会抛出空指针异常。
-        assertThrows(NullPointerException.class, () -> {
-            ChangePasswordDTO dto = new ChangePasswordDTO();
-            dto.setNewPassword("147258");
-            dto.setConfirmPassword("147258");
-            dto.setOldPassword("123456");
-            UserDO user = userService.changeUserPassword(dto);
-            boolean b = userIdentityService.verifyUsernamePassword(user.getId(), "pedro", "147258");
-            assertTrue(b);
-        });
+        ChangePasswordDTO dto = new ChangePasswordDTO();
+        dto.setNewPassword("147258");
+        dto.setConfirmPassword("147258");
+        dto.setOldPassword("123456");
+        UserDO user = userService.changeUserPassword(dto);
+        boolean b = userIdentityService.verifyUsernamePassword(user.getId(), "pedro", "147258");
+        assertTrue(b);
     }
 
     @Test
