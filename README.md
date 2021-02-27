@@ -6,21 +6,20 @@
 </h1>
 
 <h4 align="center">一个简单易用的CMS后端项目 | <a href="http://doc.cms.talelin.com/" target="_blank">Lin-CMS-Spring-boot</a></h4>
-
 <p align="center">
 
   <a href="https://spring.io/" rel="nofollow">
   <img src="https://img.shields.io/badge/spring%20boot-2.2.2.RELEASE-green" alt="spring boot" data-canonical-src="https://img.shields.io/badge/spring%20boot-2.2.2.RELEASE-green" style="max-width:100%;">
   </a>
-  
+
   <a href="https://pypi.org/project/Lin-CMS/" rel="nofollow">
   <img src="https://img.shields.io/badge/mybatis--plus-3.3.0-yellow" alt="mybatis-plus" data-canonical-src="https://img.shields.io/badge/mybatis--plus-3.3.0-yellow" style="max-width:100%;">
   </a>
-  
+
   <a href="https://mybatis.plus/" rel="nofollow">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="LISENCE" data-canonical-src="https://img.shields.io/badge/license-MIT-lightgrey.svg" style="max-width:100%;">
   </a>
-  
+
 </p>
 
 <blockquote align="center">
@@ -29,9 +28,9 @@
 </blockquote>
 
 <p align="center">
-  <a href="##预览">预览</a>&nbsp;|&nbsp;
-  <a href="##简介">简介</a>&nbsp;|&nbsp;
-  <a href="##联系和交流">联系和交流</a>
+  <a href="#预览">预览</a>&nbsp;|&nbsp;
+  <a href="#简介">简介</a>&nbsp;|&nbsp;
+  <a href="#联系和交流">联系和交流</a>
 </p>
 
 ## 预览
