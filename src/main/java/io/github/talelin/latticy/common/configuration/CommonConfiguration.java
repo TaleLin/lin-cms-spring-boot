@@ -27,6 +27,25 @@ public class CommonConfiguration {
         return new RequestLogInterceptor();
     }
 
+    /**
+     * 新的分页插件,一缓和二缓遵循mybatis的规则
+     * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false 避免缓存出现问题(该属性会在旧插件移除后一同移除)
+     * 参考链接：https://mp.baomidou.com/guide/interceptor.htm
+     */
+    @Bean
+    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        return interceptor;
+    }
+
+    /**
+     * 参考链接：https://mp.baomidou.com/guide/interceptor.htm
+     */
+    @Bean
+    public ConfigurationCustomizer configurationCustomizer() {
+        return configuration -> configuration.setUseDeprecatedExecutor(false);
+    }
 
     @Bean
     public ISqlInjector sqlInjector() {
@@ -68,19 +87,5 @@ public class CommonConfiguration {
         filterRegistrationBean.setFilter(mdcAccessServletFilter);
         filterRegistrationBean.setName("mdc-access-servlet-filter");
         return filterRegistrationBean;
-    }
-    /**
-     * 新的分页插件,一缓和二缓遵循mybatis的规则,需要设置 MybatisConfiguration#useDeprecatedExecutor = false 避免缓存出现问题
-     */
-    @Bean
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
-        return interceptor;
-    }
-
-    @Bean
-    public ConfigurationCustomizer configurationCustomizer() {
-        return configuration -> configuration.setUseDeprecatedExecutor(false);
     }
 }
