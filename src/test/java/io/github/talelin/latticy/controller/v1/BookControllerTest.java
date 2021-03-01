@@ -100,7 +100,7 @@ public class BookControllerTest {
         dto.setTitle(title);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/v1/book/")
@@ -128,7 +128,7 @@ public class BookControllerTest {
         dto.setTitle(title + "lol");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(put("/v1/book/" + this.id)

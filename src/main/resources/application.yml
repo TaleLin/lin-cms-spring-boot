@@ -9,17 +9,17 @@ spring:
   mvc:
     # 404 交给异常处理器处理
     throw-exception-if-no-handler-found: true
-  resources:
-    # 关闭静态资源的映射
-    add-mappings: false
-
+  web:
+    resources:
+      # 关闭默认静态资源的映射规则
+      add-mappings: false
 
 mybatis-plus:
   configuration:
     # 开启下划线转驼峰
     map-underscore-to-camel-case: true
     # 指定默认枚举类型的类型转换器
-    default-enum-type-handler: com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
   global-config:
     # 开启/关闭 banner 打印
     banner: false
@@ -42,6 +42,7 @@ lin:
     # 令牌 secret
     token-secret: x88Wf0991079889x8796a0Ac68f9ecJJU17c5Vbe8beod7d8d3e695*4
 logging:
-  file:
-    max-history:
+  logback:
+    rollingpolicy:
+      max-history:
   config:

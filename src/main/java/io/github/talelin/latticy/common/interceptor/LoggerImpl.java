@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * @author colorful@TaleLin
  */
 @Slf4j
 @Component
@@ -40,7 +41,7 @@ public class LoggerImpl implements LoggerResolver {
         template = this.parseTemplate(template, user, request, response);
         String permission = "";
         if (meta != null) {
-            permission = StringUtils.isEmpty(meta.value()) ? meta.value() : meta.value();
+            permission = !StringUtils.hasLength(meta.value()) ? meta.value() : meta.value();
         }
         Integer userId = user.getId();
         String username = user.getUsername();

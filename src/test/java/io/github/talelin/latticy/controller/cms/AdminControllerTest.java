@@ -130,7 +130,7 @@ public class AdminControllerTest {
         dto.setConfirmPassword(newPassword);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(put(String.format("/cms/admin/user/%s/password", user.getId()))
@@ -187,7 +187,7 @@ public class AdminControllerTest {
         dto.setGroupIds(Arrays.asList(group.getId()));
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(put("/cms/admin/user/" + user.getId())
@@ -278,7 +278,7 @@ public class AdminControllerTest {
         dto.setPermissionIds(Arrays.asList(permission.getId()));
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/admin/group/")
@@ -308,7 +308,7 @@ public class AdminControllerTest {
         dto.setInfo("flink is a finger");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(put("/cms/admin/group/" + group.getId())
@@ -359,7 +359,7 @@ public class AdminControllerTest {
         dto.setPermissionId(permission.getId());
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/admin/permission/dispatch")
@@ -389,7 +389,7 @@ public class AdminControllerTest {
         dto.setPermissionIds(Arrays.asList(permission.getId(), permission1.getId()));
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/admin/permission/dispatch/batch")
@@ -422,7 +422,7 @@ public class AdminControllerTest {
         dto.setPermissionIds(Arrays.asList(permission1.getId()));
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/admin/permission/remove")
