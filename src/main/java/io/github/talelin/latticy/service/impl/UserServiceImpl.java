@@ -1,7 +1,5 @@
 package io.github.talelin.latticy.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -25,9 +23,11 @@ import io.github.talelin.latticy.service.GroupService;
 import io.github.talelin.latticy.service.PermissionService;
 import io.github.talelin.latticy.service.UserIdentityService;
 import io.github.talelin.latticy.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
         if (exist) {
             throw new ForbiddenException(10071);
         }
-        if (StrUtil.isNotBlank(dto.getEmail())) {
+        if (StringUtils.hasText(dto.getEmail())) {
             exist = this.checkUserExistByEmail(dto.getEmail());
             if (exist) {
                 throw new ForbiddenException(10076);
@@ -72,7 +72,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
             dto.setEmail(null);
         }
         UserDO user = new UserDO();
-        BeanUtil.copyProperties(dto, user);
+        BeanUtils.copyProperties(dto, user);
         this.baseMapper.insert(user);
         if (dto.getGroupIds() != null && !dto.getGroupIds().isEmpty()) {
             checkGroupsValid(dto.getGroupIds());
@@ -96,15 +96,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     @Override
     public UserDO updateUserInfo(UpdateInfoDTO dto) {
         UserDO user = LocalUser.getLocalUser();
-        if (StrUtil.isNotBlank(dto.getUsername())) {
+        if (StringUtils.hasText(dto.getUsername())) {
             boolean exist = this.checkUserExistByUsername(dto.getUsername());
             if (exist) {
                 throw new ForbiddenException(10071);
             }
-            user.setUsername(dto.getUsername());
-            userIdentityService.changeUsername(user.getId(), dto.getUsername());
+
+            boolean changeSuccess = userIdentityService.changeUsername(user.getId(), dto.getUsername());
+            if (changeSuccess) {
+                user.setUsername(dto.getUsername());
+            }
         }
-        BeanUtil.copyProperties(dto, user);
+
+        // todo 增加工具类实现忽略 null 的 BeanCopy,简化这段代码
+        if (dto.getUsername() != null) {
+            user.setUsername(dto.getUsername());
+        }
+        if (dto.getAvatar() != null) {
+            user.setAvatar(dto.getAvatar());
+        }
+        if (dto.getEmail() != null) {
+            user.setEmail(dto.getEmail());
+        }
+        if (dto.getNickname() != null) {
+            user.setNickname(dto.getNickname());
+        }
+
         this.baseMapper.updateById(user);
         return user;
     }
@@ -189,9 +206,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     @Override
     public Integer getRootUserId() {
         Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
-        QueryWrapper<UserGroupDO> wrapper = new QueryWrapper<>();
-        wrapper.lambda().eq(UserGroupDO::getGroupId, rootGroupId);
-        UserGroupDO userGroupDO = userGroupMapper.selectOne(wrapper);
+        UserGroupDO userGroupDO = null;
+        if (rootGroupId != 0) {
+            QueryWrapper<UserGroupDO> wrapper = new QueryWrapper<>();
+            wrapper.lambda().eq(UserGroupDO::getGroupId, rootGroupId);
+            userGroupDO = userGroupMapper.selectOne(wrapper);
+        }
         return userGroupDO == null ? 0 : userGroupDO.getUserId();
     }
 

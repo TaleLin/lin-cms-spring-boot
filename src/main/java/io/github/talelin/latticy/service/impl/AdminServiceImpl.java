@@ -84,6 +84,9 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean deleteUser(Integer id) {
         throwUserNotExistById(id);
+        if (userService.getRootUserId().equals(id)) {
+            throw new ForbiddenException(10079);
+        }
         boolean userRemoved = userService.removeById(id);
         QueryWrapper<UserIdentityDO> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UserIdentityDO::getUserId, id);

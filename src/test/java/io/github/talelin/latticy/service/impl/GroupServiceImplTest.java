@@ -2,36 +2,23 @@ package io.github.talelin.latticy.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.github.talelin.latticy.bo.GroupPermissionBO;
-import io.github.talelin.latticy.mapper.GroupMapper;
-import io.github.talelin.latticy.mapper.GroupPermissionMapper;
-import io.github.talelin.latticy.mapper.PermissionMapper;
-import io.github.talelin.latticy.mapper.UserGroupMapper;
-import io.github.talelin.latticy.mapper.UserMapper;
-import io.github.talelin.latticy.model.GroupDO;
-import io.github.talelin.latticy.model.GroupPermissionDO;
-import io.github.talelin.latticy.model.PermissionDO;
-import io.github.talelin.latticy.model.UserDO;
-import io.github.talelin.latticy.model.UserGroupDO;
+import io.github.talelin.latticy.mapper.*;
+import io.github.talelin.latticy.model.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.session.SqlSession;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 @Rollback
@@ -56,9 +43,6 @@ public class GroupServiceImplTest {
 
     @Autowired
     private GroupPermissionMapper groupPermissionMapper;
-
-    @Autowired
-    private SqlSession sqlSession;
 
     public Integer mockData() {
         UserDO user = UserDO.builder().nickname("pedro大大").username("pedro大大").build();
@@ -98,9 +82,6 @@ public class GroupServiceImplTest {
         return group.getId();
     }
 
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void getUserGroupsByUserId() {

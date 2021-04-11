@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.common.enumeration;
 
-import com.baomidou.mybatisplus.core.enums.IEnum;
+
+import com.baomidou.mybatisplus.annotation.IEnum;
 
 /**
  * @author colorful@TaleLin
@@ -30,7 +31,7 @@ public enum GroupLevelEnum implements IEnum<Integer> {
      * MybatisEnumTypeHandler 转换时调用此方法
      *
      * @return 枚举对应的 code 值
-     * @see com.baomidou.mybatisplus.extension.handlers.MybatisEnumTypeHandler
+     * @see com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
      */
     @Override
     public Integer getValue() {

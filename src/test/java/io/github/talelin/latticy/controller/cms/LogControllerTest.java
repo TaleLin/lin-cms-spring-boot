@@ -1,36 +1,36 @@
 package io.github.talelin.latticy.controller.cms;
 
-import cn.hutool.core.date.DateUtil;
 import io.github.talelin.latticy.mapper.LogMapper;
 import io.github.talelin.latticy.model.LogDO;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@Transactional // 数据操作后回滚
+@Transactional
 @Rollback
 @AutoConfigureMockMvc
 @Slf4j
 @ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class LogControllerTest {
 
     @Autowired
@@ -39,7 +39,7 @@ public class LogControllerTest {
     @Autowired
     private LogMapper logMapper;
 
-    @Before
+    @BeforeAll
     public void setUp() throws Exception {
         Date time = new Date();
         String permission = "查看lin的信息";
@@ -88,8 +88,9 @@ public class LogControllerTest {
 
     @Test
     public void getLogs2() throws Exception {
-        String yesterday = DateUtil.yesterday().toString("yyyy-MM-dd HH:mm:ss");
-        String tomorrow = DateUtil.tomorrow().toString("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String yesterday = LocalDateTime.now().plusDays(-1).format(dateTimeFormatter);
+        String tomorrow = LocalDateTime.now().plusDays(1).format(dateTimeFormatter);
         mvc.perform(get("/cms/log/")
                 .param("name", "pedro")
                 .param("start", yesterday)
@@ -105,8 +106,9 @@ public class LogControllerTest {
 
     @Test
     public void getLogs3() throws Exception {
-        String yesterday = DateUtil.yesterday().toString("yyyy-M-d HH:mm:ss");
-        String tomorrow = DateUtil.tomorrow().toString("yyyy-M-dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String yesterday = LocalDateTime.now().plusDays(-1).format(dateTimeFormatter);
+        String tomorrow = LocalDateTime.now().plusDays(1).format(dateTimeFormatter);
         mvc.perform(get("/cms/log/")
                 .param("name", "pedro")
                 .param("start", yesterday)
@@ -134,9 +136,9 @@ public class LogControllerTest {
 
     @Test
     public void searchLogs1() throws Exception {
-        // yyyy-MM-dd HH:mm:ss
-        String yesterday = DateUtil.yesterday().toString("yyyy-MM-dd HH:mm:ss");
-        String tomorrow = DateUtil.tomorrow().toString("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String yesterday = LocalDateTime.now().plusDays(-1).format(dateTimeFormatter);
+        String tomorrow = LocalDateTime.now().plusDays(1).format(dateTimeFormatter);
         log.info("{}, {}", yesterday, tomorrow);
         mvc.perform(get("/cms/log/search")
                 .param("start", yesterday)

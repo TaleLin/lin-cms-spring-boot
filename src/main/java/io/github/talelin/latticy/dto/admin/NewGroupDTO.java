@@ -16,7 +16,7 @@ public class NewGroupDTO {
     @Length(min = 1, max = 60, message = "{group.name.length}")
     private String name;
 
-    @Length(min = 1, max = 255, message = "{group.info.length}")
+    @Length(max = 255, message = "{group.info.length}")
     private String info;
 
     private List<Integer> permissionIds;

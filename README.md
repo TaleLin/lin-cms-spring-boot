@@ -37,7 +37,7 @@
 
 ### 线上 demo
 
-[http://face.cms.7yue.pro/](http://face.cms.7yue.pro/)
+[http://face.cms.talelin.com/](http://face.cms.talelin.com/)
 
 ### 文档地址
 
