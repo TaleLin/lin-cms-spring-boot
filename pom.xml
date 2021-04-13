@@ -11,7 +11,7 @@
 
     <groupId>io.github.talelin</groupId>
     <artifactId>latticy</artifactId>
-    <version>0.2.0-RC2</version>
+    <version>0.2.0-RELEASE</version>
     <name>latticy</name>
     <description>Demo project for lin cms</description>
 
@@ -46,7 +46,7 @@
         <dependency>
             <groupId>io.github.talelin</groupId>
             <artifactId>lin-cms-spring-boot-starter</artifactId>
-            <version>0.2.0-RC2</version>
+            <version>0.2.0-RELEASE</version>
         </dependency>
 
         <dependency>
