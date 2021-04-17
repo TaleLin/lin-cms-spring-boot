@@ -6,21 +6,20 @@
 </h1>
 
 <h4 align="center">一个简单易用的CMS后端项目 | <a href="http://doc.cms.talelin.com/" target="_blank">Lin-CMS-Spring-boot</a></h4>
-
 <p align="center">
 
   <a href="https://spring.io/" rel="nofollow">
-  <img src="https://img.shields.io/badge/spring%20boot-2.2.2.RELEASE-green" alt="spring boot" data-canonical-src="https://img.shields.io/badge/spring%20boot-2.2.2.RELEASE-green" style="max-width:100%;">
+  <img src="https://img.shields.io/badge/spring%20boot-2.4.3-green" alt="spring boot" data-canonical-src="https://img.shields.io/badge/spring%20boot-2.2.2.RELEASE-green" style="max-width:100%;">
   </a>
-  
+
   <a href="https://pypi.org/project/Lin-CMS/" rel="nofollow">
-  <img src="https://img.shields.io/badge/mybatis--plus-3.3.0-yellow" alt="mybatis-plus" data-canonical-src="https://img.shields.io/badge/mybatis--plus-3.3.0-yellow" style="max-width:100%;">
+  <img src="https://img.shields.io/badge/mybatis--plus-3.4.1-yellow" alt="mybatis-plus" data-canonical-src="https://img.shields.io/badge/mybatis--plus-3.3.0-yellow" style="max-width:100%;">
   </a>
-  
+
   <a href="https://mybatis.plus/" rel="nofollow">
   <img src="https://img.shields.io/badge/license-MIT-lightgrey.svg" alt="LISENCE" data-canonical-src="https://img.shields.io/badge/license-MIT-lightgrey.svg" style="max-width:100%;">
   </a>
-  
+
 </p>
 
 <blockquote align="center">
@@ -29,16 +28,16 @@
 </blockquote>
 
 <p align="center">
-  <a href="##预览">预览</a>&nbsp;|&nbsp;
-  <a href="##简介">简介</a>&nbsp;|&nbsp;
-  <a href="##联系和交流">联系和交流</a>
+  <a href="#预览">预览</a>&nbsp;|&nbsp;
+  <a href="#简介">简介</a>&nbsp;|&nbsp;
+  <a href="#联系和交流">联系和交流</a>
 </p>
 
 ## 预览
 
 ### 线上 demo
 
-[http://face.cms.7yue.pro/](http://face.cms.7yue.pro/)
+[http://face.cms.talelin.com/](http://face.cms.talelin.com/)
 
 ### 文档地址
 
@@ -87,22 +86,8 @@ Lin CMS 提供大量的文档来帮助开发者使用
 
 
 ## 联系和交流
-
-### QQ 交流群
-
-QQ 群号：643205479
-
-<img class="QR-img" width="258" height="300" src="http://imglf3.nosdn0.126.net/img/Qk5LWkJVWkF3Nmdyc2xGcUtScEJLOVV1clErY1dJa0FsQ3E1aDZQWlZHZ2dCbSt4WXA1V3dRPT0.jpg?imageView&thumbnail=1680x0&quality=96&stripmeta=0&type=jpg">
-
-### 微信公众号
-
-微信搜索：林间有风
-
-<img class="QR-img" src="http://imglf6.nosdn0.126.net/img/YUdIR2E3ME5weEdlNThuRmI4TFh3UWhiNmladWVoaTlXUXpicEFPa1F6czFNYkdmcWRIbGRRPT0.jpg?imageView&thumbnail=500x0&quality=96&stripmeta=0&type=jpg">
-
+![](https://img.juzibiji.top/20200807155013.png)
 ## 注意事项
-
-- 目前正处于测试，勿使用在开发环境中！！！
 
 - Lin CMS 需要一定的基础，至少你得有一定的 java 基础和数据库基础，并且比较熟悉spring-boot和mybatis，
 当然如果你是个 java 程序员，这些肯定都不在话下。
@@ -111,5 +96,14 @@ QQ 群号：643205479
 - Lin CMS 基于 spring boot ，因此也采取了 spring boot 的 starter （启动器）机制，我们也有自己的
 starter，见 [lin-cms-java-core](https://github.com/TaleLin/lin-cms-java-core.git)。 
 
+## 贡献代码
+
+我们的代码基于 develop 分支开发，欢迎提交 Pull Request 进行代码贡献。
+
+在提交 Pull Request 之前，请详细阅读我们的[开发规范](https://doc.cms.talelin.com/specification/)，否则可能因为 Commit 信息不规范等原因被关闭 Pull Request。
 
 
+
+## 开源协议
+
+[MIT](LICENSE) © 2021  林间有风

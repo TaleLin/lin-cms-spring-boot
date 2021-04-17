@@ -1,9 +1,9 @@
-import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class Jackson2Test {
     @Test
     public void testCamel() throws JsonProcessingException {
         String str = "userAge";
-        String s = StrUtil.toUnderlineCase(str);
+        String s = StringUtils.camelToUnderline(str);
         log.info(s);
     }
 }

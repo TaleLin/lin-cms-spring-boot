@@ -3,8 +3,8 @@ package io.github.talelin.latticy.common.configuration;
 import io.github.talelin.latticy.common.interceptor.RequestLogInterceptor;
 import io.github.talelin.autoconfigure.interceptor.AuthorizeInterceptor;
 import io.github.talelin.autoconfigure.interceptor.LogInterceptor;
+import io.github.talelin.latticy.module.file.FileUtil;
 import lombok.extern.slf4j.Slf4j;
-import cn.hutool.core.io.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +20,7 @@ import java.nio.file.Path;
  * Spring MVC 配置
  *
  * @author pedro@TaleLin
+ * @author colorful@TaleLin
  */
 @Configuration(proxyBeanMethods = false)
 @Slf4j
@@ -55,7 +56,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*")
+                .allowedOriginPatterns("*")
                 .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowCredentials(true)
                 .maxAge(3600)
@@ -94,7 +95,7 @@ public class WebConfiguration implements WebMvcConfigurer {
      * 获得文件夹的绝对路径
      */
     private String getAbsDir() {
-        if (FileUtil.isAbsolutePath(dir)) {
+        if (FileUtil.isAbsolute(dir)) {
             return dir;
         }
         String cmd = System.getProperty("user.dir");

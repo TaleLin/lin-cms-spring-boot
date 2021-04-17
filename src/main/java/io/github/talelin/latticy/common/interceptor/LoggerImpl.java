@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * @author colorful@TaleLin
  */
 @Slf4j
 @Component
@@ -28,7 +29,10 @@ public class LoggerImpl implements LoggerResolver {
     @Autowired
     private LogService logService;
 
-    private static final Pattern pattern = Pattern.compile("(?<=\\{)[^}]*(?=})");
+    /**
+     * 日志格式匹配正则
+     */
+    private static final Pattern LOG_PATTERN = Pattern.compile("(?<=\\{)[^}]*(?=})");
 
     @Override
     public void handle(PermissionMeta meta, Logger logger, HttpServletRequest request, HttpServletResponse response) {
@@ -37,7 +41,7 @@ public class LoggerImpl implements LoggerResolver {
         template = this.parseTemplate(template, user, request, response);
         String permission = "";
         if (meta != null) {
-            permission = StringUtils.isEmpty(meta.value()) ? meta.value() : meta.value();
+            permission = !StringUtils.hasLength(meta.value()) ? meta.value() : meta.value();
         }
         Integer userId = user.getId();
         String username = user.getUsername();
@@ -49,7 +53,7 @@ public class LoggerImpl implements LoggerResolver {
 
     private String parseTemplate(String template, UserDO user, HttpServletRequest request, HttpServletResponse response) {
         // 调用 get 方法
-        Matcher m = pattern.matcher(template);
+        Matcher m = LOG_PATTERN.matcher(template);
         while (m.find()) {
             String group = m.group();
             String property = this.extractProperty(group, user, request, response);

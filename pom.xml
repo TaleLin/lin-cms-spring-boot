@@ -5,13 +5,13 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.5.RELEASE</version>
+        <version>2.4.3</version>
         <relativePath/>
     </parent>
 
     <groupId>io.github.talelin</groupId>
     <artifactId>latticy</artifactId>
-    <version>0.2.0-RC1</version>
+    <version>0.2.0-RELEASE</version>
     <name>latticy</name>
     <description>Demo project for lin cms</description>
 
@@ -22,9 +22,8 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <mybatis-plus.version>3.3.0</mybatis-plus.version>
-        <hutool.version>5.0.6</hutool.version>
-        <freemarker.version>2.3.28</freemarker.version>
+        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <freemarker.version>2.3.31</freemarker.version>
     </properties>
 
     <dependencies>
@@ -47,7 +46,7 @@
         <dependency>
             <groupId>io.github.talelin</groupId>
             <artifactId>lin-cms-spring-boot-starter</artifactId>
-            <version>0.2.0-RC2</version>
+            <version>0.2.0-RELEASE</version>
         </dependency>
 
         <dependency>
@@ -75,15 +74,9 @@
         </dependency>
 
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-core</artifactId>
-            <version>${hutool.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.qiniu</groupId>
             <artifactId>qiniu-java-sdk</artifactId>
-            <version>7.2.28</version>
+            <version>7.4.0</version>
         </dependency>
 
         <dependency>
@@ -119,7 +112,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- prometheus -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
@@ -127,6 +119,11 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
     </dependencies>

@@ -8,22 +8,17 @@ import io.github.talelin.latticy.dto.user.LoginDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
 import io.github.talelin.latticy.dto.user.UpdateInfoDTO;
 import io.github.talelin.latticy.mapper.GroupMapper;
-import io.github.talelin.latticy.mapper.UserMapper;
 import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.latticy.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -32,12 +27,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Arrays;
 import java.util.Random;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 @Rollback
@@ -50,9 +44,6 @@ public class UserControllerTest {
     private MockMvc mvc;
 
     @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private GroupMapper groupMapper;
 
     @Autowired
@@ -63,14 +54,6 @@ public class UserControllerTest {
     private String password = "123456";
 
     private String username = "pedro大大";
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
 
     @Test
     public void register() throws Exception {
@@ -85,7 +68,7 @@ public class UserControllerTest {
         dto.setUsername(username);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/user/register")
@@ -110,7 +93,7 @@ public class UserControllerTest {
         dto.setUsername(username);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/user/register")
@@ -137,7 +120,7 @@ public class UserControllerTest {
         dto1.setPassword(password);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto1);
 
         mvc.perform(post("/cms/user/login")
@@ -170,7 +153,7 @@ public class UserControllerTest {
         dto1.setUsername("pedro小小");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto1);
 
 
@@ -206,7 +189,7 @@ public class UserControllerTest {
         dto1.setConfirmPassword("147258");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto1);
 
 

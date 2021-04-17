@@ -84,6 +84,9 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public boolean deleteUser(Integer id) {
         throwUserNotExistById(id);
+        if (userService.getRootUserId().equals(id)) {
+            throw new ForbiddenException(10079);
+        }
         boolean userRemoved = userService.removeById(id);
         QueryWrapper<UserIdentityDO> wrapper = new QueryWrapper<>();
         wrapper.lambda().eq(UserIdentityDO::getUserId, id);
@@ -159,6 +162,10 @@ public class AdminServiceImpl implements AdminService {
             throw new ForbiddenException(10075);
         }
         throwGroupNotExistById(id);
+        List<Integer> groupUserIds = groupService.getGroupUserIds(id);
+        if(groupUserIds.size() > 0) {
+            throw new ForbiddenException(10027);
+        }
         return groupService.removeById(id);
     }
 

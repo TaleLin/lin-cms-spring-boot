@@ -1,6 +1,5 @@
 package io.github.talelin.latticy.common.exception;
 
-import cn.hutool.core.util.StrUtil;
 import io.github.talelin.autoconfigure.bean.Code;
 import io.github.talelin.autoconfigure.exception.HttpException;
 import io.github.talelin.latticy.common.configuration.CodeMessageConfiguration;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -26,11 +26,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static io.github.talelin.autoconfigure.util.RequestUtil.getSimpleRequest;
 
@@ -59,7 +60,7 @@ public class RestExceptionHandler {
         unifyResponse.setCode(code);
         response.setStatus(exception.getHttpCode());
         String errorMessage = CodeMessageConfiguration.getMessage(code);
-        if (StrUtil.isBlank(errorMessage) || !defaultMessage) {
+        if (!StringUtils.hasText(errorMessage) || !defaultMessage) {
             unifyResponse.setMessage(exception.getMessage());
             log.error("", exception);
         } else {
@@ -79,7 +80,7 @@ public class RestExceptionHandler {
         exception.getConstraintViolations().forEach(constraintViolation -> {
             String template = constraintViolation.getMessage();
             String path = constraintViolation.getPropertyPath().toString();
-            msg.put(StrUtil.toUnderlineCase(path), template);
+            msg.put(com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(path), template);
         });
         UnifyResponseVO unifyResponse = new UnifyResponseVO();
         unifyResponse.setRequest(getSimpleRequest(request));
@@ -98,7 +99,7 @@ public class RestExceptionHandler {
         UnifyResponseVO unifyResponse = new UnifyResponseVO();
         unifyResponse.setRequest(getSimpleRequest(request));
         String message = CodeMessageConfiguration.getMessage(10025);
-        if (StrUtil.isBlank(message)) {
+        if (!StringUtils.hasText(message)) {
             unifyResponse.setMessage(exception.getMessage());
         } else {
             unifyResponse.setMessage(message);
@@ -118,7 +119,7 @@ public class RestExceptionHandler {
         result.setRequest(getSimpleRequest(request));
 
         String errorMessage = CodeMessageConfiguration.getMessage(10150);
-        if (StrUtil.isBlank(errorMessage)) {
+        if (!StringUtils.hasText(errorMessage)) {
             result.setMessage(exception.getMessage());
         } else {
             result.setMessage(errorMessage + exception.getParameterName());
@@ -137,7 +138,7 @@ public class RestExceptionHandler {
         UnifyResponseVO result = new UnifyResponseVO();
         result.setRequest(getSimpleRequest(request));
         String errorMessage = CodeMessageConfiguration.getMessage(10160);
-        if (StrUtil.isBlank(errorMessage)) {
+        if (!StringUtils.hasText(errorMessage)) {
             result.setMessage(exception.getMessage());
         } else {
             result.setMessage(exception.getValue() + errorMessage);
@@ -165,7 +166,8 @@ public class RestExceptionHandler {
      * MethodArgumentNotValidException
      */
     @ExceptionHandler({MethodArgumentNotValidException.class})
-    public UnifyResponseVO processException(MethodArgumentNotValidException exception, HttpServletRequest request, HttpServletResponse response) {
+    public UnifyResponseVO processException(
+            MethodArgumentNotValidException exception, HttpServletRequest request, HttpServletResponse response) {
         log.error("", exception);
         BindingResult bindingResult = exception.getBindingResult();
         List<ObjectError> errors = bindingResult.getAllErrors();
@@ -173,9 +175,10 @@ public class RestExceptionHandler {
         errors.forEach(error -> {
             if (error instanceof FieldError) {
                 FieldError fieldError = (FieldError) error;
-                msg.put(StrUtil.toUnderlineCase(fieldError.getField()), fieldError.getDefaultMessage());
+                msg.put(com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(fieldError.getField()),
+                        fieldError.getDefaultMessage());
             } else {
-                msg.put(StrUtil.toUnderlineCase(error.getObjectName()), error.getDefaultMessage());
+                msg.put(com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(error.getObjectName()), error.getDefaultMessage());
             }
         });
         UnifyResponseVO result = new UnifyResponseVO();
@@ -195,10 +198,16 @@ public class RestExceptionHandler {
         UnifyResponseVO result = new UnifyResponseVO();
         result.setRequest(getSimpleRequest(request));
         String errorMessage = CodeMessageConfiguration.getMessage(10170);
-        if (StrUtil.isBlank(errorMessage)) {
-            result.setMessage(exception.getMessage());
+        Throwable cause = exception.getCause();
+        if(cause != null) {
+            String msg = this.convertMessage(cause);
+            result.setMessage(msg);
         } else {
-            result.setMessage(errorMessage);
+            if (!StringUtils.hasText(errorMessage)) {
+                result.setMessage(exception.getMessage());
+            } else {
+                result.setMessage(errorMessage);
+            }
         }
         result.setCode(Code.PARAMETER_ERROR.getCode());
         response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -228,7 +237,7 @@ public class RestExceptionHandler {
         UnifyResponseVO result = new UnifyResponseVO();
         result.setRequest(getSimpleRequest(request));
         String errorMessage = CodeMessageConfiguration.getMessage(10180);
-        if (StrUtil.isBlank(errorMessage)) {
+        if (!StringUtils.hasText(errorMessage)) {
             result.setMessage(exception.getMessage());
         } else {
             result.setMessage(errorMessage + maxFileSize);
@@ -250,5 +259,27 @@ public class RestExceptionHandler {
         result.setCode(Code.INTERNAL_SERVER_ERROR.getCode());
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return result;
+    }
+
+    /**
+     * 传参类型错误时，用于消息转换
+     * @param throwable
+     * @return 错误信息
+     */
+    private String convertMessage(Throwable throwable) {
+        String error = throwable.toString();
+        String regulation = "\\[\"(.*?)\"]+";
+        Pattern pattern = Pattern.compile(regulation);
+        Matcher matcher = pattern.matcher(error);
+        String group = "";
+        if(matcher.find()) {
+            String matchString = matcher.group();
+            matchString = matchString
+                    .replace("[","")
+                    .replace("]","");
+            matchString = matchString.replaceAll("\\\"","") + "字段类型错误";
+            group += matchString;
+        }
+        return group;
     }
 }

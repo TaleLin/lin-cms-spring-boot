@@ -159,6 +159,28 @@ CREATE TABLE lin_user_group
   COLLATE = utf8mb4_general_ci;
 
 -- ----------------------------
+-- 图书表
+-- ----------------------------
+DROP TABLE IF EXISTS book;
+CREATE TABLE book
+(
+    id          int(11)     NOT NULL AUTO_INCREMENT,
+    title       varchar(50) NOT NULL,
+    author      varchar(30)          DEFAULT NULL,
+    summary     varchar(1000)        DEFAULT NULL,
+    image       varchar(100)         DEFAULT NULL,
+    create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    update_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+    delete_time datetime(3)          DEFAULT NULL,
+    PRIMARY KEY (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_general_ci;
+
+INSERT INTO book(`title`, `author`, `summary`, `image`) VALUES ('深入理解计算机系统', 'Randal E.Bryant', '从程序员的视角，看计算机系统！\n本书适用于那些想要写出更快、更可靠程序的程序员。通过掌握程序是如何映射到系统上，以及程序是如何执行的，读者能够更好的理解程序的行为为什么是这样的，以及效率低下是如何造成的。', 'https://img3.doubanio.com/lpic/s1470003.jpg');
+INSERT INTO book(`title`, `author`, `summary`, `image`) VALUES ('C程序设计语言', '（美）Brian W. Kernighan', '在计算机发展的历史上，没有哪一种程序设计语言像C语言这样应用广泛。本书原著即为C语言的设计者之一Dennis M.Ritchie和著名计算机科学家Brian W.Kernighan合著的一本介绍C语言的权威经典著作。', 'https://img3.doubanio.com/lpic/s1106934.jpg');
+
+-- ----------------------------
 -- 插入超级管理员
 -- 插入root分组
 -- ----------------------------

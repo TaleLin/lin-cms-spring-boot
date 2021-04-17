@@ -10,8 +10,9 @@ import org.springframework.core.annotation.Order;
  * 文件上传配置类
  *
  * @author Juzi@TaleLin
+ * @author colorful@TaleLin
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 public class UploaderConfiguration {
     /**
      * @return 本地文件上传实现类
