@@ -18,7 +18,7 @@ import java.util.UUID;
  */
 public abstract class AbstractUploader implements Uploader {
 
-    private PreHandler preHandler;
+    private UploadHandler uploadHandler;
 
     @Override
     public List<File> upload(MultiValueMap<String, MultipartFile> fileMap) {
@@ -29,8 +29,8 @@ public abstract class AbstractUploader implements Uploader {
     }
 
     @Override
-    public List<File> upload(MultiValueMap<String, MultipartFile> fileMap, PreHandler preHandler) {
-        this.preHandler = preHandler;
+    public List<File> upload(MultiValueMap<String, MultipartFile> fileMap, UploadHandler uploadHandler) {
+        this.uploadHandler = uploadHandler;
         return this.upload(fileMap);
     }
 
@@ -64,12 +64,16 @@ public abstract class AbstractUploader implements Uploader {
                 extension(ext).
                 build();
         // 如果预处理器不为空，且处理结果为false，直接返回, 否则处理
-        if (preHandler != null && !preHandler.handle(fileData)) {
+        if (uploadHandler != null && !uploadHandler.preHandle(fileData)) {
             return;
         }
         boolean ok = handleOneFile(bytes, newFilename);
         if (ok) {
             res.add(fileData);
+            // 上传到本地或云上成功之后，调用afterHandle
+            if (uploadHandler != null) {
+                uploadHandler.afterHandle(fileData);
+            }
         }
     }
 
