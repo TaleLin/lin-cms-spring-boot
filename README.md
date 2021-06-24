@@ -9,7 +9,7 @@
 <p align="center">
 
   <a href="https://spring.io/" rel="nofollow">
-  <img src="https://img.shields.io/badge/spring%20boot-2.4.3-green" alt="spring boot" data-canonical-src="https://img.shields.io/badge/spring%20boot-2.2.2.RELEASE-green" style="max-width:100%;">
+  <img src="https://img.shields.io/badge/spring%20boot-2.5.0-green" alt="spring boot" data-canonical-src="https://img.shields.io/badge/spring%20boot-2.2.2.RELEASE-green" style="max-width:100%;">
   </a>
 
   <a href="https://pypi.org/project/Lin-CMS/" rel="nofollow">
