@@ -11,6 +11,9 @@ spring:
     password: "123456"
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/lin-cms?useSSL=false&serverTimezone=UTC&characterEncoding=UTF8
+  sql:
+    init:
+      enabled: false
 
 # 开启权限拦截
 auth:

@@ -19,6 +19,11 @@ spring:
     schema: classpath:/h2-test.sql
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdbsa;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+  sql:
+    init:
+      platform: h2
+      continue-on-error: false
+      schema-locations: classpath:/h2-test.sql
   h2:
     console:
       enabled: true
