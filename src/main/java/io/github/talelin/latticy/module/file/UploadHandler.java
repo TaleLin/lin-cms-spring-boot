@@ -5,12 +5,17 @@ package io.github.talelin.latticy.module.file;
  *
  * @author pedro@TaleLin
  */
-public interface PreHandler {
+public interface UploadHandler {
 
     /**
      * 在文件写入本地或者上传到云之前调用此方法
      *
      * @return 是否上传，若返回false，则不上传
      */
-    boolean handle(File file);
+    boolean preHandle(File file);
+
+    /**
+     * 在文件写入本地或者上传到云之后调用此方法
+     */
+    void afterHandle(File file);
 }
