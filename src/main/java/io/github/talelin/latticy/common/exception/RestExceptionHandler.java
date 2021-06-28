@@ -12,9 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -78,19 +76,18 @@ public class RestExceptionHandler {
                                                                  HttpServletRequest request,
                                                                  HttpServletResponse response) {
         log.error(exception.toString());
-        return getMapUnifyResponseVOByErrorList(request, response, exception);
-    }
-
-    /**
-     * 将请求体解析并绑定到 java bean 时，如果出错，则抛出 MethodArgumentNotValidException 异常
-     */
-    @ExceptionHandler({MethodArgumentNotValidException.class})
-    public UnifyResponseVO<Map<String, Object>> processException(MethodArgumentNotValidException exception,
-                                                                 HttpServletRequest request,
-                                                                 HttpServletResponse response) {
-        log.error("", exception);
-        BindingResult bindingResult = exception.getBindingResult();
-        return getMapUnifyResponseVOByErrorList(request, response, bindingResult);
+        Map<String, Object> msg = new HashMap<>();
+        exception.getAllErrors().forEach(error -> {
+            if (error instanceof FieldError) {
+                FieldError fieldError = (FieldError) error;
+                msg.put(com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(fieldError.getField()),
+                        fieldError.getDefaultMessage());
+            } else {
+                msg.put(com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(error.getObjectName()),
+                        error.getDefaultMessage());
+            }
+        });
+        return getMapUnifyResponseVO(request, response, msg);
     }
 
     /**
@@ -100,7 +97,7 @@ public class RestExceptionHandler {
     public UnifyResponseVO<Map<String, Object>> processException(ConstraintViolationException exception,
                                                                  HttpServletRequest request,
                                                                  HttpServletResponse response) {
-        log.error(exception.toString());
+        log.error("", exception);
         Map<String, Object> msg = new HashMap<>();
         exception.getConstraintViolations().forEach(constraintViolation -> {
             String template = constraintViolation.getMessage();
@@ -281,27 +278,10 @@ public class RestExceptionHandler {
         return unifyResponse;
     }
 
-    private UnifyResponseVO<Map<String, Object>> getMapUnifyResponseVOByErrorList(HttpServletRequest request,
-                                                                                  HttpServletResponse response,
-                                                                                  BindingResult bindingResult) {
-        Map<String, Object> msg = new HashMap<>();
-        bindingResult.getAllErrors().forEach(error -> {
-            if (error instanceof FieldError) {
-                FieldError fieldError = (FieldError) error;
-                msg.put(com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(fieldError.getField()),
-                        fieldError.getDefaultMessage());
-            } else {
-                msg.put(com.baomidou.mybatisplus.core.toolkit.StringUtils.camelToUnderline(error.getObjectName()),
-                        error.getDefaultMessage());
-            }
-        });
-        return getMapUnifyResponseVO(request, response, msg);
-    }
-
     /**
      * 传参类型错误时，用于消息转换
      *
-     * @param throwable
+     * @param throwable 异常
      * @return 错误信息
      */
     private String convertMessage(Throwable throwable) {
