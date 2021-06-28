@@ -5,6 +5,7 @@ import io.github.talelin.core.annotation.GroupRequired;
 import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.latticy.common.util.PageUtil;
+import io.github.talelin.latticy.dto.query.BasePageDTO;
 import io.github.talelin.latticy.model.LogDO;
 import io.github.talelin.latticy.service.LogService;
 import io.github.talelin.latticy.vo.PageResponseVO;
@@ -68,13 +69,8 @@ public class LogController {
     @GetMapping("/users")
     @GroupRequired
     @PermissionMeta(value = "查询日志记录的用户")
-    public PageResponseVO<String> getUsers(
-            @RequestParam(name = "count", required = false, defaultValue = "15")
-            @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Integer count,
-            @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Integer page) {
-        IPage<String> iPage = logService.getUserNamePage(page, count);
+    public PageResponseVO<String> getUsers(@Validated BasePageDTO dto) {
+        IPage<String> iPage = logService.getUserNamePage(dto.getPage(), dto.getCount());
         return PageUtil.build(iPage);
     }
 }

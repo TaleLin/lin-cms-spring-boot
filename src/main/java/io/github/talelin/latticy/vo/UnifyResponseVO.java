@@ -45,7 +45,7 @@ public class UnifyResponseVO<T> {
 
     public UnifyResponseVO(int code, T message) {
         this.code = code;
-        this.message =  message;
+        this.message = message;
         this.request = RequestUtil.getSimpleRequest();
     }
 
