@@ -7,16 +7,17 @@ import io.github.talelin.core.annotation.LoginRequired;
 </#if>
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.common.util.PageUtil;
+import io.github.talelin.latticy.dto.query.BasePageDTO;
 import ${package.Service}.${table.serviceName};
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestBody;
 import ${package.Entity}.${entity};
 import io.github.talelin.latticy.vo.CreatedVO;
@@ -24,8 +25,6 @@ import io.github.talelin.latticy.vo.DeletedVO;
 import io.github.talelin.latticy.vo.PageResponseVO;
 import io.github.talelin.latticy.vo.UpdatedVO;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Positive;
 
 <#if restControllerStyle>
@@ -116,13 +115,9 @@ public class ${table.controllerName} {
     @LoginRequired
     </#if>
     public PageResponseVO<${entity}> page(
-            @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Integer page,
-            @RequestParam(name = "count", required = false, defaultValue = "10")
-            @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Integer count
+            @Validated BasePageDTO dto
     ) {
-        return PageUtil.build(${table.serviceName?uncap_first}.page(new Page<>(page, count), null));
+        return PageUtil.build(${table.serviceName?uncap_first}.page(new Page<>(dto.getPage(), dto.getCount()), null));
     }
 
 }
