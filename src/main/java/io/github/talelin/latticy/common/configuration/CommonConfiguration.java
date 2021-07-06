@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.github.talelin.autoconfigure.bean.PermissionMetaCollector;
 import io.github.talelin.latticy.common.interceptor.RequestLogInterceptor;
 import io.github.talelin.latticy.module.log.MDCAccessServletFilter;
@@ -72,7 +72,7 @@ public class CommonConfiguration {
         return jacksonObjectMapperBuilder -> {
             // jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.NON_NULL);
             jacksonObjectMapperBuilder.failOnUnknownProperties(false);
-            jacksonObjectMapperBuilder.propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+            jacksonObjectMapperBuilder.propertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         };
     }
 
