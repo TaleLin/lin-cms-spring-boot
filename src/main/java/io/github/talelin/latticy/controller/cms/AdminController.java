@@ -6,37 +6,18 @@ import io.github.talelin.core.annotation.PermissionMeta;
 import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.latticy.bo.GroupPermissionBO;
 import io.github.talelin.latticy.common.util.PageUtil;
-import io.github.talelin.latticy.dto.admin.DispatchPermissionDTO;
-import io.github.talelin.latticy.dto.admin.DispatchPermissionsDTO;
-import io.github.talelin.latticy.dto.admin.NewGroupDTO;
-import io.github.talelin.latticy.dto.admin.RemovePermissionsDTO;
-import io.github.talelin.latticy.dto.admin.ResetPasswordDTO;
-import io.github.talelin.latticy.dto.admin.UpdateGroupDTO;
-import io.github.talelin.latticy.dto.admin.UpdateUserInfoDTO;
+import io.github.talelin.latticy.dto.admin.*;
+import io.github.talelin.latticy.dto.query.BasePageDTO;
 import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.PermissionDO;
 import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.latticy.service.AdminService;
 import io.github.talelin.latticy.service.GroupService;
-import io.github.talelin.latticy.vo.CreatedVO;
-import io.github.talelin.latticy.vo.DeletedVO;
-import io.github.talelin.latticy.vo.PageResponseVO;
-import io.github.talelin.latticy.vo.UpdatedVO;
-import io.github.talelin.latticy.vo.UserInfoVO;
+import io.github.talelin.latticy.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.Map;
@@ -69,14 +50,8 @@ public class AdminController {
     @GetMapping("/users")
     @PermissionMeta(value = "查询所有用户", mount = false)
     public PageResponseVO<UserInfoVO> getUsers(
-            @RequestParam(name = "group_id", required = false)
-            @Min(value = 1, message = "{group.id.positive}") Integer groupId,
-            @RequestParam(name = "count", required = false, defaultValue = "10")
-            @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Integer count,
-            @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Integer page) {
-        IPage<UserDO> iPage = adminService.getUserPageByGroupId(groupId, count, page);
+            @Validated QueryUsersDTO dto) {
+        IPage<UserDO> iPage = adminService.getUserPageByGroupId(dto.getGroupId(), dto.getCount(), dto.getPage());
         List<UserInfoVO> userInfos = iPage.getRecords().stream().map(user -> {
             List<GroupDO> groups = groupService.getUserGroupsByUserId(user.getId());
             return new UserInfoVO(user, groups);
@@ -112,12 +87,8 @@ public class AdminController {
     @GetMapping("/group")
     @PermissionMeta(value = "查询所有权限组及其权限", mount = false)
     public PageResponseVO<GroupDO> getGroups(
-            @RequestParam(name = "count", required = false, defaultValue = "10")
-            @Min(value = 1, message = "{page.count.min}")
-            @Max(value = 30, message = "{page.count.max}") Integer count,
-            @RequestParam(name = "page", required = false, defaultValue = "0")
-            @Min(value = 0, message = "{page.number.min}") Integer page) {
-        IPage<GroupDO> iPage = adminService.getGroupPage(page, count);
+            @Validated BasePageDTO dto) {
+        IPage<GroupDO> iPage = adminService.getGroupPage(dto.getPage(), dto.getCount());
         return PageUtil.build(iPage);
     }
 

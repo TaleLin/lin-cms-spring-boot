@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.injector.DefaultSqlInjector;
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.github.talelin.autoconfigure.bean.PermissionMetaCollector;
 import io.github.talelin.latticy.common.interceptor.RequestLogInterceptor;
 import io.github.talelin.latticy.module.log.MDCAccessServletFilter;
@@ -30,7 +30,7 @@ public class CommonConfiguration {
     /**
      * 新的分页插件,一缓和二缓遵循mybatis的规则
      * 需要设置 MybatisConfiguration#useDeprecatedExecutor = false 避免缓存出现问题(该属性会在旧插件移除后一同移除)
-     * 参考链接：https://mp.baomidou.com/guide/interceptor.htm
+     * 参考链接：https://mp.baomidou.com/guide/interceptor.html
      */
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
@@ -40,9 +40,10 @@ public class CommonConfiguration {
     }
 
     /**
-     * 参考链接：https://mp.baomidou.com/guide/interceptor.htm
+     * 参考链接：https://mp.baomidou.com/guide/interceptor.html
      */
     @Bean
+    @SuppressWarnings("deprecation")
     public ConfigurationCustomizer configurationCustomizer() {
         return configuration -> configuration.setUseDeprecatedExecutor(false);
     }
@@ -71,7 +72,7 @@ public class CommonConfiguration {
         return jacksonObjectMapperBuilder -> {
             // jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.NON_NULL);
             jacksonObjectMapperBuilder.failOnUnknownProperties(false);
-            jacksonObjectMapperBuilder.propertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+            jacksonObjectMapperBuilder.propertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         };
     }
 

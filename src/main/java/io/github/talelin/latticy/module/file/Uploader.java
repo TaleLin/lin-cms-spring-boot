@@ -24,8 +24,8 @@ public interface Uploader {
      * 上传文件
      *
      * @param fileMap    文件map
-     * @param preHandler 预处理器
+     * @param uploadHandler 预处理器
      * @return 文件数据
      */
-    List<File> upload(MultiValueMap<String, MultipartFile> fileMap, PreHandler preHandler);
+    List<File> upload(MultiValueMap<String, MultipartFile> fileMap, UploadHandler uploadHandler);
 }
