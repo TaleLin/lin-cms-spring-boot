@@ -23,8 +23,8 @@ public class FileMapperTest {
     @Autowired
     private FileMapper fileMapper;
 
-    private String md5 = "iiiiilllllll";
-    private String name = "千里之外";
+    private final String md5 = "iiiiilllllll";
+    private final String name = "千里之外";
 
     @BeforeAll
     public void setUp() throws Exception {
