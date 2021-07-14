@@ -15,8 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -105,7 +104,7 @@ public class GroupServiceImplTest {
         IPage<GroupDO> groups = groupService.getGroupPage(0, 10);
         assertTrue(groups.getTotal() > 0);
         assertTrue(groups.getRecords().size() > 0);
-        assertTrue(groups.getCurrent() == 0);
+        assertEquals(0, groups.getCurrent());
         boolean anyMatch = groups.getRecords().stream().anyMatch(it -> it.getName().equals("测试分组12"));
         assertTrue(anyMatch);
     }
@@ -121,11 +120,9 @@ public class GroupServiceImplTest {
     public void getGroupAndPermissions() {
         Integer id = mockData2();
         GroupPermissionBO groupAndPermissions = groupService.getGroupAndPermissions(id);
-        assertTrue(groupAndPermissions.getName().equals("测试分组1"));
-        boolean anyMatch = groupAndPermissions.getPermissions().stream().anyMatch(permission -> {
-            PermissionDO permission1 = (PermissionDO) permission;
-            return permission1.getName().equals("权限2");
-        });
+        assertEquals("测试分组1", groupAndPermissions.getName());
+        boolean anyMatch = groupAndPermissions.getPermissions().stream().anyMatch(permission ->
+                permission.getName().equals("权限2"));
         assertTrue(anyMatch);
     }
 

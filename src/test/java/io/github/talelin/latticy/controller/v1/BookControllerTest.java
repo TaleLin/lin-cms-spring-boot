@@ -1,7 +1,7 @@
 package io.github.talelin.latticy.controller.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.github.talelin.latticy.dto.book.CreateOrUpdateBookDTO;
 import io.github.talelin.latticy.mapper.BookMapper;
 import io.github.talelin.latticy.model.BookDO;
@@ -35,10 +35,10 @@ public class BookControllerTest {
     private BookMapper bookMapper;
 
     private Integer id;
-    private String title = "千里之外";
-    private String author = "pedro";
-    private String image = "千里之外.png";
-    private String summary = "千里之外，是周杰伦和费玉清一起发售的歌曲";
+    private final String title = "千里之外";
+    private final String author = "pedro";
+    private final String image = "千里之外.png";
+    private final String summary = "千里之外，是周杰伦和费玉清一起发售的歌曲";
 
 
     @Test
@@ -100,7 +100,7 @@ public class BookControllerTest {
         dto.setTitle(title);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/v1/book/")
@@ -128,13 +128,13 @@ public class BookControllerTest {
         dto.setTitle(title + "lol");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(put("/v1/book/" + this.id)
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("更新图书成功"));
     }
@@ -151,7 +151,7 @@ public class BookControllerTest {
 
         mvc.perform(delete("/v1/book/" + this.id))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("删除图书成功"));
     }

@@ -27,10 +27,10 @@ public class BookServiceImplTest {
     @Autowired
     private BookMapper bookMapper;
 
-    private String title = "千里之外";
-    private String author = "pedro";
-    private String image = "千里之外.png";
-    private String summary = "千里之外，是周杰伦和费玉清一起发售的歌曲";
+    private final String title = "千里之外";
+    private final String author = "pedro";
+    private final String image = "千里之外.png";
+    private final String summary = "千里之外，是周杰伦和费玉清一起发售的歌曲";
 
     @Test
     public void createBook() {
