@@ -7,6 +7,7 @@ import io.github.talelin.autoconfigure.exception.FailedException;
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.ParameterException;
+import io.github.talelin.latticy.bo.ModulePermissionBO;
 import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
 import io.github.talelin.latticy.common.mybatis.Page;
@@ -146,7 +147,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     }
 
     @Override
-    public List<Map<String, List<Map<String, String>>>> getStructuralUserPermissions(Integer userId) {
+    public List<Map<String, List<ModulePermissionBO>>> getStructuralUserPermissions(Integer userId) {
         List<PermissionDO> permissions = getUserPermissions(userId);
         return permissionService.structuringPermissions(permissions);
     }

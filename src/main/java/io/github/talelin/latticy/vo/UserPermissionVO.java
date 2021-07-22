@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.vo;
 
+import io.github.talelin.latticy.bo.ModulePermissionBO;
 import io.github.talelin.latticy.model.UserDO;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
@@ -26,12 +27,12 @@ public class UserPermissionVO {
 
     private String email;
 
-    private List<Map<String, List<Map<String, String>>>> permissions;
+    private List<Map<String, List<ModulePermissionBO>>> permissions;
 
     public UserPermissionVO() {
     }
 
-    public UserPermissionVO(UserDO userDO, List<Map<String, List<Map<String, String>>>> permissions) {
+    public UserPermissionVO(UserDO userDO, List<Map<String, List<ModulePermissionBO>>> permissions) {
         BeanUtils.copyProperties(userDO, this);
         this.permissions = permissions;
     }

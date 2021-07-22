@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.service.impl;
 
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
+import io.github.talelin.latticy.bo.ModulePermissionBO;
 import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
@@ -146,7 +147,7 @@ public class UserServiceImplTest {
     @Test
     public void getUserPermissions() {
         Integer id = mockData();
-        List<Map<String, List<Map<String, String>>>> structuringPermissions = userService.getStructuralUserPermissions(id);
+        List<Map<String, List<ModulePermissionBO>>> structuringPermissions = userService.getStructuralUserPermissions(id);
         assertTrue(structuringPermissions.size() > 0);
         log.info("structuringPermissions: {}", structuringPermissions);
         boolean anyMatch = structuringPermissions.stream().anyMatch(it -> it.containsKey("炉石传说"));

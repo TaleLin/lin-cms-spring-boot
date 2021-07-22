@@ -9,7 +9,7 @@ import io.github.talelin.latticy.model.UserDO;
  */
 public class LocalUser {
 
-    private static ThreadLocal<UserDO> local = new ThreadLocal<>();
+    private static final ThreadLocal<UserDO> local = new ThreadLocal<>();
 
     /**
      * 得到当前登录用户
@@ -29,6 +29,7 @@ public class LocalUser {
         LocalUser.local.set(user);
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T getLocalUser(Class<T> clazz) {
         return (T) local.get();
     }
