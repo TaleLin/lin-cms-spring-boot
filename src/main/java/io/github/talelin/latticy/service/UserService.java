@@ -2,6 +2,7 @@ package io.github.talelin.latticy.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.github.talelin.latticy.bo.ModulePermissionBO;
 import io.github.talelin.latticy.common.mybatis.Page;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
@@ -59,7 +60,7 @@ public interface UserService extends IService<UserDO> {
      * @param userId 用户id
      * @return 权限
      */
-    List<Map<String, List<Map<String, String>>>> getStructuralUserPermissions(Integer userId);
+    List<Map<String, List<ModulePermissionBO>>> getStructuralUserPermissions(Integer userId);
 
     /**
      * 获得用户所有权限

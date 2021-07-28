@@ -8,6 +8,7 @@ import io.github.talelin.core.annotation.PermissionModule;
 import io.github.talelin.core.annotation.RefreshRequired;
 import io.github.talelin.core.token.DoubleJWT;
 import io.github.talelin.core.token.Tokens;
+import io.github.talelin.latticy.bo.ModulePermissionBO;
 import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.LoginDTO;
@@ -123,7 +124,7 @@ public class UserController {
     public UserPermissionVO getPermissions() {
         UserDO user = LocalUser.getLocalUser();
         boolean admin = groupService.checkIsRootByUserId(user.getId());
-        List<Map<String, List<Map<String, String>>>> permissions = userService.getStructuralUserPermissions(user.getId());
+        List<Map<String, List<ModulePermissionBO>>> permissions = userService.getStructuralUserPermissions(user.getId());
         UserPermissionVO userPermissions = new UserPermissionVO(user, permissions);
         userPermissions.setAdmin(admin);
         return userPermissions;

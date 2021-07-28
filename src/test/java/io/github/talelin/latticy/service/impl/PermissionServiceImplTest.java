@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.service.impl;
 
+import io.github.talelin.latticy.bo.ModulePermissionBO;
 import io.github.talelin.latticy.mapper.GroupMapper;
 import io.github.talelin.latticy.mapper.GroupPermissionMapper;
 import io.github.talelin.latticy.mapper.PermissionMapper;
@@ -79,7 +80,7 @@ public class PermissionServiceImplTest {
     @Test
     public void getPermissionMapByGroupIds() {
         Integer id = mockData();
-        Map<Long, List<PermissionDO>> map = permissionService.getPermissionMapByGroupIds(Collections.singletonList(id));
+        Map<Integer, List<PermissionDO>> map = permissionService.getPermissionMapByGroupIds(Collections.singletonList(id));
         assertNotNull(map.get(id));
         boolean anyMatch = map.get(id).stream().anyMatch(permission -> permission.getName().equals("权限2"));
         assertTrue(anyMatch);
@@ -89,7 +90,7 @@ public class PermissionServiceImplTest {
     public void structuringPermissions() {
         Integer id = mockData();
         List<PermissionDO> permissions = permissionService.getPermissionByGroupIds(Collections.singletonList(id));
-        List<Map<String, List<Map<String, String>>>> structuringPermissions = permissionService.structuringPermissions(permissions);
+        List<Map<String, List<ModulePermissionBO>>> structuringPermissions = permissionService.structuringPermissions(permissions);
         assertTrue(structuringPermissions.size() > 0);
         log.info("structuringPermissions: {}", structuringPermissions);
         boolean anyMatch = structuringPermissions.stream().anyMatch(it -> it.containsKey("炉石传说"));

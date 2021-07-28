@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import io.github.talelin.latticy.bo.ModulePermissionBO;
 import io.github.talelin.latticy.model.PermissionDO;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public interface PermissionService extends IService<PermissionDO> {
      * @param groupIds 分组id
      * @return 权限map
      */
-    Map<Long, List<PermissionDO>> getPermissionMapByGroupIds(List<Integer> groupIds);
+    Map<Integer, List<PermissionDO>> getPermissionMapByGroupIds(List<Integer> groupIds);
 
     /**
      * 将权限结构化
@@ -42,7 +43,7 @@ public interface PermissionService extends IService<PermissionDO> {
      * @param permissions 权限
      * @return 结构化的权限
      */
-    List<Map<String, List<Map<String, String>>>> structuringPermissions(List<PermissionDO> permissions);
+    List<Map<String, List<ModulePermissionBO>>> structuringPermissions(List<PermissionDO> permissions);
 
     /**
      * 将权限简单地结构化
