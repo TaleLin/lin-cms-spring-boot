@@ -14,4 +14,6 @@ import java.util.List;
 public interface UserGroupMapper extends BaseMapper<UserGroupDO> {
 
     int insertBatch(@Param("relations") List<UserGroupDO> relations);
+
+    int deleteByUserId(@Param("user_id") Integer userId);
 }
