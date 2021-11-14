@@ -17,4 +17,9 @@
         </foreach>
     </insert>
 
+    <delete id="deleteByUserId">
+        DELETE FROM lin_user_group
+        WHERE user_id = #{user_id}
+    </delete>
+
 </mapper>
