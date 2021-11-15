@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.module.log;
 
+import io.github.talelin.latticy.common.util.IPUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -55,14 +56,14 @@ public class MDCAccessServletFilter implements Filter {
      */
     public void putRequestMDC(ServletRequest servletRequest) throws IOException {
         MDC.put(MDCAccessConstant.REQUEST_REMOTE_HOST_MDC_KEY, servletRequest.getRemoteHost());
+        MDC.put(MDCAccessConstant.REQUEST_PROTOCOL_MDC_KEY, servletRequest.getProtocol());
         MDC.put(MDCAccessConstant.REQUEST_REMOTE_ADDR_MDC_KEY, servletRequest.getRemoteAddr());
-        MDC.put(MDCAccessConstant.REQUEST_PROTOCOL_MDC_KEY, servletRequest.getProtocol());
-        MDC.put(MDCAccessConstant.REQUEST_PROTOCOL_MDC_KEY, servletRequest.getProtocol());
         MDC.put(MDCAccessConstant.REQUEST_REMOTE_PORT_MDC_KEY, String.valueOf(servletRequest.getRemotePort()));
         MDC.put(MDCAccessConstant.REQUEST_BODY_BYTES_SENT_MDC_KEY, String.valueOf(servletRequest.getContentLength()));
 
         if (servletRequest instanceof HttpServletRequest) {
             HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+            MDC.put(MDCAccessConstant.REQUEST_REMOTE_ADDR_MDC_KEY, IPUtil.getIPFromRequest(httpServletRequest));
             MDC.put(MDCAccessConstant.REQUEST_REQUEST_URI_MDC_KEY, httpServletRequest.getRequestURI());
             StringBuffer requestUrl = httpServletRequest.getRequestURL();
             if (requestUrl != null) {
