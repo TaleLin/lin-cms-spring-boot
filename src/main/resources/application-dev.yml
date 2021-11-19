@@ -18,6 +18,10 @@ spring:
 auth:
   enabled: true
 
+# 开启登录要求验证码
+login-captcha:
+  enabled: false
+  secret: "ywdh012379y983hd938j091d"
 
 # 开启http请求日志记录
 request-log:
