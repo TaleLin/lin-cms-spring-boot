@@ -170,7 +170,6 @@ public class CaptchaUtil {
     public static String aesEncode(String secret, String iv, String content) throws GeneralSecurityException {
         SecretKey secretKey = new SecretKeySpec(secret.getBytes(), AES);
         Cipher cipher = Cipher.getInstance(CIPHER_ALGORITHM);
-        System.out.println(iv.length() + "///" + iv.getBytes(StandardCharsets.UTF_8).length + "///" + iv.getBytes(StandardCharsets.US_ASCII).length);
         cipher.init(Cipher.ENCRYPT_MODE, secretKey, new IvParameterSpec(iv.getBytes(StandardCharsets.US_ASCII)));
         byte[] byteEncode = content.getBytes(StandardCharsets.UTF_8);
         // 根据密码器的初始化方式加密
