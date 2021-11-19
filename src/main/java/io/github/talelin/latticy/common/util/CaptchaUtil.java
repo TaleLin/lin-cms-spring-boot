@@ -40,10 +40,6 @@ public class CaptchaUtil {
      * 验证码的高
      */
     private static final int HEIGHT = 40;
-    /**
-     * 验证码中夹杂的干扰线数量
-     */
-    private static final int LINE_SIZE = 30;
     private static final String RANDOM_STRING = "23456789abcdefghijkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWSYZ";
     private static final String AES = "AES";
     private static final String CIPHER_ALGORITHM = "AES/CBC/PKCS5Padding";
