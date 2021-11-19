@@ -17,7 +17,7 @@ public class LoginCaptchaProperties {
     /**
      * aes 密钥
      */
-    private String secret;
+    private String secret = CaptchaUtil.getRandomString(32);
     /**
      * aes 偏移量
      */
