@@ -7,9 +7,12 @@ import io.github.talelin.autoconfigure.exception.FailedException;
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.ParameterException;
+import io.github.talelin.latticy.bo.LoginCaptchaBO;
 import io.github.talelin.latticy.common.LocalUser;
+import io.github.talelin.latticy.common.configuration.LoginCaptchaProperties;
 import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
 import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.util.CaptchaUtil;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
 import io.github.talelin.latticy.dto.user.UpdateInfoDTO;
@@ -23,6 +26,7 @@ import io.github.talelin.latticy.service.GroupService;
 import io.github.talelin.latticy.service.PermissionService;
 import io.github.talelin.latticy.service.UserIdentityService;
 import io.github.talelin.latticy.service.UserService;
+import io.github.talelin.latticy.vo.LoginCaptchaVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +57,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Autowired
     private UserGroupMapper userGroupMapper;
+
+    @Autowired
+    private LoginCaptchaProperties captchaConfig;
 
     @Transactional
     @Override
@@ -213,6 +220,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
             userGroupDO = userGroupMapper.selectOne(wrapper);
         }
         return userGroupDO == null ? 0 : userGroupDO.getUserId();
+    }
+
+    @Override
+    public LoginCaptchaVO generateCaptcha() throws Exception {
+        String code = CaptchaUtil.getRandomString(CaptchaUtil.RANDOM_STR_NUM);
+        String base64String = CaptchaUtil.getRandomCodeBase64(code);
+        String tag = CaptchaUtil.getTag(code, captchaConfig.getSecret(), captchaConfig.getIv());
+        return new LoginCaptchaVO(tag, "data:image/png;base64," + base64String);
+    }
+
+    @Override
+    public boolean verifyCaptcha(String captcha, String tag) {
+        try {
+            LoginCaptchaBO captchaBO = CaptchaUtil.decodeTag(captchaConfig.getSecret(), captchaConfig.getIv(), tag);
+            return captcha.equalsIgnoreCase(captchaBO.getCaptcha()) || System.currentTimeMillis() > captchaBO.getExpired();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return false;
+        }
     }
 
     private void checkGroupsExist(List<Integer> ids) {

@@ -9,6 +9,7 @@ import io.github.talelin.latticy.dto.user.UpdateInfoDTO;
 import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.PermissionDO;
 import io.github.talelin.latticy.model.UserDO;
+import io.github.talelin.latticy.vo.LoginCaptchaVO;
 
 import java.util.List;
 import java.util.Map;
@@ -129,4 +130,18 @@ public interface UserService extends IService<UserDO> {
      * @return 超级管理员的id
      */
     Integer getRootUserId();
+
+    /**
+     * 生成无状态的登录验证码
+     *
+     * @return 验证码
+     */
+    LoginCaptchaVO generateCaptcha() throws Exception;
+
+    /**
+     * 校验登录验证码
+     *
+     * @return 结果
+     */
+    boolean verifyCaptcha(String captcha, String tag);
 }
