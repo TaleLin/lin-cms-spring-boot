@@ -1,6 +1,5 @@
 package io.github.talelin.latticy.controller.cms;
 
-import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.autoconfigure.exception.ParameterException;
 import io.github.talelin.core.annotation.AdminRequired;
@@ -78,14 +77,14 @@ public class UserController {
      * 用户登陆
      */
     @PostMapping("/login")
-    public Tokens login(@RequestBody @Validated LoginDTO validator, @RequestHeader("Tag") String tag) {
-        // TODO: 使用spring validation验证。暂时还没想到怎么根据配置文件分组
+    public Tokens login(@RequestBody @Validated LoginDTO validator, @RequestHeader(value = "Tag", required = false) String tag) {
         if (captchaConfig.getEnabled()) {
+            // TODO: 使用spring validation验证。暂时还没想到怎么根据配置文件分组
             if (!StringUtils.hasText(validator.getCaptcha()) || !StringUtils.hasText(tag)) {
                 throw new ParameterException("验证码不可为空");
             }
             if (!userService.verifyCaptcha(validator.getCaptcha(), tag)) {
-                throw new ForbiddenException(10260);
+                throw new ParameterException(10260);
             }
         }
         UserDO user = userService.getUserByUsername(validator.getUsername());
