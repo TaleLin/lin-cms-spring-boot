@@ -8,7 +8,7 @@ CREATE TABLE book
     image       varchar(100)              DEFAULT NULL,
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)               DEFAULT NULL,
+    delete_time datetime(3)      NOT NULL DEFAULT '9999-12-31 23:59:59.999',
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -25,7 +25,7 @@ CREATE TABLE lin_file
     md5         varchar(40)               DEFAULT NULL COMMENT 'md5值，防止上传重复文件',
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)               DEFAULT NULL,
+    delete_time datetime(3)      NOT NULL DEFAULT '9999-12-31 23:59:59.999',
     PRIMARY KEY (id),
     UNIQUE KEY md5_del (md5, delete_time)
 ) ENGINE = InnoDB
@@ -44,7 +44,7 @@ CREATE TABLE lin_log
     permission  varchar(100)              DEFAULT NULL,
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)               DEFAULT NULL,
+    delete_time datetime(3)      NOT NULL DEFAULT '9999-12-31 23:59:59.999',
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -61,7 +61,7 @@ CREATE TABLE lin_permission
     mount       tinyint(1)       NOT NULL DEFAULT 1 COMMENT '0：关闭 1：开启',
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)               DEFAULT NULL,
+    delete_time datetime(3)      NOT NULL DEFAULT '9999-12-31 23:59:59.999',
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
@@ -78,7 +78,7 @@ CREATE TABLE lin_group
     level       tinyint(2)       NOT NULL DEFAULT 3 COMMENT '分组级别 1：root 2：guest 3：user  root（root、guest分组只能存在一个)',
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)      DEFAULT NULL,
+    delete_time datetime(3)      NOT NULL DEFAULT '9999-12-31 23:59:59.999',
     PRIMARY KEY (id),
     UNIQUE KEY name_del (name, delete_time)
 ) ENGINE = InnoDB
@@ -110,7 +110,7 @@ CREATE TABLE lin_user
     email       varchar(100)              DEFAULT NULL COMMENT '邮箱',
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)               DEFAULT NULL,
+    delete_time datetime(3)      NOT NULL DEFAULT '9999-12-31 23:59:59.999',
     PRIMARY KEY (id),
     UNIQUE KEY username_del (username, delete_time),
     UNIQUE KEY email_del (email, delete_time)
@@ -127,7 +127,7 @@ CREATE TABLE lin_user_identity
     credential    varchar(100),
     create_time   datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time   datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time   datetime(3)               DEFAULT NULL,
+    delete_time   datetime(3)      NOT NULL DEFAULT '9999-12-31 23:59:59.999',
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4;
