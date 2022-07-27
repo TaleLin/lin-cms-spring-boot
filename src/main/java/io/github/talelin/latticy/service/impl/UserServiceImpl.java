@@ -12,6 +12,7 @@ import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.common.configuration.LoginCaptchaProperties;
 import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
 import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.util.BeanCopyUtil;
 import io.github.talelin.latticy.common.util.CaptchaUtil;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
@@ -114,20 +115,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
                 user.setUsername(dto.getUsername());
             }
         }
-
-        // todo 增加工具类实现忽略 null 的 BeanCopy,简化这段代码
-        if (dto.getUsername() != null) {
-            user.setUsername(dto.getUsername());
-        }
-        if (dto.getAvatar() != null) {
-            user.setAvatar(dto.getAvatar());
-        }
-        if (dto.getEmail() != null) {
-            user.setEmail(dto.getEmail());
-        }
-        if (dto.getNickname() != null) {
-            user.setNickname(dto.getNickname());
-        }
+        BeanCopyUtil.copyNonNullProperties(dto, user);
 
         this.baseMapper.updateById(user);
         return user;
