@@ -22,13 +22,11 @@ import io.github.talelin.latticy.model.GroupDO;
 import io.github.talelin.latticy.model.PermissionDO;
 import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.latticy.model.UserGroupDO;
-import io.github.talelin.latticy.service.GroupService;
-import io.github.talelin.latticy.service.PermissionService;
-import io.github.talelin.latticy.service.UserIdentityService;
-import io.github.talelin.latticy.service.UserService;
+import io.github.talelin.latticy.service.*;
 import io.github.talelin.latticy.vo.LoginCaptchaVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -58,8 +56,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     @Autowired
     private UserGroupMapper userGroupMapper;
 
+    @Qualifier("localCaptchaServiceImpl")
     @Autowired
-    private LoginCaptchaProperties captchaConfig;
+    private CaptchaService captchaService;
 
     @Transactional
     @Override
@@ -224,21 +223,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
 
     @Override
     public LoginCaptchaVO generateCaptcha() throws Exception {
-        String code = CaptchaUtil.getRandomString(CaptchaUtil.RANDOM_STR_NUM);
-        String base64String = CaptchaUtil.getRandomCodeBase64(code);
-        String tag = CaptchaUtil.getTag(code, captchaConfig.getSecret(), captchaConfig.getIv());
-        return new LoginCaptchaVO(tag, "data:image/png;base64," + base64String);
+        return captchaService.generateCaptcha();
     }
 
     @Override
     public boolean verifyCaptcha(String captcha, String tag) {
-        try {
-            LoginCaptchaBO captchaBO = CaptchaUtil.decodeTag(captchaConfig.getSecret(), captchaConfig.getIv(), tag);
-            return captcha.equalsIgnoreCase(captchaBO.getCaptcha()) || System.currentTimeMillis() > captchaBO.getExpired();
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-            return false;
-        }
+        return captchaService.verify(captcha, tag);
     }
 
     private void checkGroupsExist(List<Integer> ids) {

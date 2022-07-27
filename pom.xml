@@ -24,6 +24,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <mybatis-plus.version>3.4.1</mybatis-plus.version>
         <freemarker.version>2.3.31</freemarker.version>
+        <guava.version>31.1-jre</guava.version>
     </properties>
 
     <dependencies>
@@ -115,6 +116,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava.version}</version>
         </dependency>
     </dependencies>
 
