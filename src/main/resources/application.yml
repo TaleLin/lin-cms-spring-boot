@@ -26,7 +26,7 @@ mybatis-plus:
     db-config:
       # 逻辑删除（软删除）
       logic-delete-value: NOW()
-      logic-not-delete-value: 'NULL'
+      logic-not-delete-value: "'9999-12-31 23:59:59.999'"
   # mapper路径位置
   mapper-locations: classpath:mapper/*.xml
 

@@ -20,7 +20,7 @@
         WHERE
         b.title LIKE #{q}
         AND
-        b.delete_time IS NULL
+        b.delete_time = '9999-12-31 23:59:59.999'
     </select>
 
     <select id="selectByTitle" resultMap="BaseResultMap">
@@ -28,6 +28,6 @@
         FROM book b
         WHERE b.title=#{title}
         AND
-        b.delete_time IS NULL
+        b.delete_time = '9999-12-31 23:59:59.999'
     </select>
 </mapper>

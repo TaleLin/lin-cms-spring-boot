@@ -19,7 +19,7 @@
 
     <select id="findLogsByUsernameAndRange" resultType="io.github.talelin.latticy.model.LogDO">
         SELECT l.* FROM lin_log l
-        WHERE l.delete_time IS NULL
+        WHERE l.delete_time = '9999-12-31 23:59:59.999'
         <if test="name != null">
             AND l.username=#{name}
         </if>
@@ -31,7 +31,7 @@
 
     <select id="searchLogsByUsernameAndKeywordAndRange" resultType="io.github.talelin.latticy.model.LogDO">
         SELECT l.* FROM lin_log l
-        WHERE l.delete_time IS NULL
+        WHERE l.delete_time = '9999-12-31 23:59:59.999'
         <if test="name != ''">
             AND l.username=#{name}
         </if>
@@ -47,7 +47,7 @@
     <select id="getUserNames" resultType="java.lang.String">
         SELECT l.username
         FROM lin_log l
-        WHERE l.delete_time IS NULL
+        WHERE l.delete_time = '9999-12-31 23:59:59.999'
         GROUP BY l.username
         HAVING COUNT(l.username) > 0
     </select>
