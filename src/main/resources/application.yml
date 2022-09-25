@@ -25,8 +25,8 @@ mybatis-plus:
     banner: false
     db-config:
       # 逻辑删除（软删除）
-      logic-delete-value: NOW()
-      logic-not-delete-value: 'NULL'
+      logic-delete-value: 1
+      logic-not-delete-value: 0
   # mapper路径位置
   mapper-locations: classpath:mapper/*.xml
 

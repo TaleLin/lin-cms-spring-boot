@@ -14,6 +14,7 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="delete_time" property="deleteTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
     <select id="selectByMd5" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -21,7 +22,7 @@
         FROM lin_file f
         WHERE
         f.md5 = #{md5}
-        AND f.delete_time IS NULL
+        AND f.is_deleted = 0
     </select>
 
     <select id="selectCountByMd5" parameterType="java.lang.String" resultType="java.lang.Integer">
@@ -29,7 +30,7 @@
         FROM lin_file f
         WHERE
         f.md5 = #{md5}
-        AND f.delete_time IS NULL
+        AND f.is_deleted = 0
     </select>
 
 </mapper>

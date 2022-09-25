@@ -12,14 +12,15 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="delete_time" property="deleteTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
     <select id="selectCountByUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM lin_user as u WHERE u.username = #{username} AND u.delete_time IS NULL
+        SELECT COUNT(*) FROM lin_user as u WHERE u.username = #{username} AND u.is_deleted = 0
     </select>
 
     <select id="selectCountById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM lin_user as u WHERE u.id = #{id} AND u.delete_time IS NULL
+        SELECT COUNT(*) FROM lin_user as u WHERE u.id = #{id} AND u.is_deleted = 0
     </select>
 
     <select id="selectPageByGroupId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -34,7 +35,7 @@
         WHERE ug.group_id = #{groupId}
         AND ug.group_id != #{rootGroupId}
         )
-        AND u.delete_time IS NULL
+        AND u.is_deleted = 0
     </select>
 
 </mapper>
