@@ -17,6 +17,7 @@ CREATE TABLE lin_file
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)               DEFAULT NULL,
+    is_deleted  tinyint(1)                DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE KEY md5_del (md5, delete_time)
 ) ENGINE = InnoDB
@@ -40,6 +41,7 @@ CREATE TABLE lin_log
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)               DEFAULT NULL,
+    is_deleted  tinyint(1)                DEFAULT 0,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -57,7 +59,8 @@ CREATE TABLE lin_permission
     mount       tinyint(1)       NOT NULL DEFAULT 1 COMMENT '0：关闭 1：开启',
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    delete_time datetime(3)               DEFAULT NULL,
+    delete_time datetime(3)      DEFAULT NULL,
+    is_deleted  tinyint(1)       DEFAULT 0,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -76,6 +79,7 @@ CREATE TABLE lin_group
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)      DEFAULT NULL,
+    is_deleted  tinyint(1)       DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE KEY name_del (name, delete_time)
 ) ENGINE = InnoDB
@@ -111,6 +115,7 @@ CREATE TABLE lin_user
     create_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)               DEFAULT NULL,
+    is_deleted  tinyint(1)                DEFAULT 0,
     PRIMARY KEY (id),
     UNIQUE KEY username_del (username, delete_time),
     UNIQUE KEY email_del (email, delete_time)
@@ -120,11 +125,11 @@ CREATE TABLE lin_user
 
 -- ----------------------------
 -- 用户授权信息表
-# id
-# user_id
-# identity_type 登录类型（手机号 邮箱 用户名）或第三方应用名称（微信 微博等）
-# identifier 标识（手机号 邮箱 用户名或第三方应用的唯一标识）
-# credential 密码凭证（站内的保存密码，站外的不保存或保存token）
+-- id
+-- user_id
+-- identity_type 登录类型（手机号 邮箱 用户名）或第三方应用名称（微信 微博等）
+-- identifier 标识（手机号 邮箱 用户名或第三方应用的唯一标识）
+-- credential 密码凭证（站内的保存密码，站外的不保存或保存token）
 -- ----------------------------
 DROP TABLE IF EXISTS lin_user_identity;
 CREATE TABLE lin_user_identity
@@ -137,6 +142,7 @@ CREATE TABLE lin_user_identity
     create_time   datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time   datetime(3)      NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time   datetime(3)               DEFAULT NULL,
+    is_deleted  tinyint(1)                  DEFAULT 0,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4
@@ -172,6 +178,7 @@ CREATE TABLE book
     create_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     update_time datetime(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
     delete_time datetime(3)          DEFAULT NULL,
+    is_deleted  tinyint(1)           DEFAULT 0,
     PRIMARY KEY (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4

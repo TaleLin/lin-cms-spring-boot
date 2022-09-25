@@ -10,7 +10,7 @@
         <result column="level" property="level" typeHandler="com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
-        <result column="delete_time" property="deleteTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
 
@@ -19,7 +19,7 @@
         g.create_time,g.update_time,g.delete_time
         from lin_group AS g
         WHERE
-        g.delete_time IS NULL
+        g.is_deleted = 0
         AND
         g.id IN
         (
@@ -28,7 +28,7 @@
         LEFT JOIN lin_user_group as ug
         ON ug.user_id = u.id
         WHERE u.id = #{userId}
-        AND u.delete_time IS NULL
+        AND u.is_deleted = 0
         )
     </select>
 
@@ -36,7 +36,7 @@
         SELECT g.id
         from lin_group AS g
         WHERE
-        g.delete_time IS NULL
+        g.is_deleted = 0
         AND
         g.id IN
         (
@@ -45,12 +45,12 @@
         LEFT JOIN lin_user_group as ug
         ON ug.user_id = u.id
         WHERE u.id = #{userId}
-        AND u.delete_time IS NULL
+        AND u.is_deleted = 0
         )
     </select>
 
     <select id="selectCountById" parameterType="java.lang.Integer" resultType="java.lang.Integer">
-        SELECT COUNT(*) AS count FROM lin_group WHERE delete_time IS NULL AND id = #{id}
+        SELECT COUNT(*) AS count FROM lin_group WHERE is_deleted = 0 AND id = #{id}
     </select>
 
     <select id="selectCountUserByUserIdAndGroupName" resultType="java.lang.Integer">
@@ -60,7 +60,7 @@
         ug.user_id = #{userId}
         AND
         ug.group_id =
-        (SELECT g.id FROM lin_group AS g WHERE g.name = #{groupName} AND g.delete_time IS NULL)
+        (SELECT g.id FROM lin_group AS g WHERE g.name = #{groupName} AND g.is_deleted = 0)
     </select>
 
 </mapper>
