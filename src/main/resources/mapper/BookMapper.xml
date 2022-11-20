@@ -11,6 +11,7 @@
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
         <result column="delete_time" jdbcType="TIMESTAMP" property="deleteTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
     <!--CONCAT("%",#{q},"%")-->
@@ -20,7 +21,7 @@
         WHERE
         b.title LIKE #{q}
         AND
-        b.delete_time IS NULL
+        b.is_deleted = 0
     </select>
 
     <select id="selectByTitle" resultMap="BaseResultMap">
@@ -28,6 +29,6 @@
         FROM book b
         WHERE b.title=#{title}
         AND
-        b.delete_time IS NULL
+        b.is_deleted = 0
     </select>
 </mapper>

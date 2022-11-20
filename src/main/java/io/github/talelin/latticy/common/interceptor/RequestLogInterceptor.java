@@ -1,5 +1,6 @@
 package io.github.talelin.latticy.common.interceptor;
 
+import io.github.talelin.latticy.common.util.IPUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
@@ -27,7 +28,7 @@ public class RequestLogInterceptor implements AsyncHandlerInterceptor {
         log.info("[{}] -> [{}] from: {} costs: {}ms",
                 request.getMethod(),
                 request.getServletPath(),
-                request.getRemoteAddr(),
+                IPUtil.getIPFromRequest(request),
                 System.currentTimeMillis() - startTime.get()
         );
     }

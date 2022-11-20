@@ -1,7 +1,7 @@
 package io.github.talelin.latticy.controller.cms;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.LoginDTO;
@@ -25,9 +25,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -49,11 +50,11 @@ public class UserControllerTest {
     @Autowired
     private UserService userService;
 
-    private String email = "13129982604@qq.com";
+    private final String email = "13129982604@qq.com";
 
-    private String password = "123456";
+    private final String password = "123456";
 
-    private String username = "pedro大大";
+    private final String username = "pedro大大";
 
     @Test
     public void register() throws Exception {
@@ -61,14 +62,14 @@ public class UserControllerTest {
         groupMapper.insert(group);
 
         RegisterDTO dto = new RegisterDTO();
-        dto.setGroupIds(Arrays.asList(group.getId()));
+        dto.setGroupIds(Collections.singletonList(group.getId()));
         dto.setEmail(email);
         dto.setConfirmPassword(password);
         dto.setPassword(password);
         dto.setUsername(username);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/user/register")
@@ -93,7 +94,7 @@ public class UserControllerTest {
         dto.setUsername(username);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/user/register")
@@ -120,7 +121,7 @@ public class UserControllerTest {
         dto1.setPassword(password);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto1);
 
         mvc.perform(post("/cms/user/login")
@@ -138,7 +139,7 @@ public class UserControllerTest {
         groupMapper.insert(root);
         groupMapper.insert(group);
         RegisterDTO dto = new RegisterDTO();
-        dto.setGroupIds(Arrays.asList(group.getId()));
+        dto.setGroupIds(Collections.singletonList(group.getId()));
         dto.setEmail(email);
         dto.setConfirmPassword(password);
         dto.setPassword(password);
@@ -153,19 +154,19 @@ public class UserControllerTest {
         dto1.setUsername("pedro小小");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto1);
 
 
         mvc.perform(MockMvcRequestBuilders.put("/cms/user/")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("更新用户成功"));
 
         UserDO user1 = userService.getUserByUsername("pedro小小");
-        assertTrue(user1.getEmail().equals("23129982604@qq.com"));
+        assertEquals("23129982604@qq.com", user1.getEmail());
     }
 
     @Test
@@ -173,7 +174,7 @@ public class UserControllerTest {
         GroupDO group = GroupDO.builder().name("少林足球").info("致敬周星星").build();
         groupMapper.insert(group);
         RegisterDTO dto = new RegisterDTO();
-        dto.setGroupIds(Arrays.asList(group.getId()));
+        dto.setGroupIds(Collections.singletonList(group.getId()));
         dto.setEmail(email);
         dto.setConfirmPassword(password);
         dto.setPassword(password);
@@ -189,14 +190,14 @@ public class UserControllerTest {
         dto1.setConfirmPassword("147258");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto1);
 
 
         mvc.perform(MockMvcRequestBuilders.put("/cms/user/change_password")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.
                         jsonPath("$.message").value("密码修改成功"));
     }
@@ -206,7 +207,7 @@ public class UserControllerTest {
         GroupDO group = GroupDO.builder().name("少林足球").info("致敬周星星").build();
         groupMapper.insert(group);
         RegisterDTO dto = new RegisterDTO();
-        dto.setGroupIds(Arrays.asList(group.getId()));
+        dto.setGroupIds(Collections.singletonList(group.getId()));
         dto.setEmail(email);
         dto.setConfirmPassword(password);
         dto.setPassword(password);
@@ -229,7 +230,7 @@ public class UserControllerTest {
         GroupDO group = GroupDO.builder().name("少林足球").info("致敬周星星").build();
         groupMapper.insert(group);
         RegisterDTO dto = new RegisterDTO();
-        dto.setGroupIds(Arrays.asList(group.getId()));
+        dto.setGroupIds(Collections.singletonList(group.getId()));
         dto.setEmail(email);
         dto.setConfirmPassword(password);
         dto.setPassword(password);
@@ -253,7 +254,7 @@ public class UserControllerTest {
         groupMapper.insert(root);
         groupMapper.insert(group);
         RegisterDTO dto = new RegisterDTO();
-        dto.setGroupIds(Arrays.asList(group.getId()));
+        dto.setGroupIds(Collections.singletonList(group.getId()));
         dto.setEmail(email);
         dto.setConfirmPassword(password);
         dto.setPassword(password);

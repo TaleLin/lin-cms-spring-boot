@@ -1,7 +1,7 @@
 package io.github.talelin.latticy.controller.cms;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import io.github.talelin.latticy.dto.admin.*;
 import io.github.talelin.latticy.mapper.*;
 import io.github.talelin.latticy.model.*;
@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -130,13 +131,13 @@ public class AdminControllerTest {
         dto.setConfirmPassword(newPassword);
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(put(String.format("/cms/admin/user/%s/password", user.getId()))
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("密码修改成功"));
 
         boolean b = userIdentityService.verifyUsernamePassword(user.getId(), username, newPassword);
@@ -162,7 +163,7 @@ public class AdminControllerTest {
         mvc.perform(delete("/cms/admin/user/" + user.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("删除用户成功"));
 
         UserDO hit = userMapper.selectById(user.getId());
@@ -184,16 +185,16 @@ public class AdminControllerTest {
         groupMapper.insert(group);
 
         UpdateUserInfoDTO dto = new UpdateUserInfoDTO();
-        dto.setGroupIds(Arrays.asList(group.getId()));
+        dto.setGroupIds(Collections.singletonList(group.getId()));
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(put("/cms/admin/user/" + user.getId())
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("更新用户成功"));
     }
 
@@ -275,10 +276,10 @@ public class AdminControllerTest {
         PermissionDO permission = PermissionDO.builder().name(permissionName).module(module).build();
         permissionMapper.insert(permission);
 
-        dto.setPermissionIds(Arrays.asList(permission.getId()));
+        dto.setPermissionIds(Collections.singletonList(permission.getId()));
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/admin/group/")
@@ -308,13 +309,13 @@ public class AdminControllerTest {
         dto.setInfo("flink is a finger");
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(put("/cms/admin/group/" + group.getId())
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("更新分组成功"));
 
         GroupDO hit = groupMapper.selectById(group.getId());
@@ -335,7 +336,7 @@ public class AdminControllerTest {
         mvc.perform(delete("/cms/admin/group/" + group.getId())
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("删除分组成功"));
         GroupDO hit = groupMapper.selectById(group.getId());
         assertNull(hit);
@@ -359,7 +360,7 @@ public class AdminControllerTest {
         dto.setPermissionId(permission.getId());
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/admin/permission/dispatch")
@@ -389,7 +390,7 @@ public class AdminControllerTest {
         dto.setPermissionIds(Arrays.asList(permission.getId(), permission1.getId()));
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/admin/permission/dispatch/batch")
@@ -419,16 +420,16 @@ public class AdminControllerTest {
 
         RemovePermissionsDTO dto = new RemovePermissionsDTO();
         dto.setGroupId(group.getId());
-        dto.setPermissionIds(Arrays.asList(permission1.getId()));
+        dto.setPermissionIds(Collections.singletonList(permission1.getId()));
 
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         String content = mapper.writeValueAsString(dto);
 
         mvc.perform(post("/cms/admin/permission/remove")
                 .contentType(MediaType.APPLICATION_JSON).content(content))
                 .andDo(print())
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("删除权限成功"));
     }
 }

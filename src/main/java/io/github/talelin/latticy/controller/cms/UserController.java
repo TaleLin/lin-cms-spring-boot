@@ -10,6 +10,7 @@ import io.github.talelin.core.token.DoubleJWT;
 import io.github.talelin.core.token.Tokens;
 import io.github.talelin.latticy.bo.ModulePermissionBO;
 import io.github.talelin.latticy.common.LocalUser;
+import io.github.talelin.latticy.common.configuration.LoginCaptchaProperties;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.LoginDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
@@ -20,15 +21,18 @@ import io.github.talelin.latticy.service.GroupService;
 import io.github.talelin.latticy.service.UserIdentityService;
 import io.github.talelin.latticy.service.UserService;
 import io.github.talelin.latticy.vo.CreatedVO;
+import io.github.talelin.latticy.vo.LoginCaptchaVO;
 import io.github.talelin.latticy.vo.UpdatedVO;
 import io.github.talelin.latticy.vo.UserInfoVO;
 import io.github.talelin.latticy.vo.UserPermissionVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,6 +61,9 @@ public class UserController {
     @Autowired
     private DoubleJWT jwt;
 
+    @Autowired
+    private LoginCaptchaProperties captchaConfig;
+
     /**
      * 用户注册
      */
@@ -71,7 +78,16 @@ public class UserController {
      * 用户登陆
      */
     @PostMapping("/login")
-    public Tokens login(@RequestBody @Validated LoginDTO validator) {
+    public Tokens login(@RequestBody @Validated LoginDTO validator, @RequestHeader(value = "Tag", required = false) String tag) {
+        if (captchaConfig.getEnabled()) {
+            // TODO: 使用spring validation验证。暂时还没想到怎么根据配置文件分组
+            if (!StringUtils.hasText(validator.getCaptcha()) || !StringUtils.hasText(tag)) {
+                throw new ParameterException("验证码不可为空");
+            }
+            if (!userService.verifyCaptcha(validator.getCaptcha(), tag)) {
+                throw new ParameterException(10260);
+            }
+        }
         UserDO user = userService.getUserByUsername(validator.getUsername());
         if (user == null) {
             throw new NotFoundException(10021);
@@ -84,6 +100,14 @@ public class UserController {
             throw new ParameterException(10031);
         }
         return jwt.generateTokens(user.getId());
+    }
+
+    @PostMapping("/captcha")
+    public LoginCaptchaVO userCaptcha() throws Exception {
+        if (captchaConfig.getEnabled()) {
+            return userService.generateCaptcha();
+        }
+        return new LoginCaptchaVO();
     }
 
     /**

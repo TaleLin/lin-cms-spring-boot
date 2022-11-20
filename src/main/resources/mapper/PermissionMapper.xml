@@ -11,6 +11,7 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="delete_time" property="deleteTime"/>
+        <result column="is_deleted" property="isDeleted"/>
     </resultMap>
 
     <select id="selectPermissionsByGroupIds" parameterType="java.util.List"
@@ -18,7 +19,7 @@
         SELECT p.id, p.name, p.module, p.mount,
         p.create_time, p.update_time, p.delete_time
         FROM lin_permission AS p
-        WHERE p.delete_time IS NULL
+        WHERE p.is_deleted = 0
         AND p.mount = true
         AND p.id IN (
         SELECT gp.permission_id
@@ -36,7 +37,7 @@
         SELECT p.id, p.name, p.module, p.mount,
         p.create_time, p.update_time, p.delete_time
         FROM lin_permission AS p
-        WHERE p.delete_time IS NULL
+        WHERE p.is_deleted = 0
         AND p.module = #{module}
         AND p.mount = true
         AND p.id IN (
@@ -55,7 +56,7 @@
         SELECT p.id, p.name, p.module, p.mount,
         p.create_time, p.update_time, p.delete_time
         FROM lin_permission AS p
-        WHERE p.delete_time IS NULL
+        WHERE p.is_deleted = 0
         AND p.mount = true
         AND p.id IN (
         SELECT gp.permission_id
