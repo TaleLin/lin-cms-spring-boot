@@ -22,7 +22,10 @@ public class BaseModel {
     @JsonIgnore
     private Date updateTime;
 
-    @TableLogic
     @JsonIgnore
     private Date deleteTime;
+
+    @TableLogic
+    @JsonIgnore
+    private Boolean isDeleted;
 }

@@ -20,18 +20,17 @@ public class LoginCaptchaProperties {
     /**
      * aes 密钥
      */
-    private String secret;
+    private String secret = CaptchaUtil.getRandomString(32);
     /**
      * aes 偏移量
      */
-    private String iv;
+    private String iv = CaptchaUtil.getRandomString(16);
     /**
      * 启用验证码
      */
     private Boolean enabled = Boolean.FALSE;
 
     public void setSecret(String secret) {
-        this.secret = CaptchaUtil.getRandomString(32);
         if (StringUtils.hasText(secret)) {
             byte[] bytes = secret.getBytes();
             if (bytes.length == 16 || bytes.length == 24 || bytes.length == 32) {
@@ -43,7 +42,6 @@ public class LoginCaptchaProperties {
     }
 
     public void setIv(String iv) {
-        this.iv = CaptchaUtil.getRandomString(16);
         if (StringUtils.hasText(iv)) {
             byte[] bytes = iv.getBytes();
             if (bytes.length == 16) {

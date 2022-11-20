@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 文件上传类的基类
@@ -128,7 +129,13 @@ public abstract class AbstractUploader implements Uploader {
             throw new NotFoundException(10026);
         }
         int nums = getFileProperties().getNums();
-        if (fileMap.size() > nums) {
+        AtomicInteger sizes = new AtomicInteger();
+        fileMap.keySet().forEach(key -> fileMap.get(key).forEach(file -> {
+            if (!file.isEmpty()) {
+                sizes.getAndIncrement();
+            }
+        }));
+        if (sizes.get() > nums) {
             throw new FileTooManyException(10121);
         }
     }
