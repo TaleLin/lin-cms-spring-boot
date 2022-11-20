@@ -9,6 +9,7 @@ import java.util.Set;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * websocket 接口
  */
 public interface WsHandler {
 

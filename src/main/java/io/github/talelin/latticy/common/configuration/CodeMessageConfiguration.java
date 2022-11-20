@@ -9,6 +9,8 @@ import java.util.Map;
 
 /**
  * @author pedro@TaleLin
+ *
+ * 消息码配置类
  */
 @SuppressWarnings("ConfigurationProperties")
 @Component

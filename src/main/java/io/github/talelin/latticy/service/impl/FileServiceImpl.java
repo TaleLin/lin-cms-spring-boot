@@ -19,6 +19,7 @@ import java.util.List;
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
  * @author colorful@TaleLin
+ * 文件服务接口实现类
  */
 @Service
 public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements FileService {
@@ -82,7 +83,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
             // replaceAll 是将 windows 平台下的 \ 替换为 /
             if(System.getProperties().getProperty("os.name").toUpperCase().contains("WINDOWS")){
                 bo.setUrl(fileProperties.getDomain() + s + "/" + file.getPath().replaceAll("\\\\","/"));
-            }else {
+            } else {
                 bo.setUrl(fileProperties.getDomain() + s + "/" + file.getPath());
             }
         } else {

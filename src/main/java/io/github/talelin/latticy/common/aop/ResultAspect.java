@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 /**
- * 处理返回结果为 UnifyResponseVO 的 Controller
+ * 处理返回结果为 UnifyResponseVO 的控制器层方法
  * message 默认为 null，在此处通过 code 设置为对应消息
  *
  * @author pedro@TaleLin

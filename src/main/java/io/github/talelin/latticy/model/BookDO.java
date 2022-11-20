@@ -9,6 +9,7 @@ import java.io.Serializable;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 图书数据对象
  */
 @Data
 @TableName("book")

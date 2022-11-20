@@ -9,6 +9,7 @@ import java.io.Serializable;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 文件数据对象
  */
 @Data
 @TableName("lin_file")

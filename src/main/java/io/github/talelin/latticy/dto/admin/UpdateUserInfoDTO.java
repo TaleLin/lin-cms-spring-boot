@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 用户信息更新数据传输对象
  */
 @Data
 public class UpdateUserInfoDTO {

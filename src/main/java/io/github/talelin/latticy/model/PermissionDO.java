@@ -8,6 +8,7 @@ import java.io.Serializable;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 权限数据对象
  */
 @Data
 @Builder

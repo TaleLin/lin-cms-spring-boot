@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 图书创建/更新数据传输对象
  */
 @Data
 @NoArgsConstructor

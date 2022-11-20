@@ -20,7 +20,7 @@ auth:
 
 # 开启登录要求验证码
 login-captcha:
-  enabled: false
+  enabled: true
   secret: "m49CPM5ak@MDXTzbbT_ZEyMM3KBsBn!h"
 
 # 开启http请求日志记录

@@ -47,15 +47,13 @@ public class BookController {
 
     @GetMapping("")
     public List<BookDO> getBooks() {
-        List<BookDO> books = bookService.findAll();
-        return books;
+        return bookService.findAll();
     }
 
 
     @GetMapping("/search")
     public List<BookDO> searchBook(@RequestParam(value = "q", required = false, defaultValue = "") String q) {
-        List<BookDO> books = bookService.getBookByKeyword("%" + q + "%");
-        return books;
+        return bookService.getBookByKeyword("%" + q + "%");
     }
 
 

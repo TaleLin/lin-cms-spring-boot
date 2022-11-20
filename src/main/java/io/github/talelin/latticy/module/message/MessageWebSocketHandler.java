@@ -5,6 +5,7 @@ import org.springframework.web.socket.*;
 
 /**
  * @author pedro@TaleLin
+ * websocket 消息实现类
  */
 public class MessageWebSocketHandler implements WebSocketHandler {
 

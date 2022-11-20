@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 /**
- * 分页数据统一 view object
+ * 分页数据统一视图对象
  *
  * @author pedro@TaleLin
  */

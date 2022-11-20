@@ -4,6 +4,7 @@ import lombok.*;
 
 /**
  * @author pedro@TaleLin
+ * 文件对象
  */
 @Setter
 @Getter

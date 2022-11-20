@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 
 /**
  * @author pedro@TaleLin
+ * 重置密码数据传输对象
  */
 @EqualField(srcField = "newPassword", dstField = "confirmPassword", message = "{password.equal-field}")
 @Data

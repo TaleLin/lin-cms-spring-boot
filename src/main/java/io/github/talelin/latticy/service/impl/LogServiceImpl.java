@@ -13,6 +13,7 @@ import java.util.Date;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 日志服务实现类
  */
 @Service
 public class LogServiceImpl extends ServiceImpl<LogMapper, LogDO> implements LogService {
@@ -20,22 +21,19 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, LogDO> implements Log
     @Override
     public IPage<LogDO> getLogPage(Integer page, Integer count, String name, Date start, Date end) {
         Page<LogDO> pager = new Page<>(page, count);
-        IPage<LogDO> iPage = this.baseMapper.findLogsByUsernameAndRange(pager, name, start, end);
-        return iPage;
+        return this.baseMapper.findLogsByUsernameAndRange(pager, name, start, end);
     }
 
     @Override
     public IPage<LogDO> searchLogPage(Integer page, Integer count, String name, String keyword, Date start, Date end) {
         Page<LogDO> pager = new Page<>(page, count);
-        IPage<LogDO> iPage = this.baseMapper.searchLogsByUsernameAndKeywordAndRange(pager, name, "%" + keyword + "%", start, end);
-        return iPage;
+        return this.baseMapper.searchLogsByUsernameAndKeywordAndRange(pager, name, "%" + keyword + "%", start, end);
     }
 
     @Override
     public IPage<String> getUserNamePage(Integer page, Integer count) {
         Page<LogDO> pager = new Page<>(page, count);
-        IPage<String> iPage = this.baseMapper.getUserNames(pager);
-        return iPage;
+        return this.baseMapper.getUserNames(pager);
     }
 
     @Override

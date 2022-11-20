@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 
 /**
  * @author colorful@TaleLin
+ * 创建成功视图对象
  */
 public class CreatedVO extends UnifyResponseVO<String> {
 

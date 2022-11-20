@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 分组mapper接口
  */
 @Repository
 public interface GroupMapper extends BaseMapper<GroupDO> {
@@ -43,6 +44,7 @@ public interface GroupMapper extends BaseMapper<GroupDO> {
      *
      * @param userId    用户id
      * @param groupName 分组名
+     * @return 数量
      */
     int selectCountUserByUserIdAndGroupName(@Param("userId") Integer userId, @Param("groupName") String groupName);
 }

@@ -9,6 +9,7 @@ import java.util.Map;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 权限服务接口
  */
 public interface PermissionService extends IService<PermissionDO> {
 

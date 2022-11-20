@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author pedro@TaleLin
  * @author colorful@TaleLin
+ * 请求日志拦截器
  */
 @Slf4j
 public class RequestLogInterceptor implements AsyncHandlerInterceptor {

@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 鉴权实现类
  */
 @Component
 public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {

@@ -5,6 +5,9 @@ package io.github.talelin.latticy.module.log;
  * @date 2020/6/20 10:22
  */
 public class MDCAccessConstant {
+
+    private MDCAccessConstant() {}
+
     public static final String REQUEST_METHOD_MDC_KEY = "req.method";
     public static final String RESPONSE_STATUS_MDC_KEY = "res.status";
     public static final String REQUEST_REFERER_MDC_KEY = "req.referer";

@@ -14,6 +14,7 @@ import java.util.Map;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 权限服务实现类
  */
 @Service
 public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, PermissionDO> implements PermissionService {
@@ -48,7 +49,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     @Override
     public List<Map<String, List<Map<String, String>>>> structuringPermissions(List<PermissionDO> permissions) {
-        Map<String, List<Map<String, String>>> tmp = new HashMap();
+        Map<String, List<Map<String, String>>> tmp = new HashMap(50);
         permissions.forEach(permission -> {
             if (!tmp.containsKey(permission.getModule())) {
                 Map<String, String> tiny = new HashMap();

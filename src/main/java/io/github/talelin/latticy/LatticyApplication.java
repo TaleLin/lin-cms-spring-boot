@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author pedro@TaleLin
+ * 启动入口类
  */
 @RestController
 @MapperScan(basePackages = {"io.github.talelin.latticy.mapper"})

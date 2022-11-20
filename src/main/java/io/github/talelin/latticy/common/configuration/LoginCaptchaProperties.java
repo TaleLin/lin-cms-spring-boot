@@ -10,6 +10,10 @@ import org.springframework.util.StringUtils;
 
 /**
  * @author Gadfly
+ *
+ * 登录图形验证码配置类
+ *
+ * TODO 整理代码规范
  */
 @Slf4j
 @Getter
@@ -42,9 +46,10 @@ public class LoginCaptchaProperties {
     }
 
     public void setIv(String iv) {
+        final long ivLen = 16;
         if (StringUtils.hasText(iv)) {
             byte[] bytes = iv.getBytes();
-            if (bytes.length == 16) {
+            if (bytes.length == ivLen) {
                 this.iv = iv;
             } else {
                 log.warn("AES初始向量必须为128bit，输入的密钥为{}bit，已启用随机向量{}", bytes.length * 8, this.iv);

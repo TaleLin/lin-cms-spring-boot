@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 分配权限（多个）数据传输对象
  */
 @Data
 public class DispatchPermissionsDTO {

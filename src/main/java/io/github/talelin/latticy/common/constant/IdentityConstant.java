@@ -12,4 +12,8 @@ public class IdentityConstant {
      */
     public static final String USERNAME_PASSWORD_IDENTITY = "USERNAME_PASSWORD";
 
+    private IdentityConstant() {
+        throw new IllegalStateException("Utility class");
+    }
+
 }

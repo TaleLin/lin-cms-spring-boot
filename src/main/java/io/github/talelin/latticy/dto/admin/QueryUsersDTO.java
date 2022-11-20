@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 /**
  * @author Gadfly
  * @since 2021-06-28 18:48
+ * 用户查询数据传输对象
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

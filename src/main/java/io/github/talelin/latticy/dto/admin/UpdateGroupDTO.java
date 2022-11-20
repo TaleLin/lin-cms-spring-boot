@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 
 /**
  * @author pedro@TaleLin
+ * 分组更新数据传输对象
  */
 @Data
 public class UpdateGroupDTO {

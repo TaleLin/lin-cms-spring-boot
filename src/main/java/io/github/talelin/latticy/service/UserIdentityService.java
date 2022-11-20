@@ -6,6 +6,7 @@ import io.github.talelin.latticy.model.UserIdentityDO;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 用户身份标识服务接口
  */
 public interface UserIdentityService extends IService<UserIdentityDO> {
 

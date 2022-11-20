@@ -3,7 +3,7 @@ package io.github.talelin.latticy.common;
 import io.github.talelin.latticy.model.UserDO;
 
 /**
- * 线程安全的当前登录用户，如果用户为登录，则得到 null
+ * 线程安全的当前登录用户，如果用户未登录，则得到 null
  *
  * @author pedro@TaleLin
  */

@@ -42,6 +42,7 @@ import java.util.stream.Collectors;
  * @author pedro@TaleLin
  * @author colorful@TaleLin
  * @author Juzi@TaleLin
+ * 用户服务实现类
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements UserService {

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 用户业务
+ * 用户服务实现类
  *
  * @author pedro@TaleLin
  * @author Juzi@TaleLin

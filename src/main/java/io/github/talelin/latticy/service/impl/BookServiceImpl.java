@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 图书服务实现类
  */
 @Service
 public class BookServiceImpl implements BookService {
@@ -31,8 +32,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDO> getBookByKeyword(String q) {
-        List<BookDO> books = bookMapper.selectByTitleLikeKeyword(q);
-        return books;
+        return bookMapper.selectByTitleLikeKeyword(q);
     }
 
     @Override
@@ -46,14 +46,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDO getById(Integer id) {
-        BookDO book = bookMapper.selectById(id);
-        return book;
+        return bookMapper.selectById(id);
     }
 
     @Override
     public List<BookDO> findAll() {
-        List<BookDO> books = bookMapper.selectList(null);
-        return books;
+        return bookMapper.selectList(null);
     }
 
     @Override
