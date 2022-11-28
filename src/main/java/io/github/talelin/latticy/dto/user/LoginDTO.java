@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 登录数据传输对象
  */
 @Data
 @NoArgsConstructor

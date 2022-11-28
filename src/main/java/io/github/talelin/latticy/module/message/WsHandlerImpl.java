@@ -17,6 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * websocket实现类
  */
 @Slf4j
 public class WsHandlerImpl implements WsHandler {

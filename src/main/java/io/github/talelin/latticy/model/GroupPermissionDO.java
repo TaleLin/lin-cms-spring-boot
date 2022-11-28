@@ -10,6 +10,7 @@ import java.io.Serializable;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 分组权限数据对象
  */
 @Data
 @TableName("lin_group_permission")

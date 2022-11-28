@@ -23,6 +23,7 @@ import java.util.Random;
 
 /**
  * @author Gadfly
+ * 验证码工具类
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class CaptchaUtil {

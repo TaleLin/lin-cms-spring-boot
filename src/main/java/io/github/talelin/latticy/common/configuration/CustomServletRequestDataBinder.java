@@ -11,6 +11,8 @@ import java.util.List;
 
 /**
  * @author Gadfly
+ *
+ * 自定义servlet请求参数绑定类
  */
 
 public class CustomServletRequestDataBinder extends ServletRequestDataBinder {

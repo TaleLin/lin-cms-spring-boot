@@ -10,6 +10,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 
 /**
  * @author pedro@TaleLin
+ * websocket 配置类
  */
 @Configuration
 @ConditionalOnProperty(prefix = "lin.cms.websocket", value = "enable", havingValue = "true")

@@ -7,6 +7,7 @@ import javax.validation.constraints.Email;
 
 /**
  * @author pedro@TaleLin
+ * 更新用户信息数据传输对象
  */
 @NoArgsConstructor
 @Data

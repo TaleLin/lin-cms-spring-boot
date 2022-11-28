@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import java.io.ByteArrayInputStream;
 
 /**
- * 文件上传服务实现，上传到七牛
+ * 文件上传服务实现，上传到七牛云
  *
  * @author pedro@TaleLin
  * @author colorful@TaleLin

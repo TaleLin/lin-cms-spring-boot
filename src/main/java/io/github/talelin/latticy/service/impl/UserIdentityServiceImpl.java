@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 用户身份标识服务实现类
  */
 @Service
 public class UserIdentityServiceImpl extends ServiceImpl<UserIdentityMapper, UserIdentityDO> implements UserIdentityService {

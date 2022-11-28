@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.IEnum;
 /**
  * @author colorful@TaleLin
  * @author Juzi@TaleLin
+ *
+ * 分组级别枚举类
  */
 public enum GroupLevelEnum implements IEnum<Integer> {
     /**

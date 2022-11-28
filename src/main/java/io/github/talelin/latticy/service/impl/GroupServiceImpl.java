@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
  * @author pedro@TaleLin
  * @author colorful@TaleLin
  * @author Juzi@TaleLin
+ * 分组服务实现类
  */
 @Service
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implements GroupService {
@@ -122,8 +123,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         } else {
             QueryWrapper<GroupDO> wrapper = new QueryWrapper<>();
             wrapper.lambda().eq(GroupDO::getLevel, level.getValue());
-            GroupDO groupDO = this.baseMapper.selectOne(wrapper);
-            return groupDO;
+            return this.baseMapper.selectOne(wrapper);
         }
     }
 

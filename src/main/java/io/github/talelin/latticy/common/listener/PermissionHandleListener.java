@@ -16,6 +16,7 @@ import java.util.Map;
 /**
  * @author pedro@TaleLin
  * @author colorful@TaleLin
+ * 权限监听器
  */
 @Component
 public class PermissionHandleListener implements ApplicationListener<ContextRefreshedEvent> {

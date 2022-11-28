@@ -7,8 +7,8 @@ import javax.validation.constraints.Min;
 
 /**
  * @author Gadfly
+ * 基础分页数据传输对象
  */
-
 @Data
 public class BasePageDTO {
 

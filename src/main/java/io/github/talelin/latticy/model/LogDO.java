@@ -12,6 +12,7 @@ import java.io.Serializable;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 日志数据对象
  */
 @Data
 @Builder

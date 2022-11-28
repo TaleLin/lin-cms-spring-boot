@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * @author Juzi@TaleLin
+ * YAML配置预加载
  */
 public class YamlPropertySourceFactory implements PropertySourceFactory {
     @Override

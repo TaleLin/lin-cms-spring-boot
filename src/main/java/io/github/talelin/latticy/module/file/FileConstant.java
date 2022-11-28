@@ -5,15 +5,15 @@ package io.github.talelin.latticy.module.file;
  *
  * @author pedro@TaleLin
  */
-public class FileConstant {
+public interface FileConstant {
 
     /**
      * 本地文件
      */
-    public static final String LOCAL = "LOCAL";
+    String LOCAL = "LOCAL";
 
     /**
      * 远程文件，例如OSS
      */
-    public static final String REMOTE = "REMOTE";
+    String REMOTE = "REMOTE";
 }

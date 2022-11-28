@@ -9,6 +9,7 @@ import java.util.Date;
 
 /**
  * @author colorful@TaleLin
+ * 日志查询数据传输对象
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

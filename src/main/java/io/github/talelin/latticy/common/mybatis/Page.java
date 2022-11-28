@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.common.mybatis;
 
 /**
+ * 分页对象
  * 为和其他端保持一致
  * 重写 MyBatis-Plus 分页对象，将起始页从 1 改为 0
  *

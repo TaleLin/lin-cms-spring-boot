@@ -8,6 +8,7 @@ import javax.validation.constraints.Positive;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 分配权限（单个）数据传输对象
  */
 @Data
 public class DispatchPermissionDTO {

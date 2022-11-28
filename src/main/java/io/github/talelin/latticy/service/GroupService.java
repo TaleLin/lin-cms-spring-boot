@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 分组服务接口
  */
 public interface GroupService extends IService<GroupDO> {
 
@@ -110,4 +111,5 @@ public interface GroupService extends IService<GroupDO> {
      * @return 用户组id
      */
     Integer getParticularGroupIdByLevel(GroupLevelEnum level);
+
 }

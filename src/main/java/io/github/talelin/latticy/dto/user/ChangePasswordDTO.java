@@ -10,6 +10,7 @@ import javax.validation.constraints.Pattern;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 密码修改数据传输对象
  */
 @Data
 @NoArgsConstructor

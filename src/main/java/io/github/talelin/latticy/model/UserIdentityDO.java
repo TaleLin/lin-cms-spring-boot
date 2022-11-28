@@ -1,22 +1,16 @@
 package io.github.talelin.latticy.model;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 用户鉴权标识数据对象
  */
-@Setter
-@Getter
-@ToString
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

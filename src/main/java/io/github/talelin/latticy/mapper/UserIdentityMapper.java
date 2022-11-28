@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 /**
  * @author pedro@TaleLin
+ * 用户身份标识mapper接口
  */
 @Repository
 public interface UserIdentityMapper extends BaseMapper<UserIdentityDO> {

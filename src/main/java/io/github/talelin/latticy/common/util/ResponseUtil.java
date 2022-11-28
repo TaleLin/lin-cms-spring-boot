@@ -2,18 +2,16 @@ package io.github.talelin.latticy.common.util;
 
 import io.github.talelin.autoconfigure.bean.Code;
 import io.github.talelin.autoconfigure.util.RequestUtil;
-import io.github.talelin.latticy.vo.PageResponseVO;
 import io.github.talelin.latticy.vo.UnifyResponseVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 
 /**
- * 响应结果生成工具
+ * 响应结果生成工具类
  * @author pedro@TaleLin
  */
 @SuppressWarnings("unchecked")
@@ -88,7 +86,4 @@ public class ResponseUtil {
                 .build();
     }
 
-    public static PageResponseVO generatePageResult(int total, List items, int page, int count) {
-        return new PageResponseVO(total, items, page, count);
-    }
 }

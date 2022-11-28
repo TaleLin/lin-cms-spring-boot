@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 删除权限数据传输对象
  */
 @Data
 public class RemovePermissionsDTO {
