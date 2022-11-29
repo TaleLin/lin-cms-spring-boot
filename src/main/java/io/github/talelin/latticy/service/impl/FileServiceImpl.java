@@ -47,8 +47,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
             @Override
             public boolean preHandle(File file) {
                 FileDO found = baseMapper.selectByMd5(file.getMd5());
-                // 数据库中不存在，存储操作放在上传到本地或云上之后，
-                // 修复issue131：https://github.com/TaleLin/lin-cms-spring-boot/issues/131
+                // 数据库中不存在，存储操作放在上传到本地或云上之后
                 if (found == null) {
                     return true;
                 }
@@ -59,7 +58,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
 
             @Override
             public void afterHandle(File file) {
-                // 保存到数据库, 修复issue131：https://github.com/TaleLin/lin-cms-spring-boot/issues/131
+                // 保存到数据库
                 FileDO fileDO = new FileDO();
                 BeanUtils.copyProperties(file, fileDO);
                 getBaseMapper().insert(fileDO);
@@ -77,7 +76,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, FileDO> implements 
     private FileBO transformDoToBo(FileDO file, String key) {
         FileBO bo = new FileBO();
         BeanUtils.copyProperties(file, bo);
-        if (file.getType().equals(FileConstant.LOCAL)) {
+        if (file.getType().equals(FileTypeEnum.LOCAL.getValue())) {
             String s = fileProperties.getServePath().split("/")[0];
 
             // replaceAll 是将 windows 平台下的 \ 替换为 /

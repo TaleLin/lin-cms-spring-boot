@@ -13,6 +13,7 @@ import java.util.List;
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
  * @author colorful@TaleLin
+ * 分组权限业务对象
  */
 @Data
 @NoArgsConstructor

@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 用户控制器
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
  */
@@ -77,11 +78,10 @@ public class UserController {
      * 用户登陆
      */
     @PostMapping("/login")
-    public Tokens login(@RequestBody @Validated LoginDTO validator, @RequestHeader(value = "Tag", required = false) String tag) {
-        if (captchaConfig.getEnabled()) {
-            // TODO: 使用spring validation验证。暂时还没想到怎么根据配置文件分组
+    public Tokens login(@RequestBody @Validated LoginDTO validator, @RequestHeader(required = false) String tag) {
+        if (Boolean.TRUE.equals(captchaConfig.getEnabled())) {
             if (!StringUtils.hasText(validator.getCaptcha()) || !StringUtils.hasText(tag)) {
-                throw new ParameterException("验证码不可为空");
+                throw new ParameterException(10260);
             }
             if (!userService.verifyCaptcha(validator.getCaptcha(), tag)) {
                 throw new ParameterException(10260);
@@ -103,7 +103,7 @@ public class UserController {
 
     @PostMapping("/captcha")
     public LoginCaptchaVO userCaptcha() throws Exception {
-        if (captchaConfig.getEnabled()) {
+        if (Boolean.TRUE.equals(captchaConfig.getEnabled())) {
             return userService.generateCaptcha();
         }
         return new LoginCaptchaVO();

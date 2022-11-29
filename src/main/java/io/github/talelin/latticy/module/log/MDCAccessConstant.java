@@ -1,6 +1,7 @@
 package io.github.talelin.latticy.module.log;
 
 /**
+ * 日志常量类
  * @author Juzi@TaleLin
  * @date 2020/6/20 10:22
  */

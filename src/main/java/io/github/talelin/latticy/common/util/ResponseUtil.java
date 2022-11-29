@@ -18,6 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class ResponseUtil {
 
+    private ResponseUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * 获得当前响应
      *

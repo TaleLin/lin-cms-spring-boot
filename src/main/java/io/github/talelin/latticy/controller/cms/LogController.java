@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 日志控制器
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
  */

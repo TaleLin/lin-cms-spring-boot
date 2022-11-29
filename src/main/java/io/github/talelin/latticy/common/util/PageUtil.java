@@ -11,6 +11,10 @@ import java.util.List;
  */
 public class PageUtil {
 
+    private PageUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static <T> PageResponseVO<T> build(IPage<T> iPage) {
         return new PageResponseVO<>(Math.toIntExact(iPage.getTotal()), iPage.getRecords(),
                 Math.toIntExact(iPage.getCurrent()), Math.toIntExact(iPage.getSize()));

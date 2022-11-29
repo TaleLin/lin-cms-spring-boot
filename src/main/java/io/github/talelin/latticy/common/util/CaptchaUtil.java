@@ -28,6 +28,10 @@ import java.util.Random;
 @SuppressWarnings("SpellCheckingInspection")
 public class CaptchaUtil {
 
+    private CaptchaUtil () {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * 验证码字符个数
      */
@@ -107,11 +111,11 @@ public class CaptchaUtil {
         g.setColor(getRandomColor(28, 130));
         // 设置每个字符的随机旋转
         double radianPercent = (RANDOM.nextBoolean() ? -1 : 1) * Math.PI * (RANDOM.nextInt(60) / 320D);
-        g.rotate(radianPercent, WIDTH * 0.8 / RANDOM_STR_NUM * i, HEIGHT / 2);
+        g.rotate(radianPercent, WIDTH * 0.8 / RANDOM_STR_NUM * i, HEIGHT / 2.0);
         int y = (RANDOM.nextBoolean() ? -1 : 1) * RANDOM.nextInt(4) + 4;
         g.translate(RANDOM.nextInt(3), y);
         g.drawString(randomStr, WIDTH / RANDOM_STR_NUM * i, HEIGHT / 2);
-        g.rotate(-radianPercent, WIDTH * 0.8 / RANDOM_STR_NUM * i, HEIGHT / 2);
+        g.rotate(-radianPercent, WIDTH * 0.8 / RANDOM_STR_NUM * i, HEIGHT / 2.0);
         g.translate(0, -y);
     }
 

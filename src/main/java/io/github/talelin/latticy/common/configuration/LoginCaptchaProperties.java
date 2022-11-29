@@ -13,7 +13,6 @@ import org.springframework.util.StringUtils;
  *
  * 登录图形验证码配置类
  *
- * TODO 整理代码规范
  */
 @Slf4j
 @Getter
@@ -35,9 +34,12 @@ public class LoginCaptchaProperties {
     private Boolean enabled = Boolean.FALSE;
 
     public void setSecret(String secret) {
+        final long ivLen1 = 16;
+        final long ivLen2 = 24;
+        final long ivLen3 = 32;
         if (StringUtils.hasText(secret)) {
             byte[] bytes = secret.getBytes();
-            if (bytes.length == 16 || bytes.length == 24 || bytes.length == 32) {
+            if (bytes.length == ivLen1 || bytes.length == ivLen2 || bytes.length == ivLen3) {
                 this.secret = secret;
             } else {
                 log.warn("AES密钥必须为128/192/256bit，输入的密钥为{}bit，已启用随机密钥{}", bytes.length * 8, this.secret);

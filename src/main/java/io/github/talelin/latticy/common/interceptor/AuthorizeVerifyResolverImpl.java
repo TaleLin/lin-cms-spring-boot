@@ -37,9 +37,9 @@ import java.util.regex.Pattern;
 @Component
 public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
 
-    public final static String AUTHORIZATION_HEADER = "Authorization";
+    public static final String AUTHORIZATION_HEADER = "Authorization";
 
-    public final static String BEARER_PATTERN = "^Bearer$";
+    public static final String BEARER_PATTERN = "^Bearer$";
 
     @Autowired
     private DoubleJWT jwt;
@@ -59,7 +59,7 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
 
     @Override
     public boolean handleLogin(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
-        String tokenStr = verifyHeader(request, response);
+        String tokenStr = verifyHeader(request);
         Map<String, Claim> claims;
         try {
             claims = jwt.decodeAccessToken(tokenStr);
@@ -102,7 +102,7 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
 
     @Override
     public boolean handleRefresh(HttpServletRequest request, HttpServletResponse response, MetaInfo meta) {
-        String tokenStr = verifyHeader(request, response);
+        String tokenStr = verifyHeader(request);
         Map<String, Claim> claims;
         try {
             claims = jwt.decodeRefreshToken(tokenStr);
@@ -135,9 +135,10 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
             throw new NotFoundException(10021);
         }
         String avatarUrl;
+        final String protocolPrefix = "http";
         if (user.getAvatar() == null) {
             avatarUrl = null;
-        } else if (user.getAvatar().startsWith("http")) {
+        } else if (user.getAvatar().startsWith(protocolPrefix)) {
             avatarUrl = user.getAvatar();
         } else {
             avatarUrl = domain + servePath.split("/")[0] + "/" + user.getAvatar();
@@ -156,14 +157,15 @@ public class AuthorizeVerifyResolverImpl implements AuthorizeVerifyResolver {
         return groupService.checkIsRootByUserId(user.getId());
     }
 
-    private String verifyHeader(HttpServletRequest request, HttpServletResponse response) {
+    private String verifyHeader(HttpServletRequest request) {
         // 处理头部header,带有access_token的可以访问
         String authorization = request.getHeader(AUTHORIZATION_HEADER);
         if (authorization == null || Strings.isBlank(authorization)) {
             throw new AuthorizationException(10012);
         }
         String[] splits = authorization.split(" ");
-        if (splits.length != 2) {
+        final int tokenSplitLen = 2;
+        if (splits.length != tokenSplitLen) {
             throw new AuthorizationException(10013);
         }
         // Bearer 字段

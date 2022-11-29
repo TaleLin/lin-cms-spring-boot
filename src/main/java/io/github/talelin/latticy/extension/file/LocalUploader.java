@@ -1,8 +1,8 @@
 package io.github.talelin.latticy.extension.file;
 
 import io.github.talelin.latticy.module.file.AbstractUploader;
-import io.github.talelin.latticy.module.file.FileConstant;
 import io.github.talelin.latticy.module.file.FileProperties;
+import io.github.talelin.latticy.module.file.FileTypeEnum;
 import io.github.talelin.latticy.module.file.FileUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -38,14 +38,11 @@ public class LocalUploader extends AbstractUploader {
     protected boolean handleOneFile(byte[] bytes, String newFilename) {
         String absolutePath =
                 FileUtil.getFileAbsolutePath(fileProperties.getStoreDir(), getStorePath(newFilename));
-        try {
-            BufferedOutputStream stream =
-                    new BufferedOutputStream(new FileOutputStream(new java.io.File(absolutePath)));
+        try (BufferedOutputStream stream =
+                     new BufferedOutputStream(Files.newOutputStream(new File(absolutePath).toPath()))) {
             stream.write(bytes);
-            stream.close();
         } catch (Exception e) {
             log.error("write file to local err:", e);
-            // throw new FailedException(10190);
             return false;
         }
         return true;
@@ -71,6 +68,6 @@ public class LocalUploader extends AbstractUploader {
 
     @Override
     protected String getFileType() {
-        return FileConstant.LOCAL;
+        return FileTypeEnum.LOCAL.getValue();
     }
 }

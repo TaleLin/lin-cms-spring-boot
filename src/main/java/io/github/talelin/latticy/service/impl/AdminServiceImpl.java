@@ -6,7 +6,7 @@ import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.autoconfigure.exception.NotFoundException;
 import io.github.talelin.latticy.bo.GroupPermissionBO;
 import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
-import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.mybatis.LinPage;
 import io.github.talelin.latticy.dto.admin.*;
 import io.github.talelin.latticy.mapper.GroupPermissionMapper;
 import io.github.talelin.latticy.mapper.UserGroupMapper;
@@ -51,7 +51,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public IPage<UserDO> getUserPageByGroupId(Integer groupId, Integer count, Integer page) {
-        Page<UserDO> pager = new Page<>(page, count);
+        LinPage<UserDO> pager = new LinPage<>(page, count);
         IPage<UserDO> iPage;
         // 如果group_id为空，则以分页的形式返回所有用户
         if (groupId == null) {
