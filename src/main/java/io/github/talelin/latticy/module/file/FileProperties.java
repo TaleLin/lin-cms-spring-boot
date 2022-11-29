@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author pedro@TaleLin
+ * 文件配置类
  */
 @Component
 @ConfigurationProperties("lin.file")

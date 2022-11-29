@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * @author pedro@TaleLin
+ * 文件服务接口
  */
 public interface FileService extends IService<FileDO> {
 

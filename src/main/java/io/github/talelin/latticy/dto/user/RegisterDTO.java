@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 注册数据传输对象
  */
 @Data
 @NoArgsConstructor

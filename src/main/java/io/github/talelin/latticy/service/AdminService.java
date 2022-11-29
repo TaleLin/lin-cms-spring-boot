@@ -19,6 +19,7 @@ import java.util.Map;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 管理员服务接口
  */
 public interface AdminService {
 

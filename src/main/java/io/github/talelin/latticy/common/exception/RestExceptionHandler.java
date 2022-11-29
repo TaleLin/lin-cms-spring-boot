@@ -36,6 +36,8 @@ import static io.github.talelin.autoconfigure.util.RequestUtil.getSimpleRequest;
  * @author pedro@TaleLin
  * @author colorful@TaleLin
  * @author Juzi@TaleLin
+ *
+ * Restful 接口异常配置类
  */
 @Order
 @RestControllerAdvice
@@ -76,7 +78,7 @@ public class RestExceptionHandler {
                                                                  HttpServletRequest request,
                                                                  HttpServletResponse response) {
         log.error(exception.toString());
-        Map<String, Object> msg = new HashMap<>();
+        Map<String, Object> msg = new HashMap<>(3);
         exception.getAllErrors().forEach(error -> {
             if (error instanceof FieldError) {
                 FieldError fieldError = (FieldError) error;
@@ -98,7 +100,7 @@ public class RestExceptionHandler {
                                                                  HttpServletRequest request,
                                                                  HttpServletResponse response) {
         log.error("", exception);
-        Map<String, Object> msg = new HashMap<>();
+        Map<String, Object> msg = new HashMap<>(3);
         exception.getConstraintViolations().forEach(constraintViolation -> {
             String template = constraintViolation.getMessage();
             String path = constraintViolation.getPropertyPath().toString();

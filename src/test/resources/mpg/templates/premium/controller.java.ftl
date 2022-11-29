@@ -5,7 +5,7 @@ import io.github.talelin.autoconfigure.exception.NotFoundException;
 <#if package.Controller?split(".")?last == "cms">
 import io.github.talelin.core.annotation.LoginRequired;
 </#if>
-import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.mybatis.LinPage;
 import io.github.talelin.latticy.common.util.PageUtil;
 import io.github.talelin.latticy.dto.query.BasePageDTO;
 import ${package.Service}.${table.serviceName};

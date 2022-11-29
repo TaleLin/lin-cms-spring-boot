@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 权限mapper接口
  */
 @Repository
 public interface PermissionMapper extends BaseMapper<PermissionDO> {

@@ -9,6 +9,7 @@ import java.util.Date;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 日志服务接口
  */
 public interface LogService extends IService<LogDO> {
 

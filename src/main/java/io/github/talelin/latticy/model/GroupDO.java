@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
  * @author Jokky@TaleLin
+ * 分组数据对象
  */
 @Data
 @Builder

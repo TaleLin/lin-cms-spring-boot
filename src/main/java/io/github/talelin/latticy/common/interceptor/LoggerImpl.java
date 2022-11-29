@@ -10,7 +10,6 @@ import io.github.talelin.latticy.service.LogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +20,7 @@ import java.util.regex.Pattern;
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
  * @author colorful@TaleLin
+ * 行为日志实现类
  */
 @Slf4j
 @Component
@@ -41,7 +41,7 @@ public class LoggerImpl implements LoggerResolver {
         template = this.parseTemplate(template, user, request, response);
         String permission = "";
         if (meta != null) {
-            permission = !StringUtils.hasLength(meta.value()) ? meta.value() : meta.value();
+            permission = meta.value();
         }
         Integer userId = user.getId();
         String username = user.getUsername();

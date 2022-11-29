@@ -10,6 +10,7 @@ import java.io.Serializable;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
+ * 用户分组数据对象
  */
 @Data
 @TableName("lin_user_group")

@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.latticy.bo.GroupPermissionBO;
 import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
-import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.mybatis.LinPage;
 import io.github.talelin.latticy.mapper.GroupMapper;
 import io.github.talelin.latticy.mapper.UserGroupMapper;
 import io.github.talelin.latticy.model.GroupDO;
@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
  * @author pedro@TaleLin
  * @author colorful@TaleLin
  * @author Juzi@TaleLin
+ * 分组服务实现类
  */
 @Service
 public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implements GroupService {
@@ -46,7 +47,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
 
     @Override
     public IPage<GroupDO> getGroupPage(int page, int count) {
-        Page<GroupDO> pager = new Page<>(page, count);
+        LinPage<GroupDO> pager = new LinPage<>(page, count);
         return this.baseMapper.selectPage(pager, null);
     }
 
@@ -122,8 +123,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
         } else {
             QueryWrapper<GroupDO> wrapper = new QueryWrapper<>();
             wrapper.lambda().eq(GroupDO::getLevel, level.getValue());
-            GroupDO groupDO = this.baseMapper.selectOne(wrapper);
-            return groupDO;
+            return this.baseMapper.selectOne(wrapper);
         }
     }
 

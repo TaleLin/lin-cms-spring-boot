@@ -11,8 +11,11 @@ import java.nio.file.Path;
 /**
  * @author pedro@TaleLin
  * @author colorful@TaleLin
+ * 文件工具类
  */
 public class FileUtil {
+
+    private FileUtil() {}
 
     public static FileSystem getDefaultFileSystem() {
         return FileSystems.getDefault();

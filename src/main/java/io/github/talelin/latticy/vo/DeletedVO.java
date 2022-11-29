@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 
 /**
  * @author colorful@TaleLin
+ * 删除成功视图对象
  */
 public class DeletedVO extends UnifyResponseVO<String> {
 

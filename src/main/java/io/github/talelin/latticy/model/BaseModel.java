@@ -10,6 +10,7 @@ import java.util.Date;
 
 /**
  * @author Juzi@TaleLin
+ * 基础数据模型类
  */
 @Data
 public class BaseModel {

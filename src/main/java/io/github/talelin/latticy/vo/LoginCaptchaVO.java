@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author Gadfly
+ * 登录验证码视图对象
  */
 @Data
 @NoArgsConstructor

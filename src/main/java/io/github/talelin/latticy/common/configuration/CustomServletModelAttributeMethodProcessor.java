@@ -10,8 +10,10 @@ import javax.servlet.ServletRequest;
 
 /**
  * @author Gadfly
+ *
+ * A customizing Servlet-specific ModelAttributeMethodProcessor that applies data binding through
+ * a WebDataBinder of type CustomServletModelAttributeMethodProcessor.
  */
-
 public class CustomServletModelAttributeMethodProcessor extends ServletModelAttributeMethodProcessor {
 
     public CustomServletModelAttributeMethodProcessor(final boolean annotationNotRequired) {

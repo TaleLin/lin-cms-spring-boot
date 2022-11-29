@@ -2,7 +2,7 @@ package io.github.talelin.latticy.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.mybatis.LinPage;
 import io.github.talelin.latticy.model.UserDO;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
  * @author pedro@TaleLin
  * @author colorful@TaleLin
  * @author Juzi@TaleLin
+ * 用户mapper接口
  */
 @Repository
 public interface UserMapper extends BaseMapper<UserDO> {
@@ -39,5 +40,5 @@ public interface UserMapper extends BaseMapper<UserDO> {
      * @param rootGroupId 超级用户组id(不返回超级用户组的用户)
      * @return 分页数据
      */
-    IPage<UserDO> selectPageByGroupId(Page pager, Integer groupId, Integer rootGroupId);
+    IPage<UserDO> selectPageByGroupId(LinPage<UserDO> pager, Integer groupId, Integer rootGroupId);
 }

@@ -6,5 +6,8 @@ package io.github.talelin.latticy.module.message;
  * @author pedro@TaleLin
  */
 public class MessageConstant {
+
+    private MessageConstant() {}
+
     public static final String USER_KEY = "user";
 }

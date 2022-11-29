@@ -1,7 +1,7 @@
 package io.github.talelin.latticy.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.mybatis.LinPage;
 import io.github.talelin.latticy.model.LogDO;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @Rollback
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class LogMapperTest {
+class LogMapperTest {
 
     @Autowired
     private LogMapper logMapper;
@@ -56,20 +56,20 @@ public class LogMapperTest {
     }
 
     @Test
-    public void testFindLogsByUsernameAndRange() {
+    void testFindLogsByUsernameAndRange() {
         Date now = new Date();
-        Page<LogDO> page = new Page<>(0, 10);
+        LinPage<LogDO> page = new LinPage<>(0, 10);
         IPage<LogDO> iPage = logMapper.findLogsByUsernameAndRange(page, username, start, now);
         List<LogDO> logs = iPage.getRecords();
         assertTrue(logs.size() > 0);
     }
 
     @Test
-    public void testFindLogsByUsernameAndRange1() {
+    void testFindLogsByUsernameAndRange1() {
         long changed = start.getTime();
         Date ch = new Date(changed - 1000);
         Date ch1 = new Date(changed - 2000);
-        Page<LogDO> page = new Page<>(1, 10);
+        LinPage<LogDO> page = new LinPage<>(1, 10);
         IPage<LogDO> iPage = logMapper.findLogsByUsernameAndRange(page, username, ch1, ch);
         List<LogDO> logs = iPage.getRecords();
         assertEquals(0, logs.size());

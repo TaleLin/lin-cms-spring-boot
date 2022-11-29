@@ -3,13 +3,17 @@ package io.github.talelin.latticy.common;
 import io.github.talelin.latticy.model.UserDO;
 
 /**
- * 线程安全的当前登录用户，如果用户为登录，则得到 null
+ * 线程安全的当前登录用户，如果用户未登录，则得到 null
  *
  * @author pedro@TaleLin
  */
 public class LocalUser {
 
-    private static ThreadLocal<UserDO> local = new ThreadLocal<>();
+    private LocalUser() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    private static final ThreadLocal<UserDO> LOCAL = new ThreadLocal<>();
 
     /**
      * 得到当前登录用户
@@ -17,7 +21,7 @@ public class LocalUser {
      * @return user | null
      */
     public static UserDO getLocalUser() {
-        return LocalUser.local.get();
+        return LocalUser.LOCAL.get();
     }
 
     /**
@@ -26,17 +30,17 @@ public class LocalUser {
      * @param user user
      */
     public static void setLocalUser(UserDO user) {
-        LocalUser.local.set(user);
+        LocalUser.LOCAL.set(user);
     }
 
     public static <T> T getLocalUser(Class<T> clazz) {
-        return (T) local.get();
+        return (T) LOCAL.get();
     }
 
     /**
      * 清理当前用户
      */
     public static void clearLocalUser() {
-        LocalUser.local.remove();
+        LOCAL.remove();
     }
 }

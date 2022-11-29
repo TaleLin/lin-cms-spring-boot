@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 
 /**
  * @author pedro@TaleLin
+ * 更新成功视图对象
  */
 public class UpdatedVO extends UnifyResponseVO<String> {
 
