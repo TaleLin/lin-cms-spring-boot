@@ -11,7 +11,7 @@ import io.github.talelin.latticy.bo.LoginCaptchaBO;
 import io.github.talelin.latticy.common.LocalUser;
 import io.github.talelin.latticy.common.configuration.LoginCaptchaProperties;
 import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
-import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.mybatis.LinPage;
 import io.github.talelin.latticy.common.util.BeanCopyUtil;
 import io.github.talelin.latticy.common.util.CaptchaUtil;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
@@ -34,6 +34,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.awt.*;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -151,7 +154,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     public List<PermissionDO> getUserPermissions(Integer userId) {
         // 查找用户搜索分组，查找分组下的所有权限
         List<Integer> groupIds = groupService.getUserGroupIdsByUserId(userId);
-        if (groupIds == null || groupIds.size() == 0) {
+        if (groupIds == null || groupIds.isEmpty()) {
             return new ArrayList<>();
         }
         return permissionService.getPermissionByGroupIds(groupIds);
@@ -160,7 +163,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     @Override
     public List<PermissionDO> getUserPermissionsByModule(Integer userId, String module) {
         List<Integer> groupIds = groupService.getUserGroupIdsByUserId(userId);
-        if (groupIds == null || groupIds.size() == 0) {
+        if (groupIds == null || groupIds.isEmpty()) {
             return new ArrayList<>();
         }
         return permissionService.getPermissionByGroupIdsAndModule(groupIds, module);
@@ -194,7 +197,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     }
 
     @Override
-    public IPage<UserDO> getUserPageByGroupId(Page<UserDO> pager, Integer groupId) {
+    public IPage<UserDO> getUserPageByGroupId(LinPage<UserDO> pager, Integer groupId) {
         Integer rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
         return this.baseMapper.selectPageByGroupId(pager, groupId, rootGroupId);
     }
@@ -212,7 +215,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, UserDO> implements 
     }
 
     @Override
-    public LoginCaptchaVO generateCaptcha() throws Exception {
+    public LoginCaptchaVO generateCaptcha() throws IOException, FontFormatException, GeneralSecurityException {
         String code = CaptchaUtil.getRandomString(CaptchaUtil.RANDOM_STR_NUM);
         String base64String = CaptchaUtil.getRandomCodeBase64(code);
         String tag = CaptchaUtil.getTag(code, captchaConfig.getSecret(), captchaConfig.getIv());

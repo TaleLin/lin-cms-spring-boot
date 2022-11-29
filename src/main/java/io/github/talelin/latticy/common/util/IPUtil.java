@@ -13,6 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class IPUtil {
 
+    private IPUtil() {
+        throw new IllegalStateException("Utility class");
+    }
+
     private static final String[] IP_HEADER_CANDIDATES = {
             "X-Forwarded-For",
             "Proxy-Client-IP",

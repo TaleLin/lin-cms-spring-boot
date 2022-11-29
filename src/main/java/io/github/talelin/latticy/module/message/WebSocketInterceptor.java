@@ -27,7 +27,7 @@ import static io.github.talelin.latticy.module.message.MessageConstant.USER_KEY;
 /**
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
- * websocket 拦截器
+ * websocket 拦截器，主要是jwt鉴权
  */
 public class WebSocketInterceptor implements HandshakeInterceptor {
     @Autowired

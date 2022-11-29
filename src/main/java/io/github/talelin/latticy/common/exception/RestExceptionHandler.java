@@ -78,7 +78,7 @@ public class RestExceptionHandler {
                                                                  HttpServletRequest request,
                                                                  HttpServletResponse response) {
         log.error(exception.toString());
-        Map<String, Object> msg = new HashMap<>();
+        Map<String, Object> msg = new HashMap<>(3);
         exception.getAllErrors().forEach(error -> {
             if (error instanceof FieldError) {
                 FieldError fieldError = (FieldError) error;
@@ -100,7 +100,7 @@ public class RestExceptionHandler {
                                                                  HttpServletRequest request,
                                                                  HttpServletResponse response) {
         log.error("", exception);
-        Map<String, Object> msg = new HashMap<>();
+        Map<String, Object> msg = new HashMap<>(3);
         exception.getConstraintViolations().forEach(constraintViolation -> {
             String template = constraintViolation.getMessage();
             String path = constraintViolation.getPropertyPath().toString();

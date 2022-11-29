@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import io.github.talelin.autoconfigure.exception.ForbiddenException;
 import io.github.talelin.latticy.bo.GroupPermissionBO;
 import io.github.talelin.latticy.common.enumeration.GroupLevelEnum;
-import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.mybatis.LinPage;
 import io.github.talelin.latticy.mapper.GroupMapper;
 import io.github.talelin.latticy.mapper.UserGroupMapper;
 import io.github.talelin.latticy.model.GroupDO;
@@ -47,7 +47,7 @@ public class GroupServiceImpl extends ServiceImpl<GroupMapper, GroupDO> implemen
 
     @Override
     public IPage<GroupDO> getGroupPage(int page, int count) {
-        Page<GroupDO> pager = new Page<>(page, count);
+        LinPage<GroupDO> pager = new LinPage<>(page, count);
         return this.baseMapper.selectPage(pager, null);
     }
 

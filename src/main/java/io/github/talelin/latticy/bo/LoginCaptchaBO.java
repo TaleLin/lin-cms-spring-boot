@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 /**
  * @author Gadfly
  * @since 2021-11-19 15:20
+ * 登录验证码业务对象
  */
 @Data
 @NoArgsConstructor

@@ -7,8 +7,8 @@ import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
 import com.qiniu.util.Auth;
 import io.github.talelin.latticy.module.file.AbstractUploader;
-import io.github.talelin.latticy.module.file.FileConstant;
 import io.github.talelin.latticy.module.file.FileProperties;
+import io.github.talelin.latticy.module.file.FileTypeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,7 +59,7 @@ public class QiniuUploader extends AbstractUploader {
 
     @Override
     protected String getFileType() {
-        return FileConstant.REMOTE;
+        return FileTypeEnum.REMOTE.getValue();
     }
 
     /**

@@ -1,5 +1,7 @@
 package io.github.talelin.latticy.common.mybatis;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+
 /**
  * 分页对象
  * 为和其他端保持一致
@@ -7,26 +9,26 @@ package io.github.talelin.latticy.common.mybatis;
  *
  * @author Juzi@TaleLin
  */
-public class Page<T> extends com.baomidou.mybatisplus.extension.plugins.pagination.Page<T> {
+public class LinPage<T> extends Page<T> {
 
     private static final long serialVersionUID = -2183463672525305273L;
 
     /**
      * 该构造方法使得 current 总为 0
      */
-    public Page() {
+    public LinPage() {
         super.setCurrent(0);
     }
 
-    public Page(int current, int size) {
+    public LinPage(int current, int size) {
         this(current, size, 0);
     }
 
-    public Page(int current, int size, int total) {
+    public LinPage(int current, int size, int total) {
         this(current, size, total, true);
     }
 
-    public Page(int current, int size, boolean isSearchCount) {
+    public LinPage(int current, int size, boolean isSearchCount) {
         this(current, size, 0, isSearchCount);
     }
 
@@ -38,7 +40,7 @@ public class Page<T> extends com.baomidou.mybatisplus.extension.plugins.paginati
      * @param total         总数
      * @param isSearchCount 是否进行 count 查询
      */
-    public Page(int current, int size, int total, boolean isSearchCount) {
+    public LinPage(int current, int size, int total, boolean isSearchCount) {
         super(current, size, total, isSearchCount);
 
         if (current < 0) {

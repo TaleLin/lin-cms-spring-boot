@@ -2,7 +2,7 @@ package io.github.talelin.latticy.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import io.github.talelin.latticy.common.mybatis.Page;
+import io.github.talelin.latticy.common.mybatis.LinPage;
 import io.github.talelin.latticy.dto.user.ChangePasswordDTO;
 import io.github.talelin.latticy.dto.user.RegisterDTO;
 import io.github.talelin.latticy.dto.user.UpdateInfoDTO;
@@ -11,6 +11,9 @@ import io.github.talelin.latticy.model.PermissionDO;
 import io.github.talelin.latticy.model.UserDO;
 import io.github.talelin.latticy.vo.LoginCaptchaVO;
 
+import java.awt.*;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 import java.util.Map;
 
@@ -121,7 +124,7 @@ public interface UserService extends IService<UserDO> {
      * @param groupId 分组id
      * @return 数据页
      */
-    IPage<UserDO> getUserPageByGroupId(Page<UserDO> pager, Integer groupId);
+    IPage<UserDO> getUserPageByGroupId(LinPage<UserDO> pager, Integer groupId);
 
 
     /**
@@ -134,9 +137,12 @@ public interface UserService extends IService<UserDO> {
     /**
      * 生成无状态的登录验证码
      *
-     * @return 验证码
+     * @return LoginCaptchaVO 验证码视图对象
+     * @throws IOException
+     * @throws FontFormatException
+     * @throws GeneralSecurityException
      */
-    LoginCaptchaVO generateCaptcha() throws Exception;
+    LoginCaptchaVO generateCaptcha() throws IOException, FontFormatException, GeneralSecurityException;
 
     /**
      * 校验登录验证码

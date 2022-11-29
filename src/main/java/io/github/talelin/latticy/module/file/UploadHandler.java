@@ -1,7 +1,7 @@
 package io.github.talelin.latticy.module.file;
 
 /**
- * 文件前预处理器
+ * 上传预处理器
  *
  * @author pedro@TaleLin
  */

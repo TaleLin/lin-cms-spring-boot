@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * 管理员控制器
  * @author pedro@TaleLin
  * @author Juzi@TaleLin
  */
