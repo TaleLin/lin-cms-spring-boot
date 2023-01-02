@@ -22,7 +22,7 @@
         <java.version>1.8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <mybatis-plus.version>3.4.1</mybatis-plus.version>
+        <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <freemarker.version>2.3.31</freemarker.version>
     </properties>
 
